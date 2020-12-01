@@ -5,24 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:11:52 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/11/30 17:12:20 by ffrancoi         ###   ########.fr       */
+/*   Created: 2020/12/01 14:54:41 by ffrancoi          #+#    #+#             */
+/*   Updated: 2020/12/01 14:54:43 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_str_is_uppercase(char *str)
+int	ft_str_is_uppercase(char *str)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] >= 'A' && str[i] <= 'Z')
-        {
-            i++;
-            continue;
-        }
-        return (0);
-    }
-    return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+		{
+			i++;
+			continue;
+		}
+		return (0);
+	}
+	return (1);
 }

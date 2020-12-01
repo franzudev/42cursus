@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:06:07 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/11/30 17:11:15 by ffrancoi         ###   ########.fr       */
+/*   Created: 2020/12/01 14:53:17 by ffrancoi          #+#    #+#             */
+/*   Updated: 2020/12/01 14:53:22 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_str_is_lowercase(char *str)
+int	ft_str_is_lowercase(char *str)
 {
 	int i;
 

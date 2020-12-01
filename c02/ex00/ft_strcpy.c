@@ -6,11 +6,9 @@
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 13:56:19 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/11/30 13:58:09 by ffrancoi         ###   ########.fr       */
+/*   Updated: 2020/12/01 14:47:11 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 char	*ft_strcpy(char *dest, char *src)
 {
