@@ -1,28 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_printable.c                              :+:      :+:    :+:   */
+/*   ft_strcapitalize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:17:52 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/12/01 14:08:36 by ffrancoi         ###   ########.fr       */
+/*   Created: 2020/12/01 11:29:19 by ffrancoi          #+#    #+#             */
+/*   Updated: 2020/12/01 11:29:24 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_str_is_printable(char *str)
+int		is_char(char str)
+{
+	if (str >= 'A' && str <= 'Z')
+	{
+		return (1);
+	}
+	if (str >= 'a' && str <= 'z')
+	{
+		return (1);
+	}
+	return (0);
+}
+
+char	*ft_strcapitalize(char *str)
 {
 	int i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
-		if (str[i] >= 32 && str[i] < 127)
+		if (i == 0 && is_char(str[i]))
 		{
+			str[i] -= 32;
 			i++;
 			continue;
 		}
-		return (0);
+		if (!is_char(str[i]))
+		{
+			if (is_char(str[i + 1]))
+			{
+				str[i + 1] -= 32;
+			}
+		}
+		i++;
 	}
-	return (1);
+	return (str);
 }

@@ -1,28 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_printable.c                              :+:      :+:    :+:   */
+/*   ft_putstr_non_printable.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:17:52 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/12/01 14:08:36 by ffrancoi         ###   ########.fr       */
+/*   Created: 2020/12/01 14:06:12 by ffrancoi          #+#    #+#             */
+/*   Updated: 2020/12/01 14:08:10 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_str_is_printable(char *str)
+void	print(char c)
 {
-	int i;
+	write(1, &c, 1);
+}
+
+void	ft_print_hexa(char np)
+{
+	char	*hex;
+
+	hex = "0123456789abcdef";
+	if (np > 16)
+	{
+		ft_print_hexa(np / 10);
+		ft_print_hexa(np % 10);
+	}
+	else
+		print(hex[(int)np]);
+}
+
+void	ft_putstr_non_printable(char *str)
+{
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] >= 32 && str[i] < 127)
+		if ((str[i] < 32 && str[i] > 0) || str[i] == 127)
 		{
-			i++;
-			continue;
+			print('\\');
+			if (str[i] < 16)
+				print('0');
+			ft_print_hexa(str[i]);
 		}
-		return (0);
+		else
+			print(str[i]);
+		i += 1;
 	}
-	return (1);
 }

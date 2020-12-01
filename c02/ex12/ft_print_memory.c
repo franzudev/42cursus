@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_printable.c                              :+:      :+:    :+:   */
+/*   ft_print_memory.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:17:52 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/12/01 14:08:36 by ffrancoi         ###   ########.fr       */
+/*   Created: 2020/12/01 14:10:43 by ffrancoi          #+#    #+#             */
+/*   Updated: 2020/12/01 14:43:34 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_str_is_printable(char *str)
+void    ft_print_hexa(char np)
 {
-	int i;
+    char    *hex;
 
-	i = 0;
-	while (str[i])
+    hex = "0123456789abcdef";
+    if (np > 16)
+    {
+        ft_print_hexa(np / 10);
+        ft_print_hexa(np % 10);
+    }
+    else
+        print(hex[(int)np]);
+}
+
+void *ft_print_memory(void *addr, unsigned int size)
+{
+	int counter;
+
+	counter = 0;
+	if (!size)
+		return;
+	while(addr[counter])
 	{
-		if (str[i] >= 32 && str[i] < 127)
-		{
-			i++;
-			continue;
-		}
-		return (0);
+
 	}
-	return (1);
 }

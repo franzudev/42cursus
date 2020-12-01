@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_printable.c                              :+:      :+:    :+:   */
+/*   ft_strlowcase.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 17:17:52 by ffrancoi          #+#    #+#             */
-/*   Updated: 2020/12/01 14:08:36 by ffrancoi         ###   ########.fr       */
+/*   Created: 2020/12/01 10:19:58 by ffrancoi          #+#    #+#             */
+/*   Updated: 2020/12/01 10:23:18 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_str_is_printable(char *str)
+char	*ft_strlowcase(char *str)
 {
-	int i;
+	char *t;
 
-	i = 0;
-	while (str[i])
+	t = str;
+	while (*t != '\0')
 	{
-		if (str[i] >= 32 && str[i] < 127)
-		{
-			i++;
-			continue;
-		}
-		return (0);
+		if (*t >= 'A' && *t <= 'Z')
+			*t += 32;
+		t++;
 	}
-	return (1);
+	return (str);
 }
