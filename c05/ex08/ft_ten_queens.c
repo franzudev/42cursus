@@ -1,9 +1,6 @@
 #include<stdio.h>
 #include<unistd.h>
 
-int board[20];
-int count;
-
 int ft_abs(int value)
 {
 	if (value <= 0)
@@ -12,7 +9,7 @@ int ft_abs(int value)
 }
 
 
-int arrange(int row,int column)
+int can_stay_here(int row,int column, int *board)
 {
 	int i;
 
@@ -29,24 +26,23 @@ int arrange(int row,int column)
 	return 1;
 }
 
-void	print(int n)
+void	print(int n, int *board, int *count)
 {
 	int i;
 	int j;
-	char a;
-	++count;
+	char res;
 
+	*count += 1;
 	i = 1;
 	while (i <= n)
 	{
 		j = 1;
 		while (j <= n)
 		{
-			if(board[i]==j)
+			if (board[i] == j)
 			{
-				a = i;
-				write(1, (board[i] - 1 - '0') , 1);
-				// printf("%d", board[i] - 1);
+				res = (board[i] - 1) % 10 + '0';
+				write(1, &res, sizeof(char));
 			}
 			j++;
 		}
@@ -54,23 +50,24 @@ void	print(int n)
 	}
 }
 
-void	queen(int row)
+void	ten_queens(int row, int *board, int *count)
 {
 	int column;
 
 	column = 1;
 	while (column <= 10)
 	{
-		if (arrange(row,column))
+		if (can_stay_here(row, column, board))
 		{
 			board[row] = column; 
 			if (row == 10)
 			{
-				print(10);
-				printf("\n");
+				print(10, board, count);
+				// printf("\n");
+				write(1, "\n", 1);
 			}
 			else
-				queen(row + 1);
+				ten_queens(row + 1, board, count);
 		}
 		column++;
 	}
@@ -78,12 +75,17 @@ void	queen(int row)
 
 int ft_ten_queens_puzzle(void)
 {
-	queen(1);
+	int board[11];
+	int count;
+
+	count = 0;
+	ten_queens(1, board, &count);
 	return count;
 }
 
 int main()
 {
-	printf("%d", ft_ten_queens_puzzle());
+	int count = ft_ten_queens_puzzle();
+	printf("%d", count);
 	return (0);
 }
