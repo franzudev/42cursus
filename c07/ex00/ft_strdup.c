@@ -7,7 +7,7 @@ char *ft_strdup(char *src)
 
 	i = 0;
 	while (src[i++]);
-	str = (char *) malloc(sizeof(char) * i);
+	str = (char *) malloc(i);
 	if (str == NULL)
 		return 0;
 	i = 0;

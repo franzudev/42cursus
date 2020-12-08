@@ -1,14 +1,13 @@
 #include <stdlib.h>
-#include <stdio.h>
 
-int 	*ft_range(int min, int max)
+int		*ft_range(int min, int max)
 {
 	int *ints;
 	int size;
 	int i;
 
 	if (min >= max)
-		return (ints);
+		return (0);
 
 	i = 0;
 	size = max - min;
@@ -17,13 +16,4 @@ int 	*ft_range(int min, int max)
 		ints[i++] = min++;
 	ints[i] = '\0';
 	return (ints);
-}
-
-int main()
-{
-	int *res = ft_range(1, 2147483647);
-
-	while (*res)
-		printf("%d\n", *res++);
-	return 0;
 }
