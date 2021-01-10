@@ -8,7 +8,7 @@ OBJS = $(SRC_DIR)/ft_putchar.o $(SRC_DIR)/ft_putstr.o $(SRC_DIR)/ft_strcmp.o $(S
 DEPS = $(INC_DIR)/libft.h
 
 libft.a: $(DEPS) $(OBJS)
-	ar -rc libft.a $(OBJS)
+	ar -rc $@ $(OBJS)
 
 all: libft.a
 
@@ -16,7 +16,7 @@ $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(SRC_DIR)/*.o
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f libft.a
