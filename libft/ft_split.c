@@ -17,6 +17,8 @@ static char	**count_and_alloc(const char *str, char charset)
 	int w;
 	int i;
 
+	if (!str)
+		return (0);
 	w = 1;
 	i = 0;
 	while (str[i])
@@ -61,7 +63,7 @@ char		**ft_split(char const *s, char c)
 	a = 0;
 	i = 0;
 	res = count_and_alloc(s, c);
-	if (!res)
+	if (!res || !s)
 		return (0);
 	alloc_string_space(res, s, c);
 	w = 0;
