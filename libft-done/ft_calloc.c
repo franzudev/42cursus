@@ -19,7 +19,9 @@ void	*ft_calloc(size_t count, size_t size)
 
 	i = 0;
 	res = (void *)malloc(size * count);
-	while (i < count)
+	if (!res)
+		return (0);
+	while (i < count * size)
 		((unsigned char *)res)[i++] = 0;
 	return (res);
 }
