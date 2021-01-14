@@ -38,7 +38,7 @@ char		*ft_itoa(int n)
 
 	t = (long)n;
 	d = digit_count(t);
-	res = (char *)malloc(sizeof(char) * d);
+	res = (char *)malloc(sizeof(char) * d + 1);
 	if (!res)
 		return (0);
 	if (t < 0)
