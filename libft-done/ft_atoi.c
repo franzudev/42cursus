@@ -32,11 +32,25 @@ static	int	is_char_int(char c)
 	return (0);
 }
 
+static	int	get_result(const char *str, long res, int s)
+{
+	while (is_char_int(*str))
+	{
+		res = res * 10 + (*str - '0');
+		if (s == -1 && res > 2147483648)
+			return (0);
+		if (s == 1 && res > 2147483647)
+			return (-1);
+		str++;
+	}
+	return ((int)(res * s));
+}
+
 int			ft_atoi(const char *str)
 {
-	int s;
-	int f;
-	int res;
+	int		s;
+	int		f;
+	long	res;
 
 	s = 1;
 	f = 0;
@@ -53,10 +67,5 @@ int			ft_atoi(const char *str)
 		}
 		str++;
 	}
-	while (is_char_int(*str))
-	{
-		res = res * 10 + (*str - '0');
-		str++;
-	}
-	return (res * s);
+	return (get_result(str, res, s));
 }
