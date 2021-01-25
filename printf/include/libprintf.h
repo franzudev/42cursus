@@ -11,9 +11,10 @@ typedef struct	s_flags {
 }				t_flags;
 
 typedef union 	u_arg {
-	char	chr;
-	char	*str;
-	int		digit;
+	char			chr;
+	char			*str;
+	int				digit;
+	unsigned int 	udigit;
 }				t_arg;
 
 t_flags	init_flag(void);

@@ -13,12 +13,15 @@ int ft_printf(const char* str, ...)
 	while (*str)
 	    str += parse_format(str, &args);
 	va_end(args);
-	return 1;
+	return (1);
 }
 
 int main()
 {
-	char *str = "porco dio";
-	ft_printf("%c f\n", *str);
+//	char *str = "%-10.% f %-*.3s\n";
+	ft_printf("%-010% f %4.3s\nciao\n%-10c\n%d\n%i\n%u\n", "prova", 'Z',
+	2147483647, -2147483648, 4147483649);
+	printf("%-010% f %4.3s\nciao\n%-10c\n%d\n%i\n%u\n", "prova", 'Z',
+		2147483647, -2147483647, 2147483647);
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include "include/libprintf.h"
 #include "include/libft.h"
+#include <stdio.h>
 
 t_flags init_flag(void)
 {
@@ -7,7 +8,7 @@ t_flags init_flag(void)
 
 	flags.width = 0;
 	flags.left_justify = 0;
-	flags.precision = 0;
+	flags.precision = -1;
 	flags.zero_pad = 0;
 
 	return (flags);
@@ -15,7 +16,8 @@ t_flags init_flag(void)
 
 void	print_conversion(char str, va_list args, t_flags flags)
 {
-	t_arg arg;
+	t_arg	arg;
+	int		arg_len;
 
 	if (str == 'c')
 	{
@@ -31,12 +33,50 @@ void	print_conversion(char str, va_list args, t_flags flags)
 		if (!(flags.left_justify))
 			ft_putchar_fd(arg.chr, 1);
 	}
-	else if (str == 'd' || str == 'i')
+	else if (str == 's')
 	{
-
+		arg.str = va_arg(args, char *);
+		if (flags.precision > -1)
+			arg.str = ft_substr(arg.str, 0, flags.precision);
+		arg_len = ft_strlen(arg.str);
+		if (flags.left_justify)
+			ft_putstr_fd(arg.str, 1);
+		if (flags.width && flags.width - arg_len > 0)
+			while (flags.width - arg_len)
+			{
+				ft_putchar_fd(' ', 1);
+				flags.width--;
+			}
+		if (!(flags.left_justify))
+			ft_putstr_fd(arg.str, 1);
 	}
 	else if (str == '%')
-		ft_putchar_fd('%', 1);
+	{
+		arg.chr = '%';
+		if (flags.left_justify)
+			ft_putchar_fd(arg.chr, 1);
+		if (flags.width)
+			while (flags.width - 1)
+			{
+				if (flags.zero_pad && !flags.left_justify)
+					ft_putchar_fd('0', 1);
+				else
+					ft_putchar_fd(' ', 1);
+				flags.width--;
+			}
+		if (!(flags.left_justify))
+			ft_putchar_fd(arg.chr, 1);
+	}
+	else if (str == 'd' || str == 'i')
+	{
+		arg.digit = va_arg(args, int);
+		ft_putstr_fd(ft_itoa(arg.digit), 1);
+	}
+	else if (str == 'u')
+	{
+		arg.udigit = va_arg(args, unsigned int);
+		ft_putstr_fd(ft_itoa(arg.udigit), 1);
+	}
 }
 
 int		parse_flag(const char *str, va_list *args, t_flags *flags)
@@ -52,16 +92,33 @@ int		parse_flag(const char *str, va_list *args, t_flags *flags)
 		else if (*str != '0' && ft_isdigit(*str))
 		{
 			flags->width = ft_atoi(str);
-			while (ft_isdigit(*(str++)));
+			while (ft_isdigit(*str))
+			{
+				str++;
+				i++;
+			}
+			continue ;
 		}
-		else if (*str == '0' && !ft_isdigit(*(str - 1)) && !flags->left_justify)
+		else if (*str == '0' && !ft_isdigit(*(str - 1)))
 			flags->zero_pad = 1;
 		else if (*str == '.')
-			flags->precision = 1;
+		{
+			if (!ft_isdigit(*(++str)))
+				flags->precision = 0;
+			else
+				flags->precision = ft_atoi(str);
+			++i;
+			while (ft_isdigit(*str))
+			{
+				str++;
+				i++;
+			}
+			continue ;
+		}
 		else if (*str == '*')
 			flags->width = va_arg(*args, int);
 		else
-		break;
+			break ;
 		i++;
 		str++;
 	}
