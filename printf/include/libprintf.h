@@ -19,9 +19,8 @@ typedef union 	u_arg {
 
 t_flags	init_flag(void);
 int		parse_flag(const char *str, va_list *args, t_flags *flags);
-int		parse_format(const char *str, va_list *args);
-int		print_parameter(const char *str, va_list *args);
-void	print_conversion(char str, va_list args, t_flags flags);
-
+int		parse_format(const char *str, va_list *args, int *printed);
+int		print_parameter(const char *str, va_list *args, int *printed);
+void	print_conversion(char str, va_list args, t_flags flags, int *printed);
 
 #endif

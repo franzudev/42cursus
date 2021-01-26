@@ -32,11 +32,11 @@ static	int	is_char_int(char c)
 	return (0);
 }
 
-int			ft_atoi(const char *str)
+long			ft_atoi(const char *str)
 {
 	int s;
 	int f;
-	int res;
+	long res;
 
 	s = 1;
 	f = 0;
