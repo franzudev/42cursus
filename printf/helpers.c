@@ -9,158 +9,29 @@ static t_flags	init_flag(void)
 	flags.left_justify = 0;
 	flags.precision = -1;
 	flags.zero_pad = 0;
-
 	return (flags);
 }
 
-static void		print_conversion(char str, va_list args, t_flags flags, int
-*printed)
-{
-	t_arg	arg;
-	int		arg_len;
+/*
+**	pc = print_conversion -> norminette adaptation
+*/
 
+static void		pc(char str, va_list args, t_flags f, int *printed)
+{
 	if (str == 'c')
-	{
-		arg.chr = va_arg(args, int);
-		*printed += 1;
-		if (flags.left_justify)
-			ft_putchar_fd(arg.chr, 1);
-		if (flags.width)
-			while (flags.width - 1)
-			{
-				ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-			ft_putchar_fd(arg.chr, 1);
-	}
+		print_c(args, f, printed);
 	else if (str == 's')
-	{
-		arg.str = va_arg(args, char *);
-		if (!arg.str)
-			arg.str = "(null)";
-		if (flags.precision > -1)
-			arg.str = ft_substr(arg.str, 0, flags.precision);
-		arg_len = ft_strlen(arg.str);
-		*printed += arg_len;
-		if (flags.left_justify)
-			ft_putstr_fd(arg.str, 1);
-		if (flags.width && flags.width - arg_len > 0)
-			while (flags.width - arg_len)
-			{
-				ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-			ft_putstr_fd(arg.str, 1);
-	}
+		print_s(args, f, printed);
 	else if (str == '%')
-	{
-		arg.chr = '%';
-		*printed += 1;
-		if (flags.left_justify)
-			ft_putchar_fd(arg.chr, 1);
-		if (flags.width)
-			while (flags.width - 1)
-			{
-				if (flags.zero_pad && !flags.left_justify)
-					ft_putchar_fd('0', 1);
-				else
-					ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-			ft_putchar_fd(arg.chr, 1);
-	}
+		print_per(f, printed);
 	else if (ft_strchr("di", str))
-	{
-		arg.str = ft_itoa(va_arg(args, int));
-		arg_len = ft_strlen(arg.str);
-		*printed += arg_len;
-		if (flags.left_justify)
-			ft_putstr_fd(arg.str, 1);
-		if (flags.width)
-			while (flags.width - arg_len > 0)
-			{
-				if (flags.zero_pad && !flags.left_justify && flags.precision < 0)
-					ft_putchar_fd('0', 1);
-				else
-					ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-			ft_putstr_fd(arg.str, 1);
-	}
+		print_di(args, f, printed);
 	else if (str == 'u')
-	{
-		arg.str = ft_itoa(va_arg(args, unsigned int));
-		arg_len = ft_strlen(arg.str);
-		*printed += arg_len;
-		if (flags.left_justify)
-			ft_putstr_fd(arg.str, 1);
-		if (flags.width)
-			while (flags.width - arg_len > 0)
-			{
-				if (flags.zero_pad && !flags.left_justify && flags.precision < 0)
-					ft_putchar_fd('0', 1);
-				else
-					ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-			ft_putstr_fd(arg.str, 1);
-	}
+		print_u(args, f, printed);
 	else if (str == 'x' || str == 'X')
-	{
-		if (str == 'x')
-			arg.str = ft_itoa_base(va_arg(args, unsigned int), "0123456789abcdef");
-		else
-			arg.str = ft_itoa_base(va_arg(args, unsigned int), "0123456789ABCDEF");
-		arg_len = ft_strlen(arg.str);
-		*printed += arg_len;
-		if (flags.left_justify)
-			ft_putstr_fd(arg.str, 1);
-		if (flags.width)
-			while (flags.width - arg_len > 0)
-			{
-				if (flags.zero_pad && !flags.left_justify && flags.precision < 0)
-					ft_putchar_fd('0', 1);
-				else
-					ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-			ft_putstr_fd(arg.str, 1);
-	}
+		print_x(str, args, f, printed);
 	else if (str == 'p')
-	{
-		arg.str = ft_itoa_base((long)va_arg(args, void *), "0123456789abcdef");
-		arg_len = ft_strlen(arg.str) + 2;
-		*printed += arg_len;
-		if (flags.left_justify)
-		{
-			ft_putstr_fd("0x", 1);
-			ft_putstr_fd(arg.str, 1);
-		}
-		if (flags.width && flags.width - arg_len > 0)
-			while (flags.width - arg_len)
-			{
-				ft_putchar_fd(' ', 1);
-				*printed += 1;
-				flags.width--;
-			}
-		if (!(flags.left_justify))
-		{
-			ft_putstr_fd("0x", 1);
-			ft_putstr_fd(arg.str, 1);
-		}
-	}
+		print_p(args, f, printed);
 	else
 		*printed = -1;
 }
@@ -172,7 +43,8 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 	if (!flags)
 		return (0);
 	i = 0;
-	while (*str) {
+	while (*str)
+	{
 		if (*str == '-')
 			flags->left_justify = 1;
 		else if (*str != '0' && ft_isdigit(*str))
@@ -213,20 +85,20 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 
 static int		print_parameter(const char *str, va_list *args, int *printed)
 {
-	t_flags flags;
-	int 	forward;
+	t_flags	flags;
+	int		forward;
 
 	forward = 0;
 	flags = init_flag();
 	if ((ft_strchr("-0.*", *str) || ft_isdigit(*str)))
 		forward = parse_flag(str, args, &flags);
-	print_conversion(*(str + forward++), *args, flags, printed);
+	pc(*(str + forward++), *args, flags, printed);
 	return (*printed == -1 ? -1 : ++forward);
 }
 
-int		parse_format(const char *str, va_list *args, int *printed)
+int				parse_format(const char *str, va_list *args, int *printed)
 {
-	while(*str)
+	while (*str)
 	{
 		if (*str != '%')
 		{
@@ -234,8 +106,8 @@ int		parse_format(const char *str, va_list *args, int *printed)
 			*printed += 1;
 			return (1);
 		}
-		else if(*str == '%')
-			return print_parameter(++str, args, printed);
+		else if (*str == '%')
+			return (print_parameter(++str, args, printed));
 		str++;
 	}
 	return (0);
