@@ -1,8 +1,7 @@
 #include "include/libprintf.h"
 #include "include/libft.h"
-#include <stdio.h>
 
-t_flags init_flag(void)
+static t_flags	init_flag(void)
 {
 	t_flags flags;
 
@@ -14,7 +13,8 @@ t_flags init_flag(void)
 	return (flags);
 }
 
-void	print_conversion(char str, va_list args, t_flags flags, int *printed)
+static void		print_conversion(char str, va_list args, t_flags flags, int
+*printed)
 {
 	t_arg	arg;
 	int		arg_len;
@@ -165,7 +165,7 @@ void	print_conversion(char str, va_list args, t_flags flags, int *printed)
 		*printed = -1;
 }
 
-int		parse_flag(const char *str, va_list *args, t_flags *flags)
+static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 {
 	int	i;
 
@@ -211,7 +211,7 @@ int		parse_flag(const char *str, va_list *args, t_flags *flags)
 	return (i);
 }
 
-int		print_parameter(const char *str, va_list *args, int *printed)
+static int		print_parameter(const char *str, va_list *args, int *printed)
 {
 	t_flags flags;
 	int 	forward;

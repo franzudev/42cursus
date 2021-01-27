@@ -17,10 +17,7 @@ typedef union 	u_arg {
 	unsigned int 	udigit;
 }				t_arg;
 
-t_flags	init_flag(void);
-int		parse_flag(const char *str, va_list *args, t_flags *flags);
 int		parse_format(const char *str, va_list *args, int *printed);
-int		print_parameter(const char *str, va_list *args, int *printed);
-void	print_conversion(char str, va_list args, t_flags flags, int *printed);
+int				ft_printf(const char* str, ...);
 
 #endif

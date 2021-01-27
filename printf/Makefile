@@ -9,14 +9,16 @@ LIBFT_OBJ := libft
 LIBFT_SRCS := $(wildcard $(LIBFT_SRC)/*.c)
 LIBFT_OBJS := $(patsubst $(LIBFT_SRC)/%.c, $(LIBFT_OBJ)/%.o, $(LIBFT_SRCS))
 
-all: $(NAME)
+all: $(NAME) test
 
 $(LIBFT_OBJ)/%.o: $(LIBFT_SRC)/%.c
 	$(CC) -I$(LIBFT_SRC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_OBJS)
 	ar -rcs $(NAME) $(OBJS) $(LIBFT_OBJS)
-	rm libft/*.o
+
+test: $(NAME)
+	$(CC) -L. -lftprintf test.c -o printf
 
 clean:
 	rm -f $(OBJS) $(LIBFT_OBJS)
