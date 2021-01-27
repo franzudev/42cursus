@@ -59,6 +59,8 @@ char	*ft_itoa_base(long nbr, char *base)
 	i = 0;
 	size_base = 0;
 	res = NULL;
+	if (nbr == 0)
+		return "0";
 	if (check_base(base))
 	{
 		count = digit_count(nb);

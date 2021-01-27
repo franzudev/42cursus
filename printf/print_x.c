@@ -1,13 +1,15 @@
 #include "include/libprintf.h"
 #include "include/libft.h"
 
+
 void	print_x(char str, va_list args, t_flags f, int *printed)
 {
 	t_arg	arg;
 	int		arg_len;
 
+	arg.udigit = va_arg(args, unsigned int);
 	arg.str = ft_itoa_base(
-		va_arg(args, unsigned int), str == 'x' ?
+		arg.udigit, str == 'x' ?
 		"0123456789abcdef" : "0123456789ABCDEF");
 	arg_len = ft_strlen(arg.str);
 	*printed += arg_len;

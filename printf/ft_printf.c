@@ -16,7 +16,7 @@ int ft_printf(const char* str, ...)
 	va_start(args, str);
 	while (*str){
 		ret = parse_format(str, &args, &printed);
-		if (ret == -1)
+		if (printed == -1)
 			return (-1);
 		str += ret;
 	}
