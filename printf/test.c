@@ -9,7 +9,8 @@ int main()
 //	 ft_printf("%-010% f %4.3s\n%p\nciao\n%-10c\n%-20.3di\n%020.3ii\n%020ui\n%030.4xi\n%50p\n",
 	// 			"prova", &n,'Z', 2147483647, m, n, n, &n);
 	// printf("hello, %-09s.\n", NULL);
-	   printf("%8.5i\n", 34);
-	ft_printf("%07i", -54);
+//	ft_printf("%10.5i", -216);
+//	ft_printf("%2p", NULL);
+	ft_printf("%.p", NULL);
 	return 0;
 }

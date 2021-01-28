@@ -1,30 +1,37 @@
 #include "include/libprintf.h"
 #include "include/libft.h"
 
+static void print(char *str, int precision)
+{
+        ft_putstr_fd("0x", 1);
+        if (precision != 0)
+            ft_putstr_fd(str, 1);
+}
+
 void	print_p(va_list args, t_flags f, int *printed)
 {
 	t_arg	arg;
-	int		arg_len;
+	int	arg_len;
 
-	arg.str = ft_itoa_base((long)va_arg(args, void *), "0123456789abcdef");
+	arg.pdigit = va_arg(args, void *);
+	    arg.str = ft_itoa_base((long)arg.pdigit, "0123456789abcdef");
 	arg_len = ft_strlen(arg.str) + 2;
-	*printed += arg_len;
+	*printed += ((f.precision != 0) ? arg_len : --arg_len);
 	if (f.left_justify)
-	{
-		ft_putstr_fd("0x", 1);
-		ft_putstr_fd(arg.str, 1);
-	}
+	    print(arg.str, f.precision);
 	if (f.width && f.width - arg_len > 0)
-		while (f.width - arg_len)
+		while (f.width - arg_len && f.width > f.precision)
 		{
 			ft_putchar_fd(' ', 1);
 			*printed += 1;
 			f.width--;
 		}
-	if (!(f.left_justify))
-	{
-		ft_putstr_fd("0x", 1);
-		ft_putstr_fd(arg.str, 1);
-	}
+	    while (f.precision - arg_len - 2 > 0)
+        {
+	        ft_putchar_fd('0', 1);
+	        *printed += 1;
+	        f.precision--;
+        }
+	if (!f.left_justify)
+	    print(arg.str, f.precision);
 }
-

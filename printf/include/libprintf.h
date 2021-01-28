@@ -15,6 +15,8 @@ typedef union 	u_arg {
 	char			*str;
 	int				digit;
 	unsigned int 	udigit;
+	long            ldigit;
+	void            *pdigit;
 }				t_arg;
 
 int				parse_format(const char *str, va_list *args, int *printed);

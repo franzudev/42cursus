@@ -20,7 +20,7 @@ void	print_di(va_list args, t_flags f, int *printed)
 	}
 	if (f.precision > f.width && f.precision > arg_len)
 		f.zero_pad = 1;
-	if (sign && f.precision > arg_len && f.precision > f.width)
+	if ((sign && f.precision > arg_len && f.precision > f.width) || (sign && f.width > arg_len && f.zero_pad))
 	{
 		s_printed = 1;
 		ft_putchar_fd('-', 1);
@@ -44,7 +44,10 @@ void	print_di(va_list args, t_flags f, int *printed)
 		f.width--;
 	}
 	if (!s_printed && sign && !f.left_justify && f.zero_pad && f.precision < 0)
-		ft_putchar_fd('-', 1);
+	{
+        ft_putchar_fd('-', 1);
+        s_printed = 1;
+    }
 	while (f.precision - arg_len > 0)
 	{
 		ft_putchar_fd('0', 1);
@@ -57,5 +60,4 @@ void	print_di(va_list args, t_flags f, int *printed)
 			ft_putchar_fd('-', 1);
 		ft_putstr_fd(arg.str, 1);
 	}
-
 }
