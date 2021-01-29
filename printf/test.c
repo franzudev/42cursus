@@ -1,5 +1,6 @@
-#include "include/libprintf.h"
+#include "include/ft_printf.h"
 #include <stdio.h>
+#include <limits.h>
 
 int main()
 {
@@ -11,6 +12,6 @@ int main()
 	// printf("hello, %-09s.\n", NULL);
 //	ft_printf("%10.5i", -216);
 //	ft_printf("%2p", NULL);
-	ft_printf("%.p", NULL);
+	ft_printf("%p\n", -2147483648);
 	return 0;
 }

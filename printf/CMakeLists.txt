@@ -63,6 +63,6 @@ set(SOURCES
         libft/ft_toupper.c
         )
 
-set(HEADER include/libft.h include/libprintf.h)
+set(HEADER include/libft.h include/ft_printf.h)
 
 add_executable(printf ${HEADER} ${SOURCES})

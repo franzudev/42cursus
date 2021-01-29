@@ -1,16 +1,20 @@
-#include "include/libprintf.h"
+#include "include/ft_printf.h"
 #include "include/libft.h"
 
 void	print_s(va_list args, t_flags f, int *printed)
 {
 	t_arg	arg;
 	int		arg_len;
+	int     alloc;
 
 	arg.str = va_arg(args, char *);
 	if (!arg.str)
-		arg.str = "(null)";
+        arg.str = "(null)";
 	if (f.precision > -1)
-		arg.str = ft_substr(arg.str, 0, f.precision);
+	{
+        arg.str = ft_substr(arg.str, 0, f.precision);
+        alloc = 1;
+    }
 	arg_len = ft_strlen(arg.str);
 	*printed += arg_len;
 	if (f.left_justify)
@@ -24,4 +28,6 @@ void	print_s(va_list args, t_flags f, int *printed)
 		}
 	if (!(f.left_justify))
 		ft_putstr_fd(arg.str, 1);
+	if (alloc)
+        free(arg.str);
 }
