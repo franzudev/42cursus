@@ -6,6 +6,10 @@
 # Prerequisites
 *.d
 
+printf
+
+42.code-workspace
+
 # Object files
 *.o
 *.ko
