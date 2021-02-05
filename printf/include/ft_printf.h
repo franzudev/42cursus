@@ -7,7 +7,7 @@ typedef struct	s_flags {
 	int	left_justify;
 	int	zero_pad;
 	int	width;
-	int precision;
+	int prec;
 }				t_flags;
 
 typedef union 	u_arg {

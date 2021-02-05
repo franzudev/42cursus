@@ -7,7 +7,7 @@ static t_flags	init_flag(void)
 
 	flags.width = 0;
 	flags.left_justify = 0;
-	flags.precision = -1;
+	flags.prec = -1;
 	flags.zero_pad = 0;
 	return (flags);
 }
@@ -62,11 +62,11 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 		else if (*str == '.')
 		{
 			if (!ft_isdigit(*(++str)))
-				flags->precision = 0;
+				flags->prec = 0;
 			else if (*str == '*')
-                flags->precision = va_arg(*args, int);
+                flags->prec = va_arg(*args, int);
 			else
-				flags->precision = ft_atoi(str);
+				flags->prec = ft_atoi(str);
 			++i;
 			while (ft_isdigit(*str))
 			{
@@ -76,7 +76,9 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 			continue ;
 		}
 		else if (*str == '*')
-			flags->width = va_arg(*args, int);
+		{
+            flags->width = va_arg(*args, int);
+        }
 		else
 			break ;
 		i++;
