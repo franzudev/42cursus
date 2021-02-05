@@ -13,7 +13,7 @@
 #include "include/ft_printf.h"
 #include "include/libft.h"
 
-void	print_pad(t_flags f, int arg_len, int *printed)
+static void	print_pad(t_flags f, int arg_len, int *printed)
 {
 	if ((f.width && f.width - arg_len > 0) || (f.prec && f.prec - arg_len > 0))
 		while (f.width - arg_len > 0)
@@ -24,7 +24,7 @@ void	print_pad(t_flags f, int arg_len, int *printed)
 		}
 }
 
-void	delptr(int alloc, char *str, int len)
+static void	delptr(int alloc, char *str, int len)
 {
 	if (alloc)
 	{

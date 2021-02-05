@@ -14,7 +14,7 @@ void	print_u(va_list args, t_flags f, int *printed)
 	if (f.width)
 		while (f.width - arg_len > 0)
 		{
-			if (f.zero_pad && !f.left_justify && f.precision < 0)
+			if (f.zero_pad && !f.left_justify && f.prec < 0)
 				ft_putchar_fd('0', 1);
 			else
 				ft_putchar_fd(' ', 1);

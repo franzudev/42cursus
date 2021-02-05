@@ -16,24 +16,24 @@ void	print_p(va_list args, t_flags f, int *printed)
 	arg.pdigit = va_arg(args, void *);
     arg.str = ft_itoa_base((long)arg.pdigit, "0123456789abcdef");
 	arg_len = ft_strlen(arg.str) + 2;
-	*printed += ((f.precision != 0) ? arg_len : --arg_len);
+	*printed += ((f.prec != 0) ? arg_len : --arg_len);
 	if (f.left_justify)
-	    print(arg.str, f.precision);
+	    print(arg.str, f.prec);
 	if (f.width && f.width - arg_len > 0)
 	{
-        while (f.width - arg_len && f.width >= f.precision)
+        while (f.width - arg_len && f.width >= f.prec)
         {
             ft_putchar_fd(' ', 1);
             *printed += 1;
             f.width--;
         }
-        while (f.precision - arg_len - 2 >= 0)
+        while (f.prec - arg_len - 2 >= 0)
         {
             ft_putchar_fd('0', 1);
             *printed += 1;
-            f.precision--;
+            f.prec--;
         }
     }
 	if (!f.left_justify)
-	    print(arg.str, f.precision);
+	    print(arg.str, f.prec);
 }

@@ -64,7 +64,14 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 			if (!ft_isdigit(*(++str)))
 				flags->prec = 0;
 			else if (*str == '*')
-                flags->prec = va_arg(*args, int);
+			{
+				flags->prec = va_arg(*args, int);
+				if (flags->prec < 0)
+				{
+					flags->left_justify = 1;
+					flags->prec *= -1;
+				}
+			}
 			else
 				flags->prec = ft_atoi(str);
 			++i;
@@ -78,6 +85,11 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 		else if (*str == '*')
 		{
             flags->width = va_arg(*args, int);
+            if (flags->width < 0)
+			{
+				flags->left_justify = 1;
+				flags->width *= -1;
+			}
         }
 		else
 			break ;
