@@ -24,7 +24,7 @@ static void		pc(char str, va_list args, t_flags f, int *printed)
 		print_s(args, f, printed);
 	else if (str == '%')
 		print_per(f, printed);
-	else if (ft_strchr("di", str))
+	else if (str == 'i' || str == 'd')
 		print_di(args, f, printed);
 	else if (str == 'u')
 		print_u(args, f, printed);
@@ -63,6 +63,8 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 		{
 			if (!ft_isdigit(*(++str)))
 				flags->precision = 0;
+			else if (*str == '*')
+                flags->precision = va_arg(*args, int);
 			else
 				flags->precision = ft_atoi(str);
 			++i;
@@ -90,6 +92,11 @@ static int		print_parameter(const char *str, va_list *args, int *printed)
 
 	forward = 0;
 	flags = init_flag();
+	if (*str == '\0')
+	{
+	    *printed = -1;
+        return 0;
+    }
 	if ((ft_strchr("-0.*", *str) || ft_isdigit(*str)))
 		forward = parse_flag(str, args, &flags);
 	pc(*(str + forward++), *args, flags, printed);
