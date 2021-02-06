@@ -14,57 +14,61 @@ static void	print_pad(int ch, int *printed, int *len)
 	*len -= 1;
 }
 
-void	print_num()
+static void print_num(char *num, t_flags f, int sign, int *s_printed, int *printed)
 {
-
+	int len;
+	len = ft_strlen(num);
+	if (sign && !*s_printed)
+		print_sign(s_printed);
+	if (f.prec < f.width && f.left_justify)
+		while (f.prec > len)
+			print_pad('0', printed, &f.prec);
+	ft_putstr_fd(num, 1);
 }
 
-void	print_di(va_list args, t_flags f, int *printed)
+static void	update_flags(t_flags *f, int *s_p, int len, int sign)
+{
+	if (f->left_justify && f->zero_pad)
+		f->zero_pad = 0;
+	if (f->prec > len)
+		f->zero_pad = 1;
+	else
+		f->prec = -1;
+	if (f->prec > f->width && f->prec > len)
+		f->zero_pad = 1;
+	if ((sign && f->prec > len && f->prec > f->width) || (sign && f->width > f->prec && f->prec < len && f->zero_pad))
+		print_sign(s_p);
+}
+
+void		print_di(va_list args, t_flags f, int *printed)
 {
 	t_arg	arg;
 	int		arg_len;
-	int		sign = 0;
-	int		s_printed = 0;
-	int		arg_len2;
+	int		sign;
+	int		s_printed;
+	int		width;
+	int		prec;
 
 	arg.digit = va_arg(args, int);
+	s_printed = 0;
 	sign = arg.digit < 0;
-	arg.str = ft_itoa(sign ? (arg.digit *= -1) : arg.digit);
+	if (arg.digit == 0 && f.prec == 0)
+		arg.str = "";
+	else
+		arg.str = ft_itoa(sign ? (arg.digit *= -1) : arg.digit);
 	arg_len = (sign) ? ft_strlen(arg.str) + 1 : ft_strlen(arg.str);
-	if (f.prec > f.width) {
-//		f.width = (sign) ? ++f.prec : f.prec;
-		(sign) ? ++f.prec : f.prec;
-		f.zero_pad = 1;
-	}
-	if (f.prec > f.width && f.prec > arg_len)
-		f.zero_pad = 1;
-	if ((sign && f.prec > arg_len && f.prec > f.width) || (sign && f.width > arg_len && f.zero_pad))
-		print_sign(&s_printed);
+	update_flags(&f, &s_printed, arg_len, sign);
+	width = f.width;
+	prec = f.prec;
 	*printed += arg_len;
 	if (f.left_justify)
-	{
-		if (!s_printed && sign)
-			print_sign(&s_printed);
-		if ((arg_len < f.prec || f.left_justify))
-			ft_putstr_fd(arg.str, 1);
-	}
-	arg_len2 = (f.prec > arg_len) ? f.prec : arg_len;
-	while (f.width - arg_len2 > 0)
-		if (f.zero_pad)
-			print_pad('0', printed, &f.width);
-		else
-			print_pad(' ', printed, &f.width);
-	if (!s_printed && sign && !f.left_justify && f.zero_pad && f.prec < 0)
-	{
-        ft_putchar_fd('-', 1);
-        s_printed = 1;
-    }
-	while (f.prec - arg_len > 0)
-		print_pad('0', printed, &f.prec);
-	if (!(f.left_justify))
-	{
-		if (sign && !s_printed)
-			ft_putchar_fd('-', 1);
-		ft_putstr_fd(arg.str, 1);
-	}
+		print_num(arg.str, f, sign, &s_printed, printed);
+	while ((f.prec == -1 && f.width > arg_len) || (!sign && f.prec != -1 && f.width > f.prec) || ((sign && f.prec != -1 && f.width > f.prec + sign)))
+		print_pad(f.zero_pad && f.prec == -1 ? '0' : ' ', printed, &f.width);
+	if (sign && !s_printed && f.prec < width && !f.left_justify)
+		print_sign(&s_printed);
+	while (prec + sign > arg_len && !f.left_justify)
+		print_pad('0', printed, &prec);
+	if (!f.left_justify)
+		print_num(arg.str, f, sign, &s_printed, printed);
 }

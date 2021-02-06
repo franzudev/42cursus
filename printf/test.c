@@ -3,6 +3,6 @@
 
 int main()
 {
-	ft_printf("%10.5d\n", -216);
+	ft_printf("%08.3d", 8375);
 	return 0;
 }
