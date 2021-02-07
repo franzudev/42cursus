@@ -13,7 +13,7 @@
 #include "include/ft_printf.h"
 #include "include/libft.h"
 
-static void	print_sign(int *s_printed)
+/*static void	print_sign(int *s_printed)
 {
 	ft_putchar_fd('-', 1);
 	*s_printed = 1;
@@ -59,7 +59,7 @@ static void	update_flags(t_flags *f, t_helpers *h, int len, int sign)
 		print_sign(&h->s_printed);
 	h->width = f->width;
 	h->prec = f->prec;
-}
+}*/
 
 void	print_u(va_list args, t_flags f, int *printed)
 {
@@ -74,7 +74,7 @@ void	print_u(va_list args, t_flags f, int *printed)
 	else
 		arg.str = ft_itoa(h.sign ? (arg.ldigit *= -1) : arg.ldigit);
 	h.arg_len = (h.sign) ? ft_strlen(arg.str) + 1 : ft_strlen(arg.str);
-	update_flags(&f, &h, h.arg_len, h.sign);
+	update_flags(&f, &h);
 	*printed += h.arg_len;
 	if (f.left_justify)
 		print_num(arg.str, f, &h, printed);

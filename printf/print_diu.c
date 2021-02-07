@@ -1,85 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_diu.c                                         :+:      :+:    :+:   */
+/*   print_diu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: franzu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 15:35:21 by franzu            #+#    #+#             */
-/*   Updated: 2021/02/07 15:35:25 by franzu           ###   ########.fr       */
+/*   Updated: 2021/02/07 21:28:38 by franzu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 #include "include/libft.h"
 
-static void	print_sign(int *s_printed)
+void	set_arg(t_arg *arg, t_flags *f, t_helpers *h)
 {
-	ft_putchar_fd('-', 1);
-	*s_printed = 1;
-}
-
-static void	print_pad(int ch, int *printed, int *len)
-{
-	ft_putchar_fd(ch, 1);
-	*printed += 1;
-	*len -= 1;
-}
-
-static void	print_num(char *num, t_flags f, t_helpers *h, int *printed)
-{
-	int len;
-
-	len = ft_strlen(num);
-	if (h->sign && !h->s_printed)
-		print_sign(&h->s_printed);
-	if (f.prec <= f.width && f.left_justify)
-		while (f.prec > len)
-			print_pad('0', printed, &f.prec);
-	ft_putstr_fd(num, 1);
-}
-
-static void	update_flags(t_flags *f, t_helpers *h, int len, int sign)
-{
-	h->width = f->width;
-	h->prec = f->prec;
-	if (f->left_justify && f->zero_pad)
-		f->zero_pad = 0;
-	if (f->zero_pad && f->prec < len && f->prec < f->width && f->prec != -1)
-		f->zero_pad = 0;
-	if (f->prec > len)
-		f->zero_pad = 1;
+	if (arg->ldigit == 0 && f->prec > -1)
+		arg->str = "";
 	else
-		f->prec = -1;
-	if (f->prec > f->width && f->prec > len)
 	{
-		f->zero_pad = 1;
-		f->left_justify = 0;
+		h->alloc = arg->ldigit ? 1 : 0;
+		arg->str = ft_itoa(h->sign ? (arg->ldigit *= -1) : arg->ldigit);
 	}
-	if ((sign && f->prec > len && f->prec > f->width) ||
-	(sign && f->width > f->prec && f->prec < len && f->zero_pad))
-		print_sign(&h->s_printed);
 }
 
-void		print_diu(va_list args, t_flags f, int *printed, int uns)
+void	print_diu(va_list args, t_flags f, int *printed, int uns)
 {
 	t_arg		arg;
 	t_helpers	h;
-	int			alloc;
 
-	arg.ldigit = (uns) ? va_arg(args, unsigned int) : (long)va_arg(args,int);
+	arg.ldigit = (uns) ? va_arg(args, unsigned int) : (long)va_arg(args, int);
 	h.s_printed = 0;
 	h.sign = arg.ldigit < 0;
-	alloc = 0;
-	if (arg.ldigit == 0 && f.prec > -1)
-		arg.str = "";
-	else
-	{
-		alloc = arg.ldigit ? 1 : 0;
-		arg.str = ft_itoa(h.sign ? (arg.ldigit *= -1) : arg.ldigit);
-	}
+	h.alloc = 0;
+	set_arg(&arg, &f, &h);
 	h.arg_len = (h.sign) ? ft_strlen(arg.str) + 1 : ft_strlen(arg.str);
-	update_flags(&f, &h, h.arg_len, h.sign);
+	update_flags(&f, &h);
 	*printed += h.arg_len;
 	if (f.left_justify)
 		print_num(arg.str, f, &h, printed);
@@ -93,5 +49,5 @@ void		print_diu(va_list args, t_flags f, int *printed, int uns)
 		print_pad('0', printed, &h.prec);
 	if (!f.left_justify)
 		print_num(arg.str, f, &h, printed);
-	delptr(alloc, arg.str, h.arg_len);
+	delptr(h.alloc, arg.str, h.arg_len);
 }

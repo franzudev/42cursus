@@ -36,12 +36,10 @@ static void		pc(char str, va_list args, t_flags f, int *printed)
 
 static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 {
-	int	i;
-
 	if (!flags)
 		return (0);
-	i = 0;
-	while (*str)
+	return (flag_parser(str, flags, args));
+	/*while (*str)
 	{
 		if (*str == '-')
 			flags->left_justify = 1;
@@ -81,19 +79,18 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 		}
 		else if (*str == '*')
 		{
-            flags->width = va_arg(*args, int);
-            if (flags->width < 0)
+			flags->width = va_arg(*args, int);
+			if (flags->width < 0)
 			{
 				flags->left_justify = 1;
 				flags->width *= -1;
 			}
-        }
+		}
 		else
 			break ;
 		i++;
 		str++;
-	}
-	return (i);
+	}*/
 }
 
 static int		print_parameter(const char *str, va_list *args, int *printed)
@@ -105,9 +102,9 @@ static int		print_parameter(const char *str, va_list *args, int *printed)
 	flags = init_flag();
 	if (*str == '\0')
 	{
-	    *printed = -1;
-        return 0;
-    }
+		*printed = -1;
+		return (0);
+	}
 	if ((ft_strchr("-0.*", *str) || ft_isdigit(*str)))
 		forward = parse_flag(str, args, &flags);
 	pc(*(str + forward++), *args, flags, printed);

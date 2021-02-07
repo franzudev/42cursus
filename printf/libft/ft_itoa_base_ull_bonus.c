@@ -1,6 +1,6 @@
 #include "libft.h"
 
-static int	digit_count(long n)
+static int	digit_count(unsigned long long n)
 {
 	int count;
 
@@ -55,14 +55,14 @@ static char *zero()
 	return (res);
 }
 
-char		*ft_itoa_base(long nbr, char *base)
+char		*ft_itoa_base_ull(unsigned long long nbr, char *base)
 {
-	int			size_base;
-	long		nbr_final[200];
-	int			i;
-	int			count;
-	char		*res;
-	long		nb;
+	int						size_base;
+	unsigned long long		nbr_final[200];
+	int						i;
+	int						count;
+	char					*res;
+	unsigned long long		nb;
 
 	nb = nbr;
 	i = 0;

@@ -2,7 +2,7 @@ NAME = libftprintf.a
 CC = gcc
 INCLUDE = include/libft.h
 CFLAGS = -Wall -Werror -Wextra -I$(INCLUDE)
-SRCS = ft_printf.c helpers.c print_c.c print_diu.c print_s.c print_per.c print_x.c print_p.c
+SRCS = ft_printf.c helpers.c flag_manager.c flag_parser.c print_c.c print_diu.c print_s.c print_per.c print_x.c print_p.c
 OBJS = $(SRCS:c=o)
 LIBFT_SRC := libft
 LIBFT_OBJ := libft
