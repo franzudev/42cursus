@@ -14,7 +14,7 @@ set(SOURCES
         print_s.c
         print_per.c
         print_p.c
-        print_di.c
+        print_diu.c
         print_c.c
         libft/ft_atoi.c
         libft/ft_bzero.c

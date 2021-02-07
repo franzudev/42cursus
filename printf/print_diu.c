@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_di.c                                         :+:      :+:    :+:   */
+/*   print_diu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: franzu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -33,7 +33,7 @@ static void	print_num(char *num, t_flags f, t_helpers *h, int *printed)
 	len = ft_strlen(num);
 	if (h->sign && !h->s_printed)
 		print_sign(&h->s_printed);
-	if (f.prec < f.width && f.left_justify)
+	if (f.prec <= f.width && f.left_justify)
 		while (f.prec > len)
 			print_pad('0', printed, &f.prec);
 	ft_putstr_fd(num, 1);
@@ -41,6 +41,8 @@ static void	print_num(char *num, t_flags f, t_helpers *h, int *printed)
 
 static void	update_flags(t_flags *f, t_helpers *h, int len, int sign)
 {
+	h->width = f->width;
+	h->prec = f->prec;
 	if (f->left_justify && f->zero_pad)
 		f->zero_pad = 0;
 	if (f->zero_pad && f->prec < len && f->prec < f->width && f->prec != -1)
@@ -57,22 +59,25 @@ static void	update_flags(t_flags *f, t_helpers *h, int len, int sign)
 	if ((sign && f->prec > len && f->prec > f->width) ||
 	(sign && f->width > f->prec && f->prec < len && f->zero_pad))
 		print_sign(&h->s_printed);
-	h->width = f->width;
-	h->prec = f->prec;
 }
 
-void		print_di(va_list args, t_flags f, int *printed)
+void		print_diu(va_list args, t_flags f, int *printed, int uns)
 {
 	t_arg		arg;
 	t_helpers	h;
+	int			alloc;
 
-	arg.digit = va_arg(args, int);
+	arg.ldigit = (uns) ? va_arg(args, unsigned int) : (long)va_arg(args,int);
 	h.s_printed = 0;
-	h.sign = arg.digit < 0;
-	if (arg.digit == 0 && f.prec == 0)
+	h.sign = arg.ldigit < 0;
+	alloc = 0;
+	if (arg.ldigit == 0 && f.prec > -1)
 		arg.str = "";
 	else
-		arg.str = ft_itoa(h.sign ? (arg.digit *= -1) : arg.digit);
+	{
+		alloc = arg.ldigit ? 1 : 0;
+		arg.str = ft_itoa(h.sign ? (arg.ldigit *= -1) : arg.ldigit);
+	}
 	h.arg_len = (h.sign) ? ft_strlen(arg.str) + 1 : ft_strlen(arg.str);
 	update_flags(&f, &h, h.arg_len, h.sign);
 	*printed += h.arg_len;
@@ -81,11 +86,12 @@ void		print_di(va_list args, t_flags f, int *printed)
 	while ((f.prec == -1 && f.width > h.arg_len)
 	|| (!h.sign && f.prec != -1 && f.width > f.prec)
 	|| (h.sign && f.prec != -1 && f.width > f.prec + h.sign))
-		print_pad(f.zero_pad && f.prec == -1 ? '0' : ' ', printed, &f.width);
+		print_pad(f.zero_pad && h.prec == -1 ? '0' : ' ', printed, &f.width);
 	if (h.sign && !h.s_printed && f.prec < h.width && !f.left_justify)
 		print_sign(&h.s_printed);
 	while (h.prec + h.sign > h.arg_len && !f.left_justify)
 		print_pad('0', printed, &h.prec);
 	if (!f.left_justify)
 		print_num(arg.str, f, &h, printed);
+	delptr(alloc, arg.str, h.arg_len);
 }
