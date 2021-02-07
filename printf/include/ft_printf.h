@@ -10,6 +10,14 @@ typedef struct	s_flags {
 	int prec;
 }				t_flags;
 
+typedef struct	s_helpers {
+	int		arg_len;
+	int		sign;
+	int		s_printed;
+	int		width;
+	int		prec;
+}				t_helpers;
+
 typedef union 	u_arg {
 	char			chr;
 	char			*str;
