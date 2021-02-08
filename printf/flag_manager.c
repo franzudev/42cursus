@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/libft.h"
-#include "include/ft_printf.h"
+#include "libft.h"
+#include "ft_printf.h"
 
 void	print_sign(int *s_printed)
 {

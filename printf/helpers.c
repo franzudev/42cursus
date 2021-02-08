@@ -1,5 +1,17 @@
-#include "include/ft_printf.h"
-#include "include/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: franzu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/08 08:20:37 by franzu            #+#    #+#             */
+/*   Updated: 2021/02/08 08:20:38 by franzu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+#include "libft.h"
 
 static t_flags	init_flag(void)
 {
@@ -39,58 +51,6 @@ static int		parse_flag(const char *str, va_list *args, t_flags *flags)
 	if (!flags)
 		return (0);
 	return (flag_parser(str, flags, args));
-	/*while (*str)
-	{
-		if (*str == '-')
-			flags->left_justify = 1;
-		else if (*str != '0' && ft_isdigit(*str))
-		{
-			flags->width = ft_atoi(str);
-			while (ft_isdigit(*str))
-			{
-				str++;
-				i++;
-			}
-			continue ;
-		}
-		else if (*str == '0' && (!ft_isdigit(*(str - 1)) || *(str - 1) == '0'))
-			flags->zero_pad = 1;
-		else if (*str == '.')
-		{
-			if (*(++str) == '*')
-			{
-				i++;
-				str++;
-				flags->prec = va_arg(*args, int);
-				if (flags->prec < 0)
-					flags->prec = -1;
-			}
-			else if (!ft_isdigit(*str))
-				flags->prec = 0;
-			else
-				flags->prec = ft_atoi(str);
-			++i;
-			while (ft_isdigit(*str))
-			{
-				str++;
-				i++;
-			}
-			continue ;
-		}
-		else if (*str == '*')
-		{
-			flags->width = va_arg(*args, int);
-			if (flags->width < 0)
-			{
-				flags->left_justify = 1;
-				flags->width *= -1;
-			}
-		}
-		else
-			break ;
-		i++;
-		str++;
-	}*/
 }
 
 static int		print_parameter(const char *str, va_list *args, int *printed)

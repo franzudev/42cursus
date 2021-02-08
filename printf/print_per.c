@@ -1,5 +1,17 @@
-#include "include/ft_printf.h"
-#include "include/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_per.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: franzu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/08 08:27:54 by franzu            #+#    #+#             */
+/*   Updated: 2021/02/08 08:27:57 by franzu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+#include "libft.h"
 
 void	print_per(t_flags f, int *printed)
 {

@@ -10,8 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
-#include "include/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
+
+static void	ufh(t_helpers *h, t_arg *arg, t_flags *f, int *p)
+{
+	h->arg_len = ft_strlen(arg->str);
+	update_flags(f, h);
+	*p += h->arg_len;
+}
 
 void		print_x(char str, va_list args, t_flags f, int *printed)
 {
@@ -29,14 +36,11 @@ void		print_x(char str, va_list args, t_flags f, int *printed)
 		arg.str = ft_itoa_base(arg.udigit, str == 'x' ? "0123456789abcdef" :
 		"0123456789ABCDEF");
 	}
-	h.arg_len = ft_strlen(arg.str);
-	update_flags(&f, &h);
-	*printed += h.arg_len;
+	ufh(&h, &arg, &f, printed);
 	if (f.left_justify)
 		print_num(arg.str, f, &h, printed);
-	while ((f.prec == -1 && f.width > h.arg_len)
-			|| (!h.sign && f.prec != -1 && f.width > f.prec)
-			|| (h.sign && f.prec != -1 && f.width > f.prec + h.sign))
+	while ((f.prec == -1 && f.width > h.arg_len) || (f.prec != -1 && f.width
+	> f.prec))
 		print_pad(f.zero_pad && f.prec == -1 ? '0' : ' ', printed, &f.width);
 	while (h.prec != -1 && h.prec + h.sign > h.arg_len && !f.left_justify)
 		print_pad('0', printed, &h.prec);

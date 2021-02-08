@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
-#include "include/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 void	set_arg(t_arg *arg, t_flags *f, t_helpers *h)
 {

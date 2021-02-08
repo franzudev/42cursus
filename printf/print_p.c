@@ -1,5 +1,17 @@
-#include "include/ft_printf.h"
-#include "include/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_p.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: franzu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/08 08:27:23 by franzu            #+#    #+#             */
+/*   Updated: 2021/02/08 08:27:25 by franzu           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+#include "libft.h"
 
 static void	print_byte(int *printed)
 {
@@ -15,6 +27,13 @@ static void	print(char *str, int *printed, int precision)
 	print_byte(printed);
 	if (precision != 0)
 		ft_putstr_fd(str, 1);
+}
+
+static void	print_ppad(char ch, int *printed, int *len)
+{
+	ft_putchar_fd(ch, 1);
+	*printed += 1;
+	*len -= 1;
 }
 
 void		print_p(va_list args, t_flags f, int *printed)
@@ -34,17 +53,9 @@ void		print_p(va_list args, t_flags f, int *printed)
 	if (f.prec > f.width && f.prec > h.arg_len)
 		print_byte(&h.s_printed);
 	while (f.width > h.arg_len && f.width >= f.prec)
-	{
-		ft_putchar_fd(' ', 1);
-		*printed += 1;
-		f.width--;
-	}
+		print_ppad(' ', printed, &f.width);
 	while (f.prec > h.arg_len || f.prec > h.width + 1)
-	{
-		ft_putchar_fd('0', 1);
-		*printed += 1;
-		f.prec--;
-	}
+		print_ppad('0', printed, &f.prec);
 	if (!f.left_justify)
 		print(arg.str, &h.s_printed, f.prec);
 	delptr(1, arg.str, h.arg_len);

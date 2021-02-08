@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
-#include "include/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 static void	print_spad(t_flags f, int arg_len, int *printed)
 {

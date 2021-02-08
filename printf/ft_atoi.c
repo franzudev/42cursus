@@ -32,27 +32,21 @@ static	int	is_char_int(char c)
 	return (0);
 }
 
-long			ft_atoi(const char *str)
+long		ft_atoi(const char *str)
 {
-	int s;
-	int f;
-	long res;
+	int		s;
+	long	res;
 
 	s = 1;
-	f = 0;
 	res = 0;
 	while (ft_isspace(*str))
 		str++;
 	while (is_sign(*str))
 	{
-		if (!f)
-		{
-			if (*str == '-')
-				s = -1;
-			str++;
-			break ;
-		}
+		if (*str == '-')
+			s = -1;
 		str++;
+		break ;
 	}
 	while (is_char_int(*str))
 	{

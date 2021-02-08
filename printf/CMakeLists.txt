@@ -18,19 +18,19 @@ set(SOURCES
         print_p.c
         print_diu.c
         print_c.c
-        libft/ft_atoi
-        libft/ft_isdigit
-        libft/ft_itoa
-        libft/ft_memset
-        libft/ft_putchar_fd
-        libft/ft_itoa_base_bonus
-        libft/ft_itoa_base_ull_bonus.c
-        libft/ft_putstr_fd
-        libft/ft_strchr
-        libft/ft_strlen
-        libft/ft_substr
+        ft_atoi
+        ft_isdigit
+        ft_itoa
+        ft_memset
+        ft_putchar_fd
+        ft_itoa_base_bonus
+        ft_itoa_base_ull_bonus.c
+        ft_putstr_fd
+        ft_strchr
+        ft_strlen
+        ft_substr
         )
 
-set(HEADER include/libft.h include/ft_printf.h)
+set(HEADER libft.h ft_printf.h)
 
 add_executable(printf ${HEADER} ${SOURCES})

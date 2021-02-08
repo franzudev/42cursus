@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
-#include "include/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 void	print_c(va_list args, t_flags f, int *printed)
 {
