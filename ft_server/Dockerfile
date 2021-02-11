@@ -6,7 +6,12 @@ RUN wget http://nginx.org/keys/nginx_signing.key
 RUN apt-key add nginx_signing.key
 RUN echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
 RUN sudo apt update
-RUN sudo apt install -y nginx
-RUN systemctl start nginx
+RUN apt install -y nginx
 
-CMD ["nginx", "-g", "daemon off;"]
+
+
+
+
+
+
+CMD ["start.sh"]
