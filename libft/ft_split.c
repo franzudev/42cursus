@@ -19,7 +19,7 @@ static char	**count_and_alloc(const char *str, char charset)
 
 	if (!str)
 		return (0);
-	w = 1;
+	w = 0;
 	i = 0;
 	while (str[i])
 	{
@@ -28,7 +28,7 @@ static char	**count_and_alloc(const char *str, char charset)
 			w++;
 		i++;
 	}
-	return (char **)malloc(sizeof(char **) * w);
+	return (char **)malloc(sizeof(char **) * (w + 1));
 }
 
 static void	alloc_string_space(char **res, char const *str, char charset)

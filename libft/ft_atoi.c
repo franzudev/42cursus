@@ -49,23 +49,17 @@ static	int	get_result(const char *str, long res, int s)
 int			ft_atoi(const char *str)
 {
 	int		s;
-	int		f;
 	long	res;
 
 	s = 1;
-	f = 0;
 	res = 0;
 	while (ft_isspace(*str))
 		str++;
 	while (is_sign(*str))
 	{
-		if (!f)
-		{
-			if (*(str++) == '-')
-				s = -1;
-			break ;
-		}
-		str++;
+        if (*(str++) == '-')
+            s = -1;
+        break;
 	}
 	return (get_result(str, res, s));
 }
