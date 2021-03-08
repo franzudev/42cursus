@@ -16,20 +16,6 @@ start:
 				je		return
 				jmp		start
 
-less:
-				mov		rax, -1
-				ret
-
-equal:
-				mov		rax, 0
-				ret
-
-greater:
-				mov		rax, 1
-				ret
-
 return:
 				sub		rax, r8
-				jl		less
-				je		equal
-				jg		greater
+				ret
