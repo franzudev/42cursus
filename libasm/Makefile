@@ -15,11 +15,11 @@ $(NAME): $(OBJS)
 	@ar -rcs $(NAME) $(OBJS)
 
 run: $(NAME)
-	gcc -Wall -Werror -Wextra -L. -lasm main.c
-	./a.out
+	@gcc -Wall -Werror -Wextra -L. -lasm main.c
+	@./a.out
 
 clean:
-	@rm -f $(OBJS) $(OBJS_B) test
+	@rm -f $(OBJS) $(OBJS_B) test.txt
 
 fclean: clean
 	@rm -f $(NAME) a.out
