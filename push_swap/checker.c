@@ -44,7 +44,6 @@ int main(int argc, char *argv[])
 	line = malloc(100);
 	while (get_next_line(&line) != 0)
 	{
-		
 
 	}
 	return (0);
