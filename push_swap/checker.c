@@ -1,4 +1,5 @@
 #include "libft/libft.h"
+#include "push_swap.h"
 
 #include <limits.h>
 
@@ -34,13 +35,10 @@ int get_next_line(char **line)
 	return (-1);
 }
 
-int check_instruction()
-{
-
-}
-
 int main(int argc, char *argv[])
 {
+	t_data deta;
+
 	if (argc == 100)
 		return (int)argv;
 	char *line;
