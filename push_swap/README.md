@@ -11,3 +11,4 @@ errori liberare memoria.
 # 2 parsing istruzioni
 Stare in ascolto su STDIN per i comandi
 
+# 3 pulire gli stack alla fine
