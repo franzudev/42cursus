@@ -14,6 +14,7 @@ typedef struct s_data {
 	char	operation[4];
 }			t_data;
 
+int	check_instruction(char *instruction);
 int	get_next_line(char **line);
 
 #endif
