@@ -34,7 +34,10 @@ int get_next_line(char **line)
 	return (-1);
 }
 
-int check_stack(char *argv[]);
+int check_instruction()
+{
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -44,6 +47,7 @@ int main(int argc, char *argv[])
 	line = malloc(100);
 	while (get_next_line(&line) != 0)
 	{
+		check_instruction(line);
 
 	}
 	return (0);
