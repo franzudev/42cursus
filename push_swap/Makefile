@@ -1,5 +1,5 @@
 CHECKER = checker
-PUSH_SWAP =
+PUSH_SWAP = push_swap
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 SRCS = checker.c push_swap.c
