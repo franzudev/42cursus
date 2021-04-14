@@ -39,7 +39,7 @@ clean:
 	rm -f *.o
 
 fclean: clean
-	rm -f libft.a
+	rm -f $(NAME)
 
 re: fclean all
 
