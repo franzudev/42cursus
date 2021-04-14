@@ -1,7 +1,10 @@
 #ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
 
-#include "libft/libft.h"
+# define PUSH_SWAP_H
+# define ERR "Error\n"
+
+# include "libft/libft.h"
+# include <limits.h>
 
 typedef struct s_data {
 	int		*stack_a;
@@ -11,6 +14,6 @@ typedef struct s_data {
 	char	operation[4];
 }			t_data;
 
-#define ERR "Error\n"
+int	get_next_line(char **line);
 
 #endif
