@@ -1,11 +1,5 @@
 #include "push_swap.h"
 
-static	void	free_pointer(char *str)
-{
-	str = NULL;
-	free(str);
-}
-
 int	get_next_line(char **line)
 {
 	char	tmp[ARG_MAX];

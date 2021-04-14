@@ -1,19 +1,26 @@
-CHECKER = checker
-PUSH_SWAP = push_swap
+NAME = checker
+NAME2 = push_swap
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-SRCS = checker.c push_swap.c
-OBJS = $(SRCS:c=o)
+LDFLAGS = -Llibft -lft
+SRCS = push.c rotate.c swap.c r_rotate.c gnl.c checker.c
+# OBJS = $(SRCS:c=o)
 
-all: $(NAME)
+all: $(NAME) $(NAME2)
 
-$(CHECKER): $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS)
+	@make -C libft
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(SRCS)
+
+$(NAME2): $(OBJS)
+	@make -C libft
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME2) $(SRCS)
 
 clean:
-	rm -f $(OBJS)
+	@make clean -C libft
 
 fclean: clean
-	rm -f $(NAME)
+	@make fclean -C libft
+	rm -f $(NAME) $(NAME2)
 
 re: fclean all
