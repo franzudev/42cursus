@@ -3,7 +3,8 @@ NAME2 = push_swap
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -Llibft -lft
-SRCS = push.c rotate.c swap.c r_rotate.c gnl.c checker.c check_args.c atoi_2.c utils.c
+
+SRCS = check_instruction.c exec_instruction.c push.c rotate.c swap.c r_rotate.c gnl.c checker.c atoi_2.c utils.c check_args.c
 # OBJS = $(SRCS:c=o)
 
 all: $(NAME) $(NAME2)

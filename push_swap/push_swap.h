@@ -25,5 +25,6 @@ void	r_rotate_a(t_data *data);
 void	r_rotate_b(t_data *data);
 void	r_rotate_r(t_data *data);
 int		get_next_line(char **line);
+int	check_instruction(char *instruction);
 
 #endif
