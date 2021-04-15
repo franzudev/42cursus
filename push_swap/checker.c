@@ -13,6 +13,7 @@ int	main(int argc, char *argv[])
 	{
 		check_instruction(&data);
 		exec_instruction(&data);
+		free(&data.operation);
 	}
 	print_result(&data);
 	return (0);

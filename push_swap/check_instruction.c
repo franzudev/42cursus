@@ -22,6 +22,6 @@ static int	is_valid_instruction(char *str)
 int	check_instruction(t_data *data)
 {
 	if (!is_valid_instruction(data->operation))
-		ft_exit("Error\n", data);
+		ft_exit(ERR, data);
 	return (1);
 }
