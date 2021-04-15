@@ -1,13 +1,12 @@
 #include "push_swap.h"
-#include <stdio.h>
 
 int	main(int argc, char *argv[])
 {
 	t_data	data;
+	int i;
 
-	if (argc != 1)
+	if (argc == 1)
 		exit(0);
-
 	check_args(&data, argc, argv);
 	while (get_next_line(&data.operation) > 0)
 	{

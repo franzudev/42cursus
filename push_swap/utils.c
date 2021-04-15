@@ -30,9 +30,9 @@ void	print_result(t_data *data)
 	free_stack(data);
 }
 
-void	ft_exit(char *str, t_data *data) //togli str e metti ERR
+void	ft_exit(char *str, t_data *data)
 {
 	free_stack(data);
-	write(2, str, ft_strlen(str)); // write ERROR
+	write(2, str, ft_strlen(str));
 	exit(1);
 }

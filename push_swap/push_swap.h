@@ -22,9 +22,9 @@ void	check_args(t_data *data, int argc, char**argv);
 int		get_next_line(char **line);
 int		check_instruction(t_data *data);
 void	exec_instruction(t_data *data);
-void	push(int **stack_dest, int **stack_source, int size_dest, int size_source);
+void	ft_push(int *stack_dest, int *stack_source, int *size_dest, int *size_source);
 void	ft_swap(int *stack, int size);
 void	ft_rotate(int *stack, int size);
-void	r_rotate(int **stack, int size);
+void	r_rotate(int *stack, int size);
 
 #endif
