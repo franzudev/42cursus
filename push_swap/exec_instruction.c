@@ -12,7 +12,7 @@ void	exec_instruction(t_data *data)
 		ft_swap(data->stack_b, data->size_b);
 	}
 	else if (!ft_strcmp(data->operation, "pa"))
-		ft_pu sh(data->stack_a, data->stack_b, &data->size_a, &data->size_b);
+		ft_push(data->stack_a, data->stack_b, &data->size_a, &data->size_b);
 	else if (!ft_strcmp(data->operation, "pb"))
 		ft_push(data->stack_b, data->stack_a, &data->size_b, &data->size_a);
 	else if (!ft_strcmp(data->operation, "ra"))
