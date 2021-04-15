@@ -1,3 +1,5 @@
+# Checker
+
 |			federico			|				luca			|
 |_______________________________|_______________________________|
 |parse istruzioni				|parse argomenti				|
@@ -12,3 +14,10 @@ errori liberare memoria.
 Stare in ascolto su STDIN per i comandi
 
 # 3 pulire gli stack alla fine
+
+# Push_Swap
+|			federico			|				luca			|
+|_______________________________|_______________________________|
+|								|parse argomenti				|
+|								|								|
+|								|								|
