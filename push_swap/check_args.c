@@ -25,10 +25,10 @@ static void	check_number(char *number, t_data *data)
 	while (number[++i])
 	{
 		if (!((number[i] >= 48 && number[i] <= 57) || \
-			 number[i] == 45 || number[i] == 43))
+			number[i] == 45 || number[i] == 43))
 			ft_exit("non intero", data);
 	}
-}	
+}
 
 static void	fill_stack_a(t_data *data, char **argv)
 {
