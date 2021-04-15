@@ -20,9 +20,7 @@ void	print_result(t_data *data);
 void	ft_exit(char *str, t_data *data);
 void	check_args(t_data *data, int argc, char**argv);
 void	push(int **stack_dest, int **stack_source, int size_dest, int size_source);
-void	r_rotate_a(t_data *data);
-void	r_rotate_b(t_data *data);
-void	r_rotate_r(t_data *data);
+void	r_rotate(int **stack, int size);
 int		get_next_line(char **line);
 int	check_instruction(char *instruction);
 
