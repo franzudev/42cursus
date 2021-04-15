@@ -9,11 +9,11 @@ int	main(int argc, char *argv[])
 		exit(0);
 
 	check_args(&data, argc, argv);
-	//while (get_next_line((char **)&data.operation) > 0)
-	//{
-		// check_instruction(data.operation);
-		// exec_instruction(&data);
-	//}
+	while (get_next_line(&data.operation) > 0)
+	{
+		check_instruction(&data);
+		exec_instruction(&data);
+	}
 	print_result(&data);
 	return (0);
 }
