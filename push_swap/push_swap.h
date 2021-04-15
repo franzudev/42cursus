@@ -25,6 +25,6 @@ void	exec_instruction(t_data *data);
 void	ft_push(int *stack_dest, int *stack_source, int *size_dest, int *size_source);
 void	ft_swap(int *stack, int size);
 void	ft_rotate(int *stack, int size);
-void	r_rotate(int *stack, int size);
+void	ft_r_rotate(int *stack, int size);
 
 #endif
