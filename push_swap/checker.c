@@ -3,7 +3,6 @@
 int	main(int argc, char *argv[])
 {
 	t_data	data;
-	int i;
 
 	if (argc == 1)
 		exit(0);
@@ -12,7 +11,7 @@ int	main(int argc, char *argv[])
 	{
 		check_instruction(&data);
 		exec_instruction(&data);
-		free(&data.operation);
+		free(data.operation);
 	}
 	print_result(&data);
 	return (0);
