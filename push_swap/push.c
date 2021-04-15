@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	push_a(t_data *data)
+/*void	push_a(t_data *data)
 {
 	int	i;
 
@@ -38,4 +38,24 @@ void	push_b(t_data *data)
 		data->stack_b[i - 1] = data->stack_b[i];
 	data->size_b--;
 	data->size_a++;
+}*/
+
+void	push(int **stack_dest, int **stack_source, int size_dest, int size_source)
+{
+	int	i;
+
+	if (size_source == 0)
+		return ;
+	i = size_source;
+	while (i > 0)
+	{
+		stack_dest[i + 1] = stack_dest[i];
+		i--;
+	}
+	stack_dest[0] = stack_source[0];
+	i = 0;
+	while (++i < size_dest)
+		stack_source[i - 1] = stack_source[i];
+	size_source--;
+	size_dest++;
 }
