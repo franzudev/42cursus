@@ -25,7 +25,8 @@ void	print_result(t_data *data)
 		}
 	}
 	write(1, "OK\n", 3);
-	free_stack(data);
+	free_stack(data->stack_a);
+	free_stack(data->stack_b);
 }
 
 void	ft_exit(char *str, t_data *data)
