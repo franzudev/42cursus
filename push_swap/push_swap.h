@@ -5,6 +5,7 @@
 
 # include "libft/libft.h"
 # include <limits.h>
+# include <stdio.h>
 
 typedef struct s_data {
 	int		*stack_a;
@@ -14,6 +15,15 @@ typedef struct s_data {
 	char	operation[4];
 }			t_data;
 
-int	get_next_line(char **line);
+int		ft_atoi_2(const char *str, t_data *data);
+void	print_result(t_data *data);
+void	ft_exit(char *str, t_data *data);
+void	check_args(t_data *data, int argc, char**argv);
+void	push_a(t_data *data);
+void	push_b(t_data *data);
+void	r_rotate_a(t_data *data);
+void	r_rotate_b(t_data *data);
+void	r_rotate_r(t_data *data);
+int		get_next_line(char **line);
 
 #endif

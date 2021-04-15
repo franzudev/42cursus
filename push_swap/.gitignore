@@ -1,6 +1,9 @@
 .vscode
 
 ### C ###
+checker
+push_swap
+
 # Prerequisites
 *.d
 
