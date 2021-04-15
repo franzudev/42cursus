@@ -17,6 +17,7 @@ typedef struct s_data {
 
 int		ft_atoi_2(const char *str, t_data *data);
 void	print_result(t_data *data);
+void	free_stack(int *stack);
 void	ft_exit(char *str, t_data *data);
 void	check_args(t_data *data, int argc, char**argv);
 void	ft_push(int *stack_dest, int *stack_source, int *size_dest, int *size_source);
