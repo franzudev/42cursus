@@ -52,6 +52,6 @@ void	check_args(t_data *data, int argc, char**argv)
 	data->stack_a = (int *)malloc(sizeof(int) * data->size_a);
 	data->stack_b = (int *)malloc(sizeof(int) * data->size_a);
 	if (!data->stack_a || !data->stack_b)
-		ft_exit("malloc_error", data);
+		ft_exit(ERR, data);
 	fill_stack_a(data, argv);
 }

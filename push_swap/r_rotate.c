@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	r_rotate(int **stack, int size)
+void	r_rotate(int *stack, int size)
 {
 	int	tmp;
 	int	i;
