@@ -1,9 +1,9 @@
 #include "push_swap.h"
 
-void	free_stack(int *stack)
+void	free_pointer(void *pointer)
 {
-	if (stack)
-		free(stack);
+		free(pointer);
+		pointer = NULL;
 }
 
 void	print_result(t_data *data)
@@ -25,14 +25,13 @@ void	print_result(t_data *data)
 		}
 	}
 	write(1, "OK\n", 3);
-	free_stack(data->stack_a);
-	free_stack(data->stack_b);
+	free_pointer(data);
 }
 
 void	ft_exit(char *str, t_data *data)
 {
-	free_stack(data->stack_a);
-	free_stack(data->stack_b);
+	free_pointer(&data->stack_a);
+	free_pointer(&data->stack_b);
 	write(2, str, ft_strlen(str));
 	exit(1);
 }

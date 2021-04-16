@@ -21,12 +21,11 @@ int	main(int argc, char *argv[])
 		i = -1;
 		while (++i < data.size_b)
 		{
-			printf("B: %d\n", data.stack_b[i]);
-			
+			printf("B: %d\n", data.stack_b[i]);	
 		}
-		
 		free(data.operation);
 	}
 	print_result(&data);
+	free_pointer(&data);
 	return (0);
 }
