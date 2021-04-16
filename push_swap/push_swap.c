@@ -10,7 +10,7 @@ int	main(int argc, char *argv[])
 	while (get_next_line(&data.operation) > 0)
 	{
 		check_instruction(&data);
-		exec_instruction(&data);	
+		exec_instruction(&data);
 		free(data.operation);
 	}
 	print_result(&data);
