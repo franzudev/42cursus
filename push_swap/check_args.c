@@ -30,28 +30,57 @@ static void	check_number(char *number, t_data *data)
 	}
 }
 
-static void	fill_stack_a(t_data *data, char **argv)
+static void	fill_stack_a(t_data *data, char **shit)
 {
 	int	i;
 	int	nb;
 
-	i = 0;
+	i = -1;
 	while (++i <= data->size_a)
 	{
-		check_number(argv[i], data);
-		nb = ft_atoi_2(argv[i], data);
+		check_number(shit[i], data);
+		nb = ft_atoi_2(shit[i], data);
 		data->stack_a[i - 1] = nb;
 	}
 	check_duplicate(data);
 }
 
-void	check_args(t_data *data, int argc, char**argv)
+static char **check_string(t_data *data, int argc, char **argv)
 {
-	data->size_a = argc - 1;
+	char **shit;
+	int i;
+
+	if (argc == 2)
+	{
+		shit = ft_split(argv[1], ' ');
+		i = 0;
+		while(**shit)
+			i++;
+		data->size_a = i;
+	}
+	else
+	{
+		i = 1;
+		while (*argv[i])
+		{
+			*shit[i - 1] = *argv[i];
+			i++;
+		}
+			data->size_a = argc - 1;
+	}
+	return (shit);
+}
+
+void	check_args(t_data *data, int argc, char **argv)
+{
+	char **shit;
+
+	shit = check_string(data, argc, argv);
+	//data->size_a = argc - 1;
 	data->size_b = 0;
 	data->stack_a = (int *)malloc(sizeof(int) * data->size_a);
 	data->stack_b = (int *)malloc(sizeof(int) * data->size_a);
 	if (!data->stack_a || !data->stack_b)
 		ft_exit(ERR, data);
-	fill_stack_a(data, argv);
+	fill_stack_a(data, shit);
 }
