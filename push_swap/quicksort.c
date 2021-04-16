@@ -1,5 +1,4 @@
 #include<stdio.h>
-#define MAX 100
 
 void ft_quicksort(int *a,int primo,int ultimo)
 {

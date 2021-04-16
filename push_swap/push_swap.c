@@ -8,6 +8,6 @@ int	main(int argc, char *argv[])
 		exit(0);
 	check_args(&data, argc, argv);
 	calculate_moves(&data);
-	print_result(&data);
+	free_pointer(&data);
 	return (0);
 }
