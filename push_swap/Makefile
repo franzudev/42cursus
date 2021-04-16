@@ -4,18 +4,19 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -Llibft -lft
 
-SRCS = check_instruction.c exec_instruction.c operations.c gnl.c checker.c atoi_2.c utils.c check_args.c
+SRCS_CHECKER = check_instruction.c exec_instruction.c operations.c gnl.c checker.c atoi_2.c utils.c check_args.c
+SRCS_SWAP = check_instruction.c exec_instruction.c fralin.c quicksort.c operations.c gnl.c push_swap.c atoi_2.c utils.c check_args.c
 # OBJS = $(SRCS:c=o)
 
 all: $(NAME) $(NAME2)
 
 $(NAME): $(OBJS)
 	@make -C libft
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(SRCS_CHECKER)
 
 $(NAME2): $(OBJS)
 	@make -C libft
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME2) $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME2) $(SRCS_SWAP)
 
 clean:
 	@make clean -C libft

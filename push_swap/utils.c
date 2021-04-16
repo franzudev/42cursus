@@ -1,5 +1,33 @@
 #include "push_swap.h"
 
+int	is_sorted_asc(int *stack, int size)
+{
+	int i;
+
+	i = 0;
+	while (stack[i] && i < size - 1)
+	{
+		if (stack[i] > stack[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	is_sorted_desc(int *stack, int size)
+{
+	int i;
+
+	i = 0;
+	while (stack[i] && i < size - 1)
+	{
+		if (stack[i] < stack[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	free_stack(int *stack)
 {
 	if (stack)

@@ -4,7 +4,7 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 	int i;
-	
+
 	if (argc == 1)
 		exit(0);
 	check_args(&data, argc, argv);
@@ -12,19 +12,19 @@ int	main(int argc, char *argv[])
 	{
 		check_instruction(&data);
 		exec_instruction(&data);
-			i = -1;
+		i = -1;
 		while (++i < data.size_a)
 		{
 			printf("A: %d\n", data.stack_a[i]);
-			
+
 		}
 		i = -1;
 		while (++i < data.size_b)
 		{
 			printf("B: %d\n", data.stack_b[i]);
-			
+
 		}
-		
+
 		free(data.operation);
 	}
 	print_result(&data);

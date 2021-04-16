@@ -7,12 +7,7 @@ int	main(int argc, char *argv[])
 	if (argc == 1)
 		exit(0);
 	check_args(&data, argc, argv);
-	while (get_next_line(&data.operation) > 0)
-	{
-		check_instruction(&data);
-		exec_instruction(&data);
-		free(data.operation);
-	}
+	calculate_moves(&data);
 	print_result(&data);
 	return (0);
 }
