@@ -14,19 +14,13 @@ int	main(int argc, char *argv[])
 		exec_instruction(&data);
 		i = -1;
 		while (++i < data.size_a)
-		{
 			printf("A: %d\n", data.stack_a[i]);
-
-		}
 		i = -1;
 		while (++i < data.size_b)
-		{
 			printf("B: %d\n", data.stack_b[i]);
-
-		}
-
 		free(data.operation);
 	}
 	print_result(&data);
+	free_pointer(&data);
 	return (0);
 }
