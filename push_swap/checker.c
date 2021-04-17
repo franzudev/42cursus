@@ -3,7 +3,7 @@
 int	main(int argc, char *argv[])
 {
 	t_data	data;
-	int i;
+	int		i;
 
 	if (argc == 1)
 		exit(0);

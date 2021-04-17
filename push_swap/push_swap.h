@@ -27,8 +27,9 @@ void	ft_push(int *dest, int *source, int *size_dest, int *size_source);
 void	ft_swap(int *stack, int size);
 void	ft_rotate(int *stack, int size);
 void	ft_r_rotate(int *stack, int size);
-int		is_sorted(int *stack, int size);
-void	calculate_moves(t_data *data);
-void	ft_quicksort(int *a,int primo,int ultimo);
+int		is_sorted_asc(const int *stack, int size);
+int		is_sorted_desc(const int *stack, int size);
+void	ft_quicksort(int *a, int first, int last);
+void	sort_array(t_data *data);
 
 #endif

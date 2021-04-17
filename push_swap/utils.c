@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-int	is_sorted_asc(int *stack, int size)
+int	is_sorted_asc(const int *stack, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (stack[i] && i < size - 1)
@@ -14,9 +14,9 @@ int	is_sorted_asc(int *stack, int size)
 	return (1);
 }
 
-int	is_sorted_desc(int *stack, int size)
+int	is_sorted_desc(const int *stack, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (stack[i] && i < size - 1)
@@ -30,8 +30,8 @@ int	is_sorted_desc(int *stack, int size)
 
 void	free_pointer(void *pointer)
 {
-		free(pointer);
-		pointer = NULL;
+	free(pointer);
+	pointer = NULL;
 }
 
 void	print_result(t_data *data)

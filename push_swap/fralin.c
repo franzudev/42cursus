@@ -1,50 +1,41 @@
 #include "push_swap.h"
 
-void quicksort(int *a, int primo, int ultimo)
+static	int	*generate_index_array(int *stack, int size)
 {
+	int	*copy;
+	int	*index_arr;
 	int	i;
 	int	j;
-	int	pivot;
-	int	temp;
 
-	if (primo < ultimo)
+	i = 0;
+	copy = (int *)malloc(sizeof(int) * size);
+	index_arr = (int *)malloc(sizeof(int) * size);
+	if (!copy || !index_arr)
+		exit(1);
+	copy = ft_memmove(copy, stack, sizeof(int) * size);
+	ft_quicksort(copy, 0, size - 1);
+	while (i < size)
 	{
-		pivot = primo;
-		i = primo;
-		j = ultimo;
-		while (i < j)
-		{
-			while (a[i] <= a[pivot] && i < ultimo)
-				i++;
-			while (a[j] > a[pivot])
-				j--;
-			if (i<j)
-			{
-				temp = a[i];
-				a[i] = a[j];
-				a[j] = temp;
-			}
-		}
-		temp = a[pivot];
-		a[pivot] = a[j];
-		a[j] = temp;
-		quicksort(a, primo, j - 1);
-		quicksort(a, j + 1, ultimo);
+		j = 0;
+		while (stack[i] != copy[j] && j < size)
+			j++;
+		index_arr[i] = j;
+		i++;
 	}
+	free(copy);
+	return (index_arr);
 }
 
-void	calculate_moves(t_data *data)
+void	calculate_moves(int *a_stack, int size)
 {
-	int i;
+	int	*b_stack;
+}
 
-	printf("size args: %d\n", data->size_a);
-	i = -1;
-	while (++i < data->size_a)
-		printf("A: %d\n", data->stack_a[i]);
-	quicksort(data->stack_a, 0, data->size_a - 1);
-	printf("###################\n#####################\n##################\n");
-	i = -1;
-	while (++i < data->size_a)
-		printf("A: %d\n", data->stack_a[i]);
+void	sort_array(t_data *data)
+{
+	int		*indexes;
+	char	*operations;
 
+	indexes = generate_index_array(data->stack_a, data->size_a);
+	calculate_moves(indexes, data->size_a);
 }

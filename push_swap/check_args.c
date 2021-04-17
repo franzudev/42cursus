@@ -42,7 +42,7 @@ static void	fill_stack_a(t_data *data, char **str, int i)
 			nb = ft_atoi_2(str[i], data);
 			data->stack_a[i] = nb;
 			free(str[i]);
-			str[i] = NULL;		
+			str[i] = NULL;
 		}
 		free(str);
 	}

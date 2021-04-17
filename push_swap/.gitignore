@@ -3,7 +3,8 @@
 ### C ###
 checker
 push_swap
-
+build
+CMakeLists.txt
 # Prerequisites
 *.d
 

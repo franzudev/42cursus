@@ -1,41 +1,39 @@
-#include<stdio.h>
+static	void	ft_swap_nums(int *a, int i, int j)
+{
+	int	temp;
 
-void ft_quicksort(int *a,int primo,int ultimo)
+	if (i < j)
+	{
+		temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
+	}
+}
+
+void	ft_quicksort(int *a, int first, int last)
 {
 	int	i;
 	int	j;
 	int	pivot;
 	int	temp;
 
-	if (primo < ultimo)
+	if (first < last)
 	{
-		pivot = primo;
-		i = primo;
-		j = ultimo;
+		pivot = first;
+		i = first;
+		j = last;
 		while (i < j)
 		{
-			while (a[i] <= a[pivot] && i < ultimo)
+			while (a[i] <= a[pivot] && i < last)
 				i++;
 			while (a[j] > a[pivot])
 				j--;
-			if (i<j)
-			{
-				temp = a[i];
-				a[i] = a[j];
-				a[j] = temp;
-			}
+			ft_swap_nums(a, i, j);
 		}
 		temp = a[pivot];
 		a[pivot] = a[j];
 		a[j] = temp;
-		ft_quicksort(a, primo, j - 1);
-		ft_quicksort(a, j + 1, ultimo);
+		ft_quicksort(a, first, j - 1);
+		ft_quicksort(a, j + 1, last);
 	}
 }
-
-// int main(){
-// 	int n, a[MAX];
-// 	n = insert_array(a);
-// 	quicksort(a,0,n-1);
-// 	return 0;
-// }

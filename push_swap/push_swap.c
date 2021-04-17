@@ -7,7 +7,8 @@ int	main(int argc, char *argv[])
 	if (argc == 1)
 		exit(0);
 	check_args(&data, argc, argv);
-	calculate_moves(&data);
-	free_pointer(&data);
+	sort_array(&data);
+	free_pointer(data.stack_a);
+	free_pointer(data.stack_b);
 	return (0);
 }
