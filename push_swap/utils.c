@@ -5,7 +5,7 @@ int	is_sorted_asc(const int *stack, int size)
 	int	i;
 
 	i = 0;
-	while (stack[i] && i < size - 1)
+	while (i < size - 1)
 	{
 		if (stack[i] > stack[i + 1])
 			return (0);
@@ -19,7 +19,7 @@ int	is_sorted_desc(const int *stack, int size)
 	int	i;
 
 	i = 0;
-	while (stack[i] && i < size - 1)
+	while (i < size - 1)
 	{
 		if (stack[i] < stack[i + 1])
 			return (0);

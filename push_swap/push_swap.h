@@ -31,5 +31,12 @@ int		is_sorted_asc(const int *stack, int size);
 int		is_sorted_desc(const int *stack, int size);
 void	ft_quicksort(int *a, int first, int last);
 void	sort_array(t_data *data);
+int		is_srp(int *stack, int index, int size);
+int		is_sp(int *stack, int index, int size);
+int		is_rp(int *stack, int index, int size);
+int		is_swappable(int *stack, int index, int size);
+int		is_rotatable(int *stack, int index, int size);
+int		is_rev_rotatable(int *stack, int index, int size);
+int		is_pushable(int *stack, int index, int size);
 
 #endif
