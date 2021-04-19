@@ -5,7 +5,7 @@ CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -Llibft -lft
 
 SRCS_CHECKER = check_instruction.c exec_instruction.c operations.c gnl.c checker.c atoi_2.c utils.c check_args.c
-SRCS_SWAP = check_instruction.c sort_checker.c exec_instruction.c fralin.c quicksort.c operations.c gnl.c push_swap.c atoi_2.c utils.c check_args.c
+SRCS_SWAP = check_instruction.c sort_checker.c topolino.c pincopallino.c exec_instruction.c fralin.c quicksort.c operations.c gnl.c push_swap.c atoi_2.c utils.c check_args.c
 # OBJS = $(SRCS:c=o)
 
 all: $(NAME) $(NAME2)
