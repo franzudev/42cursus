@@ -16,10 +16,12 @@ typedef struct s_data {
 }			t_data;
 
 typedef struct s_sort {
-	int		*stack;
-	int		size;
-	int		index_mediana;
-	int		mediana;
+	int		*stack_a;
+	int		*stack_b;
+	int		size_a;
+	int		size_b;
+	//int		index_mediana;
+	//int		mediana;
 }			t_sort;
 
 int		ft_atoi_2(const char *str, t_data *data);
@@ -40,6 +42,6 @@ void	ft_quicksort(int *a, int first, int last);
 void	sort_array(t_data *data);
 
 void	pincopallino(t_data *data);
-void	topolino(t_data *data);
+void	paperino(t_data *data);
 
 #endif

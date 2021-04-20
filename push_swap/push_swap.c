@@ -8,7 +8,9 @@ int	main(int argc, char *argv[])
 		exit(0);
 	check_args(&data, argc, argv);
 	//sort_array(&data);
-	topolino(&data);
+	
+	//pincopallino(&data);
+	paperino(&data);
 	free_pointer(data.stack_a);
 	free_pointer(data.stack_b);
 	return (0);

@@ -1,5 +1,5 @@
 #include "push_swap.h"
-
+/*
 static	int	*generate_index_array(int *stack, int size)
 {
 	int	*copy;
@@ -39,3 +39,4 @@ void	sort_array(t_data *data)
 	indexes = generate_index_array(data->stack_a, data->size_a);
 	calculate_moves(indexes, data->size_a);
 }
+*/
