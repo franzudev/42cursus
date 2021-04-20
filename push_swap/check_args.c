@@ -12,7 +12,7 @@ static void	check_duplicate(t_data *data)
 		while (++j < i)
 		{
 			if (data->stack_a[i] == data->stack_a[j])
-				ft_exit("doppione", data);
+				ft_exit(ERR, data);
 		}
 	}
 }
@@ -26,7 +26,7 @@ static void	check_number(char *number, t_data *data)
 	{
 		if (!((number[i] >= 48 && number[i] <= 57) || \
 			number[i] == 45 || number[i] == 43))
-			ft_exit("non intero", data);
+			ft_exit(ERR, data);
 	}
 }
 

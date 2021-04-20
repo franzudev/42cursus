@@ -66,3 +66,9 @@ int	check_mediana(int *stack, int size)
 	media = somma / size;
 	return (media);
 }
+
+void	ft_print_and_inc(char *move, int *inc)
+{
+	write(1, move, ft_strlen(move));
+	inc += 1;
+}

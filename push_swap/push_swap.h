@@ -54,7 +54,7 @@ int		ft_find_stack(int *stack, int size, int check);
 void	generate_index_array(t_data *data, t_sort *sort);
 int		check_mediana(int *stack, int size);
 void	phase_seven_three(t_sort *sort, int check);
-
+void	ft_print_and_inc(char *move, int *inc);
 void	pincopallino(t_data *data);
 void	paperino(t_data *data);
 

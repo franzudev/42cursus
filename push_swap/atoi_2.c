@@ -28,9 +28,9 @@ static	int	get_result(const char *str, long res, int s, t_data *data)
 	{
 		res = res * 10 + (*str - '0');
 		if (s == -1 && res > 2147483648)
-			ft_exit("max/min integer", data);
+			ft_exit(ERR, data);
 		if (s == 1 && res > 2147483647)
-			ft_exit("max/min integer", data);
+			ft_exit(ERR, data);
 		str++;
 	}
 	return ((int)(res * s));

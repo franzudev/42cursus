@@ -40,6 +40,8 @@ void	print_result(t_data *data)
 
 	if (data->size_b)
 	{
+		free_pointer(data->stack_a);
+		free_pointer(data->stack_b);
 		write(1, "KO\n", 3);
 		return ;
 	}
@@ -48,19 +50,21 @@ void	print_result(t_data *data)
 	{
 		if (data->stack_a[i] > data->stack_a[i + 1])
 		{
+			free_pointer(data->stack_a);
+			free_pointer(data->stack_b);
 			write(1, "KO\n", 3);
 			return ;
 		}
 	}
-	write(1, "OK\n", 3);
 	free_pointer(data->stack_a);
 	free_pointer(data->stack_b);
+	write(1, "OK\n", 3);
 }
 
 void	ft_exit(char *str, t_data *data)
 {
-	free_pointer(&data->stack_a);
-	free_pointer(&data->stack_b);
+	free_pointer(data->stack_a);
+	free_pointer(data->stack_b);
 	write(2, str, ft_strlen(str));
 	exit(1);
 }
