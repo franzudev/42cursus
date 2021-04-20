@@ -53,7 +53,8 @@ void	print_result(t_data *data)
 		}
 	}
 	write(1, "OK\n", 3);
-	free_pointer(data);
+	free_pointer(data->stack_a);
+	free_pointer(data->stack_b);
 }
 
 void	ft_exit(char *str, t_data *data)

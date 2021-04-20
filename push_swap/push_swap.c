@@ -7,10 +7,10 @@ int	main(int argc, char *argv[])
 	if (argc == 1)
 		exit(0);
 	check_args(&data, argc, argv);
-	//sort_array(&data);
-	
-	//pincopallino(&data);
-	paperino(&data);
+	if (data.size_a > 99)
+		paperino(&data);
+	else
+		pincopallino(&data);
 	free_pointer(data.stack_a);
 	free_pointer(data.stack_b);
 	return (0);

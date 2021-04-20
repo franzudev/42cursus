@@ -17,11 +17,13 @@ typedef struct s_data {
 
 typedef struct s_sort {
 	int		*stack_a;
+	int		*stack;
 	int		*stack_b;
+	int		size;
 	int		size_a;
 	int		size_b;
-	//int		index_mediana;
-	//int		mediana;
+	int		index_mediana;
+	int		mediana;
 }			t_sort;
 
 int		ft_atoi_2(const char *str, t_data *data);
@@ -47,6 +49,11 @@ int		is_swappable(int *stack, int index, int size);
 int		is_rotatable(int *stack, int index, int size);
 int		is_rev_rotatable(int *stack, int index, int size);
 int		is_pushable(int *stack, int index, int size);
+int		ft_find_nb(int *stack, int size, int nb);
+int		ft_find_stack(int *stack, int size, int check);
+void	generate_index_array(t_data *data, t_sort *sort);
+int		check_mediana(int *stack, int size);
+void	phase_seven_three(t_sort *sort, int check);
 
 void	pincopallino(t_data *data);
 void	paperino(t_data *data);
