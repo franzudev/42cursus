@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ffrancoi <ffrancoi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:48:15 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/04/21 15:48:17 by lincerpi         ###   ########.fr       */
+/*   Created: 2021/04/21 15:48:15 by ffrancoi          #+#    #+#             */
+/*   Updated: 2021/04/21 15:48:17 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

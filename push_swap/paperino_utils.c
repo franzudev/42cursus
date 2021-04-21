@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paperino_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ffrancoi <ffrancoi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:50:23 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/04/21 15:50:25 by lincerpi         ###   ########.fr       */
+/*   Created: 2021/04/21 15:50:23 by ffrancoi          #+#    #+#             */
+/*   Updated: 2021/04/21 15:50:25 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

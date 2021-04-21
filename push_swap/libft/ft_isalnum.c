@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ffrancoi <ffrancoi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:47:40 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/04/21 15:52:06 by lincerpi         ###   ########.fr       */
+/*   Created: 2021/04/21 15:47:40 by ffrancoi          #+#    #+#             */
+/*   Updated: 2021/04/21 15:52:06 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: ffrancoi <ffrancoi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 11:26:23 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/04/21 15:49:13 by lincerpi         ###   ########.fr       */
+/*   Created: 2021/01/12 11:26:23 by ffrancoi          #+#    #+#             */
+/*   Updated: 2021/04/21 15:49:13 by ffrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
