@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/21 15:50:15 by lincerpi          #+#    #+#              #
+#    Updated: 2021/04/21 15:50:17 by lincerpi         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = checker
 NAME2 = push_swap
 CC = gcc
@@ -6,8 +18,6 @@ LDFLAGS = -Llibft -lft
 
 SRCS_CHECKER = check_instruction.c exec_instruction.c operations.c gnl.c checker.c atoi_2.c utils.c check_args.c
 SRCS_SWAP = check_instruction.c topolino.c pp_utils.c phase_seven.c paperino_utils.c exec_instruction.c paperino.c pincopallino.c quicksort.c operations.c gnl.c push_swap.c atoi_2.c utils.c check_args.c
-
-# OBJS = $(SRCS:c=o)
 
 all: $(NAME) $(NAME2)
 
@@ -27,3 +37,5 @@ fclean: clean
 	rm -f $(NAME) $(NAME2)
 
 re: fclean all
+
+.PHONY: all clean fclean re
