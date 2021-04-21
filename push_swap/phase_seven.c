@@ -51,3 +51,22 @@ void	phase_seven_three(t_sort *sort, int check)
 	else
 		seven_continue(sort, check);
 }
+
+void	phase_seven_plus(t_sort *sort)
+{
+	ft_swap(sort->stack_a, sort->size_a);
+	if (sort->stack_b[0] < sort->stack_b[1])
+	{
+		ft_swap(sort->stack_b, sort->size_b);
+		write(1, "ss\n", 3);
+	}
+	else
+		write(1, "sa\n", 3);
+}
+
+void	phase_four_plus(t_sort *sort)
+{
+	ft_rotate(sort->stack_a, sort->size_a);
+	ft_push(sort->stack_b, sort->stack_a, &sort->size_b, &sort->size_a);
+	write(1, "ra\npb\n", 6);
+}

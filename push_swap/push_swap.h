@@ -56,6 +56,10 @@ int		check_mediana(int *stack, int size);
 void	phase_seven_three(t_sort *sort, int check);
 void	ft_print_and_inc(char *move, int *inc);
 void	pincopallino(t_data *data);
+void	phase_magic(t_data *data, t_sort *sort);
 void	paperino(t_data *data);
+void	phase_four_plus(t_sort *sort);
+void	phase_seven_plus(t_sort *sort);
+void	topolino(t_data *data);
 
 #endif

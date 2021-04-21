@@ -55,16 +55,14 @@ static	void	phase_four(t_sort *sort)
 			write(1, "ra\n", 3);
 			count++;
 		}
-		else if(sort->stack_a[0] < sort->stack_a[1])
+		else if (sort->stack_a[0] < sort->stack_a[1])
 		{
 			ft_swap(sort->stack_a, sort->size_a);
 			write(1, "sa\n", 3);
 		}
 		else
 		{
-			ft_rotate(sort->stack_a, sort->size_a);
-			ft_push(sort->stack_b, sort->stack_a, &sort->size_b, &sort->size_a);
-			write(1, "ra\npb\n", 6);
+			phase_four_plus(sort);
 			count += 2;
 		}
 	}
@@ -86,16 +84,7 @@ static	void	phase_seven(t_sort *sort)
 			check++;
 		}
 		else if (sort->stack_a[0] > sort->stack_a[1])
-		{
-			ft_swap(sort->stack_a, sort->size_a);
-			if (sort->stack_b[0] < sort->stack_b[1])
-			{
-				ft_swap(sort->stack_b, sort->size_b);
-				write(1, "ss\n", 3);
-			}
-			else
-				write(1, "sa\n", 3);
-		}
+			phase_seven_plus(sort);
 		else
 			phase_seven_three(sort, check);
 	}
