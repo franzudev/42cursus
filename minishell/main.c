@@ -1,35 +1,34 @@
 #include "minishell.h"
 
-void	dont_terminate(int par)
+void	lst_del(void *lst)
 {
-	par = 5;
+	if (!lst)
+		return ;
+	free(((t_env *)lst)->name);
+	free(((t_env *)lst)->value);
+	free(lst);
+	lst = NULL;
 }
 
-int main(int ac, char **av, char **env) {
-//	t_mini	mini;
-	int		r, i = 0;
-	char 	comm[1024];
+void	lst_dele(void *lst)
+{
+	free(lst);
+	lst = NULL;
+}
 
-	if (ac != 1)
-		exit(av[0][1]);
-	if (!env)
+int	main(int argc, char **argv, char **env)
+{
+	term = (t_term *)malloc(sizeof(t_term));
+	if (argc != 1)
 		exit(1);
-
-	// to manage ctrl+c
-	signal(SIGINT, dont_terminate);
-	// to manage ctrl+d
-	signal(SIGQUIT, dont_terminate);
-
-
-	write(1, "e3r5p12.$>", 10);
-	while (1)
-	{
-		if (comm[i] == '\n')
-		{
-			comm[i] = '\0';
-			execve("/bin/ls", av, env);
-		}
-	}
-
-	return 0;
+	if (!argv[0])
+		exit(1);
+	init_env(env);
+	env_command();
+	ft_lstclear(&term->env, lst_del);
+	ft_lstclear(&term->env, lst_dele);
+	free(term->env);
+	term->env = NULL;
+	free(term);
+	term = NULL;
 }
