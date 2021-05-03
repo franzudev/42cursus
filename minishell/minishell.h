@@ -39,6 +39,7 @@ typedef struct	s_term{
 	char			**old_env;
 	t_list			*env;
 	char 			line[2048];
+	int 			last_status_code;
 	int 			cx;
 	int				cy;
 	int 			rows;
@@ -46,8 +47,10 @@ typedef struct	s_term{
 }				t_term;
 
 typedef struct s_comm {
-	int		quote_open;
-	char	value;
+	char			*value;
+	char 			*flags;
+	int 			order;
+	struct s_comm 	*next;
 }				t_comm;
 
 void	init_env(char **sys_env);

@@ -54,6 +54,16 @@ static void new_line_command()
 
 void	parse_command()
 {
+	char *line;
+	char **tokens;
+
+	line = term->line;
+	tokens = NULL;
+
+	if (ft_strchr(line, ';'))
+		tokens = ft_split(line, ';');
+//	if (ft_strchr(line))
+	return ;
 
 }
 
@@ -99,7 +109,7 @@ void restore_term()
 
 int	main(int argc, char **argv, char **env)
 {
-	atexit(restore_term);
+	atexit(restore_term); // to remove
 	int r;
 
 	r = 0;
@@ -109,8 +119,17 @@ int	main(int argc, char **argv, char **env)
 	if (!argv[0])
 		exit(1);
 	init_env(env);
-//	env_command();
+////	env_command();
 	enableRawMode();
+	if (fork() == 0)
+	{
+		restore_term();
+		char *av[] = {"ls", "la", NULL};
+		execve("/bin/ls", av, env);
+	} else {
+		wait(NULL);
+		enableRawMode();
+	}
 	while (r > -1)
 		r = read_input();
 	free_all();
