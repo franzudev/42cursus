@@ -7,7 +7,7 @@ void	env_command(void)
 	t = term->env;
 	while (t->content)
 	{
-		printf("%s=%s\n", ((t_env *)t->content)->name, (
+		printf("\x0d%s=%s\n", ((t_env *)t->content)->name, (
 				(t_env *)t->content)->value);
 		t = t->next;
 	}

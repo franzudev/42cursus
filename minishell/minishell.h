@@ -1,6 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define ABUF_INIT {NULL, 0}
+# define USER "e3r4p12 $>"
 
 
 # include <unistd.h>
@@ -38,6 +38,7 @@ typedef struct	s_term{
 	struct	termios	old_conf;
 	char			**old_env;
 	t_list			*env;
+	char 			line[2048];
 	int 			cx;
 	int				cy;
 	int 			rows;
@@ -51,6 +52,7 @@ typedef struct s_comm {
 
 void	init_env(char **sys_env);
 void	env_command(void);
+void	free_all(void);
 
 t_term *term;
 #endif
