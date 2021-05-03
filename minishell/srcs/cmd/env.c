@@ -1,6 +1,6 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	env_command(void)
+int	env_command(void)
 {
 	t_list	*t;
 
@@ -11,6 +11,7 @@ void	env_command(void)
 				(t_env *)t->content)->value);
 		t = t->next;
 	}
+	return (EXIT_SUCCESS);
 }
 
 static t_list	*alloc_env(char *sys_env, t_list *temp)
