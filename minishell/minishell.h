@@ -15,14 +15,6 @@
 # include "libft/libft.h"
 # include <errno.h>
 
-// append buffer
-
-struct abuf {
-	char *b;
-	int len;
-};
-
-
 typedef struct	s_env {
 	char*			name;
 	char*			value;
@@ -33,6 +25,13 @@ enum e_arrows {
 	RIGHT,
 	UP,
 	DOWN
+};
+
+enum e_token_types {
+	COMM,
+	OPERATOR,
+	FLAGS,
+	ARGS
 };
 
 typedef struct	s_term{
@@ -46,6 +45,12 @@ typedef struct	s_term{
 	int 			rows;
 	int 			cols;
 }				t_term;
+
+typedef struct s_token {
+	char			*value;
+	int 			type;
+	struct s_token	*next;
+}				t_token;
 
 typedef struct s_comm {
 	char			*value;
