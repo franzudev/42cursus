@@ -49,6 +49,7 @@ typedef struct	s_term{
 
 typedef struct s_comm {
 	char			*value;
+	char			*args;
 	char 			*flags;
 	int 			order;
 	struct s_comm 	*next;
@@ -56,12 +57,15 @@ typedef struct s_comm {
 
 void	init_env(char **sys_env);
 int		env_command(void);
+void	lst_del(void *lst);
 void	free_all(void);
 
-int		cmd_echo(t_comm *cmd);
-int		cmd_cd(t_comm *cmd);
-int		cmd_pwd(void);
-int		cmd_exit(void);
+int		cmd_echo(t_comm *cmd); //da aggiuntare $
+int		cmd_cd(t_comm *cmd); //da fare
+int		cmd_pwd(void); 
+int		cmd_exit(void);	// seg fault ???
+int		cmd_export(t_comm *cmd); //da fare
+int 	cmd_unset(t_comm *cmd); // da testare PORCODIO seg fault anche qui!!!
 
 t_term *term;
 #endif

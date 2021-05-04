@@ -4,9 +4,10 @@ int	cmd_pwd(void)
 {
 	char	*buf;
 
+	buf = NULL;
 	buf = getcwd(buf, MAX_LEN);
 	if (buf == NULL)
-      return (errno);
+      return (EXIT_FAILURE);
     else
 	{
       write(STDOUT_FILENO, buf, ft_strlen(buf));
@@ -15,10 +16,8 @@ int	cmd_pwd(void)
 	return (EXIT_SUCCESS);
 }
 
-// If successful, getcwd() returns a pointer to the buffer.
-
-// If unsuccessful, getcwd() returns a NULL pointer and sets errno to one of the following values cit.IBM
-// if (getcwd(cwd, sizeof(cwd)) == NULL)
-//       perror("getcwd() error");
-//     else
-//       printf("current working directory is: %s\n", cwd);
+int main()
+{
+	cmd_pwd();
+	return 0;
+}

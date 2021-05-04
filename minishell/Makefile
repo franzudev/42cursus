@@ -8,7 +8,7 @@ LDFLAGS = -L/usr/local/opt/ncurses/lib -lncurses
 
 SRCS_DIR = srcs
 
-SRCS_FILE = utils.c env.c
+SRCS_FILE = utils.c cmd/env.c
 
 MAIN = main.c
 
