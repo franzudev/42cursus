@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define USER "e3r4p12 $>"
+# define MAX_LEN 2048
 
 
 # include <unistd.h>
@@ -37,7 +38,7 @@ typedef struct	s_term{
 	struct	termios	old_conf;
 	char			**old_env;
 	t_list			*env;
-	char 			line[2048];
+	char 			line[MAX_LEN];
 	int 			last_status_code;
 	int 			cx;
 	int				cy;
@@ -59,8 +60,13 @@ typedef struct s_comm {
 }				t_comm;
 
 void	init_env(char **sys_env);
-void	env_command(void);
+int		env_command(void);
 void	free_all(void);
+
+int		cmd_echo(t_comm *cmd);
+int		cmd_cd(t_comm *cmd);
+int		cmd_pwd(void);
+int		cmd_exit(void);
 
 t_term *term;
 #endif
