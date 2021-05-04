@@ -66,7 +66,7 @@ int	ft_index_of(char *str, char *set)
 	return (-1);
 }
 
-static	int	ft_isspace(char c)
+/*static	int	ft_isspace(char c)
 {
 	if (c == '\n' || c == '\r' || c == '\f' || c == '\t' || c == '\v'
 		|| c == ' ')
@@ -82,7 +82,7 @@ int	ft_is_reserved_symbol(char *c)
 		|| ft_strncmp(">>", c, 2))
 		return (1);
 	return (0);
-}
+}*/
 
 void	parse_command()
 {
@@ -122,10 +122,10 @@ void	parse_command()
 				phase = FLAGS;
 			if (phase == FLAGS)
 			{
-				while (*cmd == '-')
+				/*while (*cmd == '-')
 				{
 					ft_index_of(cmd, "")
-				}
+				}*/
 			}
 		}
 	}
@@ -134,7 +134,7 @@ void	parse_command()
 
 int read_input(void)
 {
-	int r;
+	ssize_t r;
 	int cp;
 	char c;
 
@@ -146,7 +146,7 @@ int read_input(void)
 //		if (c == '\x1b') // ctrl keys
 		if (ft_isprint(c))
 			write_char(&cp, c);
-		if (c == 127 && !(cp == 0))
+		if (c == 127 && cp != 0)
 			delete_char(&cp);
 		if (c == '\r') // lexer
 		{
@@ -172,10 +172,14 @@ void restore_term()
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &term->old_conf);
 }
 
+#include <sys/types.h>
+#include <sys/stat.h>
+
 int	main(int argc, char **argv, char **env)
 {
 	atexit(restore_term); // to remove
 	int r;
+	struct stat st;
 
 	r = 0;
 	term = (t_term *)malloc(sizeof(t_term));
@@ -184,17 +188,17 @@ int	main(int argc, char **argv, char **env)
 	if (!argv[0])
 		exit(1);
 	init_env(env);
-////	env_command();
 	enableRawMode();
-	if (fork() == 0)
-	{
-		restore_term();
-		char *av[] = {"ls", "la", NULL};
-		execve("/bin/ls", av, env);
-	} else {
-		wait(NULL);
-		enableRawMode();
-	}
+
+//	if (fork() == 0)
+//	{
+//		restore_term();
+//		char *av[] = {"ls", "-la", "srcs", NULL};
+//		execve("/bin/ls", av, env);
+//	} else {
+//		wait(NULL);
+//		enableRawMode();
+//	}
 	while (r > -1)
 		r = read_input();
 	free_all();
