@@ -52,19 +52,84 @@ static void new_line_command()
 	write(1, USER, ft_strlen(USER));
 }
 
+int	ft_index_of(char *str, char *set)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr(set, str[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static	int	ft_isspace(char c)
+{
+	if (c == '\n' || c == '\r' || c == '\f' || c == '\t' || c == '\v'
+		|| c == ' ')
+		return (1);
+	return (0);
+}
+
+int	ft_is_reserved_symbol(char *c)
+{
+	if (ft_strncmp("|", c, 1)
+		|| ft_strncmp("<", c, 1)
+		|| ft_strncmp(">", c, 1)
+		|| ft_strncmp(">>", c, 2))
+		return (1);
+	return (0);
+}
+
 void	parse_command()
 {
-	char *line;
-	char **tokens;
+	char	*line;
+	char	**cmds;
+	char	**pipes;
+	char 	**redis;
+	char	*cmd;
+	int 	i;
+	int		j;
+	int 	idx;
+	int		phase;
+	t_token tokens;
 
 	line = term->line;
-	tokens = NULL;
+	cmds = NULL;
+	pipes = NULL;
+	redis = NULL;
+
+	phase = COMM;
 
 	if (ft_strchr(line, ';'))
-		tokens = ft_split(line, ';');
-//	if (ft_strchr(line))
+		cmds = ft_split(line, ';');
+	i = 0;
+	while (cmds[i])
+	{
+		j = 0;
+		cmd = ft_strtrim(cmds[i], " \n\r\f\t\v");
+		idx = ft_index_of(cmd, " \n\r\f\t\v");
+		tokens.value = ft_substr(cmd, 0, idx);
+		tokens.type = COMM;
+		cmd += idx;
+		while (*cmd)
+		{
+			cmd = ft_strtrim(cmd, " \n\r\f\t\v");
+			if (phase == COMM && *cmd == '-')
+				phase = FLAGS;
+			if (phase == FLAGS)
+			{
+				while (*cmd == '-')
+				{
+					ft_index_of(cmd, "")
+				}
+			}
+		}
+	}
 	return ;
-
 }
 
 int read_input(void)
@@ -79,7 +144,7 @@ int read_input(void)
 	while (r > -1)
 	{
 //		if (c == '\x1b') // ctrl keys
-		if (c > 31 && c < 127)
+		if (ft_isprint(c))
 			write_char(&cp, c);
 		if (c == 127 && !(cp == 0))
 			delete_char(&cp);
