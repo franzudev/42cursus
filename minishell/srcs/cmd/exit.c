@@ -6,9 +6,3 @@ int	cmd_exit(void)
 	free_all();
 	exit(EXIT_SUCCESS);
 }
-//seg fault ???
-int main()
-{
-	cmd_exit();
-	return(0);
-}

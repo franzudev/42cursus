@@ -21,24 +21,3 @@ int cmd_unset(t_comm *cmd)
 	}
 	return (EXIT_FAILURE);
 }
-
-int main()
-{
-	t_comm cmd;
-	t_list	*t;
-
-	cmd.value = "unset";
-	cmd.args = "PWD";
-	
-	cmd_unset(&cmd);
-	
-	t = term->env;
-	while (t->content)
-	{
-		printf("%s=%s\n", ((t_env *)t->content)->name, (
-				(t_env *)t->content)->value);
-		t = t->next;
-	}
-	return (EXIT_SUCCESS);
-}
-

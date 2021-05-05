@@ -16,8 +16,3 @@ int	cmd_pwd(void)
 	return (EXIT_SUCCESS);
 }
 
-int main()
-{
-	cmd_pwd();
-	return 0;
-}

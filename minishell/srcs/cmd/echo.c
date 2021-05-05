@@ -39,18 +39,3 @@ int	cmd_echo(t_comm *cmd)
 		write(STDOUT_FILENO, "\n", 1);
 	return (EXIT_SUCCESS);
 }
-
-int main()
-{
-	t_comm comm;
-
-	comm.flags = "";
-	comm.value = "echo";
-	comm.args = "ciao ciao";
-
-	cmd_echo(&comm);
-
-	return 0;
-}
-
-// Porca Miseria non funziona con $$$ >>> PDIOOOOOOOOOØØ!!!! seg fault
