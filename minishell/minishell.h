@@ -73,12 +73,15 @@ typedef struct s_comm {
 
 void	init_env(char **sys_env);
 int		env_command(void);
+void	lst_del(void *lst);
 void	free_all(void);
 
 int		cmd_echo(t_comm *cmd);
 int		cmd_cd(t_comm *cmd);
-int		cmd_pwd(void);
+int		cmd_pwd(void); 
 int		cmd_exit(void);
+int		cmd_export(t_comm *cmd);
+int 	cmd_unset(t_comm *cmd);
 
 t_term *term;
 #endif
