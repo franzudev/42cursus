@@ -27,10 +27,22 @@ enum e_arrows {
 	DOWN
 };
 
+enum e_output {
+	STD = 10000,
+	PIPE,
+	REDOUT,
+	REDAPP,
+	REDIN,
+};
+
 enum e_token_types {
 	COMM,
-	OPERATOR,
-	FLAGS,
+	PIPE,
+	REDOUT,
+	REDIN,
+	APPOUT,
+	OPTION1,
+	OPTION2,
 	ARGS
 };
 
@@ -54,8 +66,8 @@ typedef struct s_token {
 
 typedef struct s_comm {
 	char			*value;
-	char 			*flags;
-	int 			order;
+	char 			**args;
+	int 			output;
 	struct s_comm 	*next;
 }				t_comm;
 

@@ -7,7 +7,8 @@ set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall -Werror -Wextra
 
 set(SRCS
         srcs/utils.c
-        main.c srcs/env.c)
+        srcs/cmd/env.c
+        main.c)
 
 add_executable(minishell ${SRCS})
 target_link_libraries(minishell ${CMAKE_SOURCE_DIR}/libft/libft.a)

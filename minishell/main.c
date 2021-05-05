@@ -66,7 +66,7 @@ int	ft_index_of(char *str, char *set)
 	return (-1);
 }
 
-static	int	ft_isspace(char c)
+/*static	int	ft_isspace(char c)
 {
 	if (c == '\n' || c == '\r' || c == '\f' || c == '\t' || c == '\v'
 		|| c == ' ')
@@ -82,54 +82,38 @@ int	ft_is_reserved_symbol(char *c)
 		|| ft_strncmp(">>", c, 2))
 		return (1);
 	return (0);
-}
+}*/
 
-void	parse_command()
+t_comm	*parse_command()
 {
-	char	*line;
 	char	**cmds;
-	char	**pipes;
-	char 	**redis;
-	char	*cmd;
+	char	**cmd;
+	t_comm	*commands;
+	t_comm	*command;
 	int 	i;
-	int		j;
-	int 	idx;
-	int		phase;
-	t_token tokens;
 
-	line = term->line;
-	cmds = NULL;
-	pipes = NULL;
-	redis = NULL;
-
-	phase = COMM;
-
-	if (ft_strchr(line, ';'))
-		cmds = ft_split(line, ';');
+	cmds = ft_split(term->line, ';');
+	command = (t_comm *)malloc(sizeof(t_comm));
+	commands = command;
 	i = 0;
 	while (cmds[i])
 	{
-		j = 0;
-		cmd = ft_strtrim(cmds[i], " \n\r\f\t\v");
-		idx = ft_index_of(cmd, " \n\r\f\t\v");
-		tokens.value = ft_substr(cmd, 0, idx);
-		tokens.type = COMM;
-		cmd += idx;
-		while (*cmd)
-		{
-			cmd = ft_strtrim(cmd, " \n\r\f\t\v");
-			if (phase == COMM && *cmd == '-')
-				phase = FLAGS;
-			if (phase == FLAGS)
-			{
-				while (*cmd == '-')
-				{
-					ft_index_of(cmd, "")
-				}
-			}
-		}
+		if (ft_index_of(cmds[i], " "))
+		cmd = ft_split(cmds[i], ' ');
+		command->value = cmd[0];
+		command->args = cmd;
+		command->next = (t_comm *)malloc(sizeof(t_comm));
+		command = command->next;
+		free(cmd);
+		i++;
 	}
-	return ;
+	free(cmds);
+
+	i = 0;
+	printf("%s\n", commands->value);
+	while (i < 3)
+		printf("%s\n", commands->args[i++]);
+	return commands;
 }
 
 int read_input(void)
@@ -186,7 +170,9 @@ int	main(int argc, char **argv, char **env)
 	init_env(env);
 ////	env_command();
 	enableRawMode();
-	if (fork() == 0)
+	ft_strlcpy(term->line, "ls -la toro", 6);
+	parse_command();
+	/*if (fork() == 0)
 	{
 		restore_term();
 		char *av[] = {"ls", "la", NULL};
@@ -196,7 +182,7 @@ int	main(int argc, char **argv, char **env)
 		enableRawMode();
 	}
 	while (r > -1)
-		r = read_input();
+		r = read_input();*/
 	free_all();
 	return (0);
 }
