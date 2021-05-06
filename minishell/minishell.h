@@ -27,13 +27,13 @@ enum e_arrows {
 	DOWN
 };
 
-enum e_output {
-	STD = 10000,
-	PIPE,
-	REDOUT,
-	REDAPP,
-	REDIN,
-};
+// enum e_output {
+// 	STD = 10000,
+// 	PIPE,
+// 	REDOUT,
+// 	REDAPP,
+// 	REDIN,
+// };
 
 enum e_token_types {
 	COMM,
