@@ -171,7 +171,7 @@ int	main(int argc, char **argv, char **env)
 {
 	atexit(restore_term); // to remove
 	int r;
-	struct stat st;
+//	struct stat st;
 
 	r = 0;
 	term = (t_term *)malloc(sizeof(t_term));

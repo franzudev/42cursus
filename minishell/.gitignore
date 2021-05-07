@@ -95,3 +95,6 @@ Temporary Items
 !.vscode/extensions.json
 *.code-workspace
 minishell
+.idea
+cmake-build-debug
+CMakeLists.txt
