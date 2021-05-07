@@ -28,11 +28,10 @@ enum e_arrows {
 };
 
  enum e_output {
- 	STD = 10000,
- 	PIPE,
- 	REDOUT,
- 	REDAPP,
- 	REDIN,
+ 	STD,
+	PIPE,
+	APPEND,
+	WRITE,
  };
 
 typedef struct	s_term{
@@ -57,7 +56,9 @@ typedef struct s_comm {
 	char			*value;
 	char 			**args;
 	char 			*input;
-	int 			output;
+	char            *output;
+	int 			output_type;
+	struct s_comm	*prev;
 	struct s_comm 	*next;
 }				t_comm;
 
@@ -65,10 +66,11 @@ void	init_env(char **sys_env);
 int		env_command(void);
 void	lst_del(void *lst);
 void	free_all(void);
+void 	restore_term(void);
 
 int		cmd_echo(t_comm *cmd);
 int		cmd_cd(t_comm *cmd);
-int		cmd_pwd(void); 
+int		cmd_pwd(void);
 int		cmd_exit(void);
 int		cmd_export(t_comm *cmd);
 int 	cmd_unset(t_comm *cmd);
