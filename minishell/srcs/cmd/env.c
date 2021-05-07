@@ -7,8 +7,10 @@ int	env_command(void)
 	t = term->env;
 	while (t->content)
 	{
-		printf("\x0d%s=%s\n", ((t_env *)t->content)->name, (
-				(t_env *)t->content)->value);
+		ft_putstr_fd("\n\x0d", 2);
+		ft_putstr_fd(((t_env *)t->content)->name, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(((t_env *)t->content)->value, 1);
 		t = t->next;
 	}
 	return (EXIT_SUCCESS);

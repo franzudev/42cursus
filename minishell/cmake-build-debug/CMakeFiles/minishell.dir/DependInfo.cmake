@@ -4,9 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/franzu/42/minishell/main.c" "/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/main.c.o"
-  "/Users/franzu/42/minishell/srcs/env.c" "/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/env.c.o"
-  "/Users/franzu/42/minishell/srcs/utils.c" "/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/utils.c.o"
+  "/Users/ffrancoi/42/minishell/main.c" "/Users/ffrancoi/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/main.c.o"
+  "/Users/ffrancoi/42/minishell/srcs/cmd/env.c" "/Users/ffrancoi/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/cmd/env.c.o"
+  "/Users/ffrancoi/42/minishell/srcs/cmd/exit.c" "/Users/ffrancoi/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/cmd/exit.c.o"
+  "/Users/ffrancoi/42/minishell/srcs/cmd/pwd.c" "/Users/ffrancoi/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o"
+  "/Users/ffrancoi/42/minishell/srcs/utils.c" "/Users/ffrancoi/42/minishell/cmake-build-debug/CMakeFiles/minishell.dir/srcs/utils.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

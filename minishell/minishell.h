@@ -27,12 +27,13 @@ enum e_arrows {
 	DOWN
 };
 
-enum e_token_types {
-	COMM,
-	OPERATOR,
-	FLAGS,
-	ARGS
-};
+ enum e_output {
+ 	STD = 10000,
+ 	PIPE,
+ 	REDOUT,
+ 	REDAPP,
+ 	REDIN,
+ };
 
 typedef struct	s_term{
 	struct	termios	old_conf;
@@ -54,19 +55,23 @@ typedef struct s_token {
 
 typedef struct s_comm {
 	char			*value;
-	char 			*flags;
-	int 			order;
+	char 			**args;
+	char 			*input;
+	int 			output;
 	struct s_comm 	*next;
 }				t_comm;
 
 void	init_env(char **sys_env);
 int		env_command(void);
+void	lst_del(void *lst);
 void	free_all(void);
 
 int		cmd_echo(t_comm *cmd);
 int		cmd_cd(t_comm *cmd);
-int		cmd_pwd(void);
+int		cmd_pwd(void); 
 int		cmd_exit(void);
+int		cmd_export(t_comm *cmd);
+int 	cmd_unset(t_comm *cmd);
 
 t_term *term;
 #endif

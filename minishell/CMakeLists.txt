@@ -8,6 +8,8 @@ set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall -Werror -Wextra
 set(SRCS
         srcs/utils.c
         srcs/cmd/env.c
+        srcs/cmd/pwd.c
+        srcs/cmd/exit.c
         main.c)
 
 add_executable(minishell ${SRCS})
