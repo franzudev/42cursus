@@ -35,17 +35,6 @@ enum e_output {
 	REDIN,
 };
 
-enum e_token_types {
-	COMM,
-	PIPE,
-	REDOUT,
-	REDIN,
-	APPOUT,
-	OPTION1,
-	OPTION2,
-	ARGS
-};
-
 typedef struct	s_term{
 	struct	termios	old_conf;
 	char			**old_env;
@@ -67,6 +56,7 @@ typedef struct s_token {
 typedef struct s_comm {
 	char			*value;
 	char 			**args;
+	char 			*input;
 	int 			output;
 	struct s_comm 	*next;
 }				t_comm;

@@ -91,28 +91,29 @@ t_comm	*parse_command()
 	t_comm	*commands;
 	t_comm	*command;
 	int 	i;
+	int 	j;
 
 	cmds = ft_split(term->line, ';');
 	command = (t_comm *)malloc(sizeof(t_comm));
 	commands = command;
 	i = 0;
+	j = 0;
 	while (cmds[i])
 	{
-		if (ft_index_of(cmds[i], " "))
-		cmd = ft_split(cmds[i], ' ');
-		command->value = cmd[0];
-		command->args = cmd;
-		command->next = (t_comm *)malloc(sizeof(t_comm));
-		command = command->next;
+		cmd = ft_split(cmds[i], '|');
+		command->output = (ft_index_of(cmds[i], "|") != -1) + STD;
+		while (cmd[j])
+		{
+			command->args = ft_split(cmd[j], ' ');
+			command->value = command->args[0];
+			command->next = (t_comm *) malloc(sizeof(t_comm));
+			command = command->next;
+			j++;
+		}
 		free(cmd);
 		i++;
 	}
 	free(cmds);
-
-	i = 0;
-	printf("%s\n", commands->value);
-	while (i < 3)
-		printf("%s\n", commands->args[i++]);
 	return commands;
 }
 
@@ -121,6 +122,7 @@ int read_input(void)
 	int r;
 	int cp;
 	char c;
+	t_comm *comm;
 
 	cp = 0;
 	write(1, USER, ft_strlen(USER));
@@ -134,8 +136,14 @@ int read_input(void)
 			delete_char(&cp);
 		if (c == '\r') // lexer
 		{
-			parse_command();
-			new_line_command();
+			comm = parse_command();
+			if (ft_strncmp(term->line, "pwd", 3) == 0)
+				cmd_pwd();
+			if (ft_strncmp(term->line, "exit", 4) == 0)
+				cmd_exit();
+			if (ft_strncmp(term->line, "env", 3) == 0)
+				env_command();
+//			new_line_command();
 			cp = 0;
 		}
 		if (c == (('d') & 0x1f) && cp == 0)
@@ -168,9 +176,8 @@ int	main(int argc, char **argv, char **env)
 	if (!argv[0])
 		exit(1);
 	init_env(env);
-////	env_command();
 	enableRawMode();
-	ft_strlcpy(term->line, "ls -la toro", 6);
+	ft_strlcpy(term->line, "ls -la toro | echo 'zio can'", 29);
 	parse_command();
 	/*if (fork() == 0)
 	{
@@ -180,9 +187,42 @@ int	main(int argc, char **argv, char **env)
 	} else {
 		wait(NULL);
 		enableRawMode();
-	}
+	}*/
 	while (r > -1)
-		r = read_input();*/
+		r = read_input();
 	free_all();
 	return (0);
 }
+
+
+// for strings
+//int string_in_command()
+//{
+//	char	*cm;
+//	int 	sidx;
+//	int 	didx;
+//	sidx = ft_index_of(cmd[j], "'");
+//	didx = ft_index_of(cmd[j], "\x22");
+//	cm = cmd[j];
+//	if (sidx != -1)
+//	{
+//		if (sidx < didx || didx == -1)
+//		{
+//			cm = ft_substr(cmd[j], 0, sidx);
+//			cm = ft_strjoin(cm, ft_substr(cmd[j], sidx, ft_strlen
+//																(cmd[j]) -
+//														didx));
+//		}
+//	}
+//	if (didx != -1)
+//	{
+//		if (didx < sidx || sidx == -1)
+//		{
+//			cm = ft_substr(cmd[j], 0, didx);
+//			cm = ft_strjoin(cm, ft_substr(cmd[j], didx, ft_index_of
+//																(cmd[j],
+//																 "\x22") -
+//														didx + 1));
+//		}
+//	}
+//}

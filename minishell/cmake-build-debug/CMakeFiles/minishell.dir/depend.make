@@ -5,9 +5,17 @@ CMakeFiles/minishell.dir/main.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/main.c.o: ../main.c
 CMakeFiles/minishell.dir/main.c.o: ../minishell.h
 
-CMakeFiles/minishell.dir/srcs/env.c.o: ../libft/libft.h
-CMakeFiles/minishell.dir/srcs/env.c.o: ../minishell.h
-CMakeFiles/minishell.dir/srcs/env.c.o: ../srcs/env.c
+CMakeFiles/minishell.dir/srcs/cmd/env.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/cmd/env.c.o: ../minishell.h
+CMakeFiles/minishell.dir/srcs/cmd/env.c.o: ../srcs/cmd/env.c
+
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.o: ../minishell.h
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.o: ../srcs/cmd/exit.c
+
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o: ../minishell.h
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o: ../srcs/cmd/pwd.c
 
 CMakeFiles/minishell.dir/srcs/utils.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/srcs/utils.c.o: ../minishell.h

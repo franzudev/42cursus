@@ -10,9 +10,10 @@ int	cmd_pwd(void)
       return (EXIT_FAILURE);
     else
 	{
+	  write(STDOUT_FILENO, "\n\x0d", 2);
       write(STDOUT_FILENO, buf, ft_strlen(buf));
-	  write(STDOUT_FILENO, "\n", 1);
 	}
+    free(buf);
 	return (EXIT_SUCCESS);
 }
 

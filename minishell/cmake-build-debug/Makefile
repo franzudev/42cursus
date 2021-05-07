@@ -170,32 +170,86 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.s
 .PHONY : main.c.s
 
-srcs/env.o: srcs/env.c.o
+srcs/cmd/env.o: srcs/cmd/env.c.o
 
-.PHONY : srcs/env.o
+.PHONY : srcs/cmd/env.o
 
 # target to build an object file
-srcs/env.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env.c.o
-.PHONY : srcs/env.c.o
+srcs/cmd/env.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/env.c.o
+.PHONY : srcs/cmd/env.c.o
 
-srcs/env.i: srcs/env.c.i
+srcs/cmd/env.i: srcs/cmd/env.c.i
 
-.PHONY : srcs/env.i
+.PHONY : srcs/cmd/env.i
 
 # target to preprocess a source file
-srcs/env.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env.c.i
-.PHONY : srcs/env.c.i
+srcs/cmd/env.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/env.c.i
+.PHONY : srcs/cmd/env.c.i
 
-srcs/env.s: srcs/env.c.s
+srcs/cmd/env.s: srcs/cmd/env.c.s
 
-.PHONY : srcs/env.s
+.PHONY : srcs/cmd/env.s
 
 # target to generate assembly for a file
-srcs/env.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/env.c.s
-.PHONY : srcs/env.c.s
+srcs/cmd/env.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/env.c.s
+.PHONY : srcs/cmd/env.c.s
+
+srcs/cmd/exit.o: srcs/cmd/exit.c.o
+
+.PHONY : srcs/cmd/exit.o
+
+# target to build an object file
+srcs/cmd/exit.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/exit.c.o
+.PHONY : srcs/cmd/exit.c.o
+
+srcs/cmd/exit.i: srcs/cmd/exit.c.i
+
+.PHONY : srcs/cmd/exit.i
+
+# target to preprocess a source file
+srcs/cmd/exit.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/exit.c.i
+.PHONY : srcs/cmd/exit.c.i
+
+srcs/cmd/exit.s: srcs/cmd/exit.c.s
+
+.PHONY : srcs/cmd/exit.s
+
+# target to generate assembly for a file
+srcs/cmd/exit.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/exit.c.s
+.PHONY : srcs/cmd/exit.c.s
+
+srcs/cmd/pwd.o: srcs/cmd/pwd.c.o
+
+.PHONY : srcs/cmd/pwd.o
+
+# target to build an object file
+srcs/cmd/pwd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o
+.PHONY : srcs/cmd/pwd.c.o
+
+srcs/cmd/pwd.i: srcs/cmd/pwd.c.i
+
+.PHONY : srcs/cmd/pwd.i
+
+# target to preprocess a source file
+srcs/cmd/pwd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/pwd.c.i
+.PHONY : srcs/cmd/pwd.c.i
+
+srcs/cmd/pwd.s: srcs/cmd/pwd.c.s
+
+.PHONY : srcs/cmd/pwd.s
+
+# target to generate assembly for a file
+srcs/cmd/pwd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/cmd/pwd.c.s
+.PHONY : srcs/cmd/pwd.c.s
 
 srcs/utils.o: srcs/utils.c.o
 
@@ -236,9 +290,15 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... srcs/env.o"
-	@echo "... srcs/env.i"
-	@echo "... srcs/env.s"
+	@echo "... srcs/cmd/env.o"
+	@echo "... srcs/cmd/env.i"
+	@echo "... srcs/cmd/env.s"
+	@echo "... srcs/cmd/exit.o"
+	@echo "... srcs/cmd/exit.i"
+	@echo "... srcs/cmd/exit.s"
+	@echo "... srcs/cmd/pwd.o"
+	@echo "... srcs/cmd/pwd.i"
+	@echo "... srcs/cmd/pwd.s"
 	@echo "... srcs/utils.o"
 	@echo "... srcs/utils.i"
 	@echo "... srcs/utils.s"

@@ -81,7 +81,13 @@
 		<Unit filename="/Users/franzu/42/minishell/main.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/franzu/42/minishell/srcs/env.c">
+		<Unit filename="/Users/franzu/42/minishell/srcs/cmd/env.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/franzu/42/minishell/srcs/cmd/exit.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/franzu/42/minishell/srcs/cmd/pwd.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/franzu/42/minishell/srcs/utils.c">

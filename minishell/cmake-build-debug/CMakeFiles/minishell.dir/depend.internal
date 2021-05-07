@@ -5,10 +5,18 @@ CMakeFiles/minishell.dir/main.c.o
  /Users/franzu/42/minishell/libft/libft.h
  /Users/franzu/42/minishell/main.c
  /Users/franzu/42/minishell/minishell.h
-CMakeFiles/minishell.dir/srcs/env.c.o
+CMakeFiles/minishell.dir/srcs/cmd/env.c.o
  /Users/franzu/42/minishell/libft/libft.h
  /Users/franzu/42/minishell/minishell.h
- /Users/franzu/42/minishell/srcs/env.c
+ /Users/franzu/42/minishell/srcs/cmd/env.c
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.o
+ /Users/franzu/42/minishell/libft/libft.h
+ /Users/franzu/42/minishell/minishell.h
+ /Users/franzu/42/minishell/srcs/cmd/exit.c
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o
+ /Users/franzu/42/minishell/libft/libft.h
+ /Users/franzu/42/minishell/minishell.h
+ /Users/franzu/42/minishell/srcs/cmd/pwd.c
 CMakeFiles/minishell.dir/srcs/utils.c.o
  /Users/franzu/42/minishell/libft/libft.h
  /Users/franzu/42/minishell/minishell.h

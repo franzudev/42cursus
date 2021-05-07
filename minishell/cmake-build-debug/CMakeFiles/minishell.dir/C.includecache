@@ -38,11 +38,3 @@ libft/libft.h
 errno.h
 -
 
-/Users/franzu/42/minishell/srcs/env.c
-../minishell.h
-/Users/franzu/42/minishell/minishell.h
-
-/Users/franzu/42/minishell/srcs/utils.c
-../minishell.h
-/Users/franzu/42/minishell/minishell.h
-

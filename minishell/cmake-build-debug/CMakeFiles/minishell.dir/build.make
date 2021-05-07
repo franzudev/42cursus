@@ -90,9 +90,48 @@ CMakeFiles/minishell.dir/srcs/utils.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/utils.c.s"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/franzu/42/minishell/srcs/utils.c -o CMakeFiles/minishell.dir/srcs/utils.c.s
 
+CMakeFiles/minishell.dir/srcs/cmd/env.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/srcs/cmd/env.c.o: ../srcs/cmd/env.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/minishell.dir/srcs/cmd/env.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/cmd/env.c.o   -c /Users/franzu/42/minishell/srcs/cmd/env.c
+
+CMakeFiles/minishell.dir/srcs/cmd/env.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/cmd/env.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/franzu/42/minishell/srcs/cmd/env.c > CMakeFiles/minishell.dir/srcs/cmd/env.c.i
+
+CMakeFiles/minishell.dir/srcs/cmd/env.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/cmd/env.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/franzu/42/minishell/srcs/cmd/env.c -o CMakeFiles/minishell.dir/srcs/cmd/env.c.s
+
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o: ../srcs/cmd/pwd.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o   -c /Users/franzu/42/minishell/srcs/cmd/pwd.c
+
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/cmd/pwd.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/franzu/42/minishell/srcs/cmd/pwd.c > CMakeFiles/minishell.dir/srcs/cmd/pwd.c.i
+
+CMakeFiles/minishell.dir/srcs/cmd/pwd.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/cmd/pwd.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/franzu/42/minishell/srcs/cmd/pwd.c -o CMakeFiles/minishell.dir/srcs/cmd/pwd.c.s
+
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.o: CMakeFiles/minishell.dir/flags.make
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.o: ../srcs/cmd/exit.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/minishell.dir/srcs/cmd/exit.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/cmd/exit.c.o   -c /Users/franzu/42/minishell/srcs/cmd/exit.c
+
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/cmd/exit.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/franzu/42/minishell/srcs/cmd/exit.c > CMakeFiles/minishell.dir/srcs/cmd/exit.c.i
+
+CMakeFiles/minishell.dir/srcs/cmd/exit.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/cmd/exit.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/franzu/42/minishell/srcs/cmd/exit.c -o CMakeFiles/minishell.dir/srcs/cmd/exit.c.s
+
 CMakeFiles/minishell.dir/main.c.o: CMakeFiles/minishell.dir/flags.make
 CMakeFiles/minishell.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/minishell.dir/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/minishell.dir/main.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/main.c.o   -c /Users/franzu/42/minishell/main.c
 
 CMakeFiles/minishell.dir/main.c.i: cmake_force
@@ -103,36 +142,27 @@ CMakeFiles/minishell.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/main.c.s"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/franzu/42/minishell/main.c -o CMakeFiles/minishell.dir/main.c.s
 
-CMakeFiles/minishell.dir/srcs/env.c.o: CMakeFiles/minishell.dir/flags.make
-CMakeFiles/minishell.dir/srcs/env.c.o: ../srcs/env.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/minishell.dir/srcs/env.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/minishell.dir/srcs/env.c.o   -c /Users/franzu/42/minishell/srcs/env.c
-
-CMakeFiles/minishell.dir/srcs/env.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/minishell.dir/srcs/env.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/franzu/42/minishell/srcs/env.c > CMakeFiles/minishell.dir/srcs/env.c.i
-
-CMakeFiles/minishell.dir/srcs/env.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minishell.dir/srcs/env.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/franzu/42/minishell/srcs/env.c -o CMakeFiles/minishell.dir/srcs/env.c.s
-
 # Object files for target minishell
 minishell_OBJECTS = \
 "CMakeFiles/minishell.dir/srcs/utils.c.o" \
-"CMakeFiles/minishell.dir/main.c.o" \
-"CMakeFiles/minishell.dir/srcs/env.c.o"
+"CMakeFiles/minishell.dir/srcs/cmd/env.c.o" \
+"CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o" \
+"CMakeFiles/minishell.dir/srcs/cmd/exit.c.o" \
+"CMakeFiles/minishell.dir/main.c.o"
 
 # External object files for target minishell
 minishell_EXTERNAL_OBJECTS =
 
 minishell: CMakeFiles/minishell.dir/srcs/utils.c.o
+minishell: CMakeFiles/minishell.dir/srcs/cmd/env.c.o
+minishell: CMakeFiles/minishell.dir/srcs/cmd/pwd.c.o
+minishell: CMakeFiles/minishell.dir/srcs/cmd/exit.c.o
 minishell: CMakeFiles/minishell.dir/main.c.o
-minishell: CMakeFiles/minishell.dir/srcs/env.c.o
 minishell: CMakeFiles/minishell.dir/build.make
 minishell: ../libft/libft.a
 minishell: /usr/local/opt/ncurses/lib/libncurses.a
 minishell: CMakeFiles/minishell.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable minishell"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/franzu/42/minishell/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable minishell"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/minishell.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
