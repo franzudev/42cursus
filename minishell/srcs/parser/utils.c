@@ -10,11 +10,24 @@ static int	is_append(const char *str, int *wri)
 	return (-1);
 }
 
+static char	*set_output(t_comm *command, char *str, int type, int op)
+{
+	int		inp;
+	char	*temp;
+
+	inp = ft_rindex_of(&str[op], "<");
+	command->output_type = type;
+	if (inp != -1)
+		temp = ft_substr(&str[op], 0, ft_index_of(&str[op], "<"));
+	else
+		temp = ft_substr(&str[op], 0, ft_strlen(&str[op]));
+	return (temp);
+}
+
 void	command_output(t_comm *command, char *str)
 {
 	int		wri;
 	int		app;
-	int		inp;
 	char	*temp;
 
 	wri = ft_rindex_of(str, ">");
@@ -24,23 +37,9 @@ void	command_output(t_comm *command, char *str)
 		++wri;
 		++app;
 		if (wri > app)
-		{
-			inp = ft_rindex_of(&str[wri], "<");
-			command->output_type = WRITE;
-			if (inp != -1)
-				temp = ft_substr(&str[wri], 0, ft_index_of(&str[wri], "<"));
-			else
-				temp = ft_substr(&str[wri], 0, ft_strlen(&str[wri]));
-		}
+			temp = set_output(command, str, WRITE, wri);
 		if (app > wri)
-		{
-			inp = ft_rindex_of(&str[app], "<");
-			command->output_type = APPEND;
-			if (inp != -1)
-				temp = ft_substr(&str[app], 0, ft_index_of(&str[app], "<"));
-			else
-				temp = ft_substr(&str[app], 0, ft_strlen(&str[app]));
-		}
+			temp = set_output(command, str, APPEND, app);
 		command->output = ft_strtrim(temp, " ");
 		free(temp);
 	}
@@ -84,7 +83,7 @@ char	*slice_operators(char *str)
 	wri = ft_index_of(str, ">");
 	if (inp == -1 && wri == -1)
 		return (str);
-	if (inp < wri)
+	if (inp < wri && inp != -1)
 		return (ft_substr(str, 0, inp));
 	return (ft_substr(str, 0, wri));
 }

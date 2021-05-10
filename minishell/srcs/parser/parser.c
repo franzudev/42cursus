@@ -1,6 +1,7 @@
 #include "../../minishell.h"
 
-void	parse_operators(t_comm *command, char *cmd, int cmds_size, int index)
+static void	parse_operators(t_comm *command, char *cmd, int cmds_size, int
+index)
 {
 	char	*tmp;
 
@@ -8,7 +9,7 @@ void	parse_operators(t_comm *command, char *cmd, int cmds_size, int index)
 	if (!command->output && cmds_size > 1 && index != cmds_size - 1)
 		command->output_type = PIPE;
 	command_input(command, cmd);
-	if (command->output_type > STD && command->input)
+	if (command->output_type > PIPE || command->input)
 	{
 		tmp = slice_operators(cmd);
 		command->args = ft_split(tmp, ' ');

@@ -36,7 +36,7 @@ enum e_arrows {
 
 typedef struct	s_term{
 	struct	termios	old_conf;
-	char			**old_env;
+	char			**reenv;
 	t_list			*env;
 	char 			line[MAX_LEN];
 	int 			last_status_code;
@@ -66,16 +66,25 @@ void	init_env(char **sys_env);
 int		env_command(void);
 void	lst_del(void *lst);
 void	free_all(void);
-void 	restore_term(void);
-t_comm	*parse_input(void);
 int		ft_size(void **arr);
+
+// parser
+t_comm	*parse_input(void);
 void	command_output(t_comm *command, char *str);
 void	command_input(t_comm *command, char *str);
 char	*slice_operators(char *str);
 int		ft_index_of(char *str, char *set);
 int		ft_rindex_of(char *str, char *set);
+
+// terminal
 void	enableRawMode(void);
-void	restore_term(void);
+void 	restore_term(void);
+void	delete_nbytes(int cp);
+void	delete_char(int *cp);
+void	new_line_command(void);
+void	write_char(int *cp, char c);
+int		quit_gracefully(void);
+int		read_input(void);
 
 int		cmd_echo(t_comm *cmd);
 int		cmd_cd(t_comm *cmd);

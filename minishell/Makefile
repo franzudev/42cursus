@@ -9,7 +9,7 @@ LDFLAGS = -L/usr/local/opt/ncurses/lib -lncurses
 
 SRCS_DIR = srcs
 
-SRCS_FILE = utils.c parser.c parser_utils.c
+SRCS_FILE = utils.c
 
 PRS_SRCS_FILE = parser.c utils.c
 
