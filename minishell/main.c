@@ -1,22 +1,5 @@
 #include "minishell.h"
 
-void	enableRawMode(void)
-{
-	struct termios	raw;
-
-	if (tcgetattr(STDIN_FILENO, &term->old_conf) == -1)
-		exit(1);
-	raw = term->old_conf;
-	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-	raw.c_oflag &= ~(OPOST);
-	raw.c_cflag |= (CS8);
-	raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-	raw.c_cc[VMIN] = 0;
-	raw.c_cc[VTIME] = 1;
-	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1)
-		exit(1);
-}
-
 static void	delete_nbytes(int cp)
 {
 	while (cp)
@@ -54,34 +37,6 @@ static void	new_line_command(void)
 	write(1, USER, ft_strlen(USER));
 }
 
-int	ft_index_of(char *str, char *set)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strchr(set, str[i]))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int	ft_rindex_of(char *str, char *set)
-{
-	int	i;
-
-	i = (int)ft_strlen(str) - 1;
-	while (i > -1)
-	{
-		if (ft_strchr(set, str[i]))
-			return (i);
-		i--;
-	}
-	return (-1);
-}
-
 /*static	int	ft_isspace(char c)
 {
 	if (c == '\n' || c == '\r' || c == '\f' || c == '\t' || c == '\v'
@@ -99,167 +54,6 @@ int	ft_is_reserved_symbol(char *c)
 		return (1);
 	return (0);
 }*/
-
-int	is_append(char *str, int *wri)
-{
-	if (*wri > 0 && str[*wri - 1] == '>')
-	{
-		*wri -= 1;
-		return (*wri + 1);
-	}
-	return (-1);
-}
-
-void	command_output(t_comm *command, char *str)
-{
-	int		wri;
-	int		app;
-	int		inp;
-	char	*temp;
-
-	wri = ft_rindex_of(str, ">");
-	app = is_append(str, &wri);
-	if (wri != -1 || app != -1)
-	{
-		++wri;
-		++app;
-		if (wri > app)
-		{
-			inp = ft_rindex_of(&str[wri], "<");
-			command->output_type = WRITE;
-			if (inp != -1)
-				temp = ft_substr(&str[wri], 0, ft_index_of(&str[wri], "<"));
-			else
-				temp = ft_substr(&str[wri], 0, ft_strlen(&str[wri]));
-		}
-		if (app > wri)
-		{
-			inp = ft_rindex_of(&str[app], "<");
-			command->output_type = APPEND;
-			if (inp != -1)
-				temp = ft_substr(&str[app], 0, ft_index_of(&str[app], "<"));
-			else
-				temp = ft_substr(&str[app], 0, ft_strlen(&str[app]));
-		}
-		command->output = ft_strtrim(temp, " ");
-		free(temp);
-	}
-	else
-	{
-		command->output = NULL;
-		command->output_type = STD;
-	}
-}
-
-void	command_input(t_comm *command, char *str)
-{
-	int		inp;
-	int		wri;
-	int		app;
-	char	*temp;
-
-	inp = ft_rindex_of(str, "<");
-	if (inp != -1)
-	{
-		++inp;
-		wri = ft_index_of(&str[inp], ">");
-		app = is_append(&str[inp], &wri);
-		if (wri == -1 && app == -1)
-			temp = ft_substr(&str[inp], 0, ft_strlen(&str[inp]));
-		else
-			temp = ft_substr(&str[inp], 0, ft_index_of(&str[inp], ">"));
-		command->input = ft_strtrim(temp, " ");
-		free(temp);
-	}
-	else
-		command->input = NULL;
-}
-
-int	ft_size(void **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
-char	*slice_operators(char *str)
-{
-	int	inp;
-	int	wri;
-
-	inp = ft_index_of(str, "<");
-	wri = ft_index_of(str, ">");
-	if (inp == -1 && wri == -1)
-		return (str);
-	if (inp < wri)
-		return (ft_substr(str, 0, inp));
-	return (ft_substr(str, 0, wri));
-}
-
-void	parse_operators(t_comm *command, char *cmd, int cmds_size, int index)
-{
-	char	*tmp;
-
-	command_output(command, cmd);
-	if (!command->output && cmds_size > 1 && index != cmds_size - 1)
-		command->output_type = PIPE;
-	command_input(command, cmd);
-	if (command->output_type > STD && command->input)
-	{
-		tmp = slice_operators(cmd);
-		command->args = ft_split(tmp, ' ');
-		free(tmp);
-	}
-	else
-		command->args = ft_split(cmd, ' ');
-}
-
-void	parse_command(t_comm *command, char **cmd)
-{
-	int	j;
-	int size;
-
-	j = 0;
-	size = ft_size((void **)cmd);
-	while (cmd[j])
-	{
-		parse_operators(command, cmd[j], size, j);
-		command->value = command->args[0];
-		command->next = (t_comm *)malloc(sizeof(t_comm));
-		command = command->next;
-		free(cmd[j]);
-		j++;
-	}
-}
-
-t_comm	*parse_input(void)
-{
-	int		i;
-	char	**cmds;
-	char	**cmd;
-	t_comm	*commands;
-	t_comm	*command;
-
-	cmds = ft_split(term->line, ';');
-	commands = (t_comm *)malloc(sizeof(t_comm));
-	command = commands;
-	i = 0;
-	while (cmds[i])
-	{
-		cmd = ft_split(cmds[i], '|');
-		parse_command(command, cmd);
-		free(cmd);
-		i++;
-	}
-	i = 0;
-	while (cmds[i])
-		free(cmds[i++]);
-	free(cmds);
-	return (commands);
-}
 
 int	read_input(void)
 {
@@ -315,11 +109,6 @@ int	read_input(void)
 		r = read(STDIN_FILENO, &c, 1);
 	}
 	return (r);
-}
-
-void	restore_term(void)
-{
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &term->old_conf);
 }
 
 #include <sys/types.h>

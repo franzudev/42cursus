@@ -67,6 +67,15 @@ int		env_command(void);
 void	lst_del(void *lst);
 void	free_all(void);
 void 	restore_term(void);
+t_comm	*parse_input(void);
+int		ft_size(void **arr);
+void	command_output(t_comm *command, char *str);
+void	command_input(t_comm *command, char *str);
+char	*slice_operators(char *str);
+int		ft_index_of(char *str, char *set);
+int		ft_rindex_of(char *str, char *set);
+void	enableRawMode(void);
+void	restore_term(void);
 
 int		cmd_echo(t_comm *cmd);
 int		cmd_cd(t_comm *cmd);
