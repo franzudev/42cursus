@@ -35,7 +35,7 @@ int	env_command(void)
 	t_list	*t;
 
 	t = term->env;
-	while (t->content)
+	while (t)
 	{
 		ft_putstr_fd("\n\x0d", 2);
 		ft_putstr_fd(((t_env *)t->content)->name, 1);
@@ -57,10 +57,11 @@ static t_list	*alloc_env(char *sys_env, t_list *temp)
 	envval = ft_split(sys_env, '=');
 	env->name = envval[0];
 	env->value = envval[1];
-	temp->content = env;
-	temp->next = (t_list *)malloc(sizeof(t_list));
-	if (!temp->next)
-		exit(1);
+	ft_lstadd_back(&temp, ft_lstnew(env));
+//	temp->content = env;
+//	temp->next = (t_list *)malloc(sizeof(t_list));
+//	if (!temp->next)
+//		exit(1);
 	free(envval);
 	return (temp->next);
 }
@@ -74,17 +75,16 @@ void	init_env(char **sys_env)
 	int		i;
 
 	i = 1;
-	env_list = (t_list *)malloc(sizeof(t_list));
 	env = (t_env *)malloc(sizeof(t_env));
 	if (!env)
 		exit(1);
 	envval = ft_split(sys_env[0], '=');
 	env->name = envval[0];
 	env->value = envval[1];
-	env_list->content = env;
-	env_list->next = (t_list *)malloc(sizeof(t_list));
+	env_list = ft_lstnew(env);
+//	env_list->next = (t_list *)malloc(sizeof(t_list));
 	temp = env_list;
-	temp = temp->next;
+//	temp = temp->next;
 	free(envval);
 	while (sys_env[i])
 		temp = alloc_env(sys_env[i++], temp);
