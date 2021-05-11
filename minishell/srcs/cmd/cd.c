@@ -21,7 +21,7 @@ static void	ft_set_pwd(void)
 		}
 		t = t->next;
 	}
-	if(!flag) //flag == 0
+	if(!flag)
 	{
 		((t_env *)new->content)->name = "PWD";
 		((t_env *)new->content)->value = cwd;

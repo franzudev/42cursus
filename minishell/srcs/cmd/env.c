@@ -1,5 +1,35 @@
 #include "../../minishell.h"
 
+void	free_reenv(char **reenv)
+{
+	int i;
+
+	i = 0;
+	if (!reenv)
+		return ;
+	while(reenv[i])
+		free(reenv[i++]);
+	free(reenv);
+}
+
+char	**rebuild_env(t_list *env, char **reenv)
+{
+	char	**new;
+	char	*temp;
+	int		i;
+
+	i = 0;
+	free_reenv(reenv);
+	new = (char **)malloc(sizeof(char *) * ft_lstsize(env));
+	while (env)
+	{
+		temp = ft_strjoin(((t_env *)env->content)->name, "=");
+		new[i] = ft_strjoin(temp, ((t_env *)env->content)->value);
+		free(temp);
+		i++;
+	}
+	return (new);
+}
 int	env_command(void)
 {
 	t_list	*t;

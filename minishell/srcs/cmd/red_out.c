@@ -1,5 +1,4 @@
 #include "../../minishell.h"
-#include <limits.h>	//aggiungere in minishell.h
 
 static char *ft_read_n_write(void)
 {
@@ -17,14 +16,16 @@ static char *ft_read_n_write(void)
 }
 
 
-int	cmd_red_out(char *file_path) // dove mi mandi il comando? quale struttura? serve filename e se red_singola o doppia
+int	cmd_red_out(char *file_path, int i)
 {
 	int fd;
 	char *out;
 	
-	if () // red_singola 
+	if (!(i == WRITE || i == APPEND))
+		return (EXIT_FAILURE);
+	if (i == WRITE)
 		fd = open(file_path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else
+	else if (i == APPEND)
 		fd = open(file_path, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
 		return (EXIT_FAILURE);
@@ -38,8 +39,3 @@ int	cmd_red_out(char *file_path) // dove mi mandi il comando? quale struttura? s
 	return (EXIT_SUCCESS);
 }
 
-int main()
-{
-	cmd_red_out("ciao");
-	return 0;
-}

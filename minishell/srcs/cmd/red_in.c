@@ -1,5 +1,4 @@
 #include "../../minishell.h"
-#include <limits.h> //includi in .h
 
 int	cmd_red_in(char *file_path)
 {
@@ -16,10 +15,4 @@ int	cmd_red_in(char *file_path)
 	}
 	close(fd);
 	return (EXIT_SUCCESS);
-}
-
-int main()
-{
-	cmd_red_in("ciao");
-	return 0;
 }

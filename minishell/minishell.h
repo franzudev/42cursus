@@ -14,6 +14,7 @@
 # include <sys/ioctl.h>
 # include "libft/libft.h"
 # include <errno.h>
+# include <limits.h>
 
 typedef struct	s_env {
 	char*			name;
@@ -58,12 +59,12 @@ typedef struct s_comm {
 	char 			*input;
 	char            *output;
 	int 			output_type;
+	int				pipe[2];
 	struct s_comm	*prev;
 	struct s_comm 	*next;
 }				t_comm;
 
 void	init_env(char **sys_env);
-int		env_command(void);
 void	lst_del(void *lst);
 void	free_all(void);
 int		ft_size(void **arr);
@@ -86,12 +87,20 @@ void	write_char(int *cp, char c);
 int		quit_gracefully(void);
 int		read_input(void);
 
+// cmd
 int		cmd_echo(t_comm *cmd);
 int		cmd_cd(t_comm *cmd);
 int		cmd_pwd(void);
 int		cmd_exit(void);
 int		cmd_export(t_comm *cmd);
 int 	cmd_unset(t_comm *cmd);
+int		env_command(void);
+int		cmd_red_in(char *file_path);
+int		cmd_red_out(char *file_path, int i);
+void	free_reenv(char **reenv);
+char	**rebuild_env(t_list *env, char **reenv);
+int		exec_cmd(t_comm *cmd);
+
 
 t_term *term;
 #endif
