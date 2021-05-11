@@ -105,3 +105,5 @@ int		exec_cmd(t_comm *cmd);
 
 t_term *term;
 #endif
+
+PORCODIO non va su Ubuntu!!!...non ce termcap mi sa!!PORCOORCO!
