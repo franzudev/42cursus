@@ -25,10 +25,12 @@ void	write_char(int *cp, char c)
 	*cp += 1;
 }
 
-void	new_line_command(void)
+void	new_line_command(int *cp)
 {
 	write(1, "\n\x0d", 2);
 	write(1, USER, ft_strlen(USER));
+	ft_memset(term->line, 0, ft_strlen(term->line));
+	*cp = 0;
 }
 
 int	quit_gracefully(void)

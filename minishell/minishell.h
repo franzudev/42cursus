@@ -3,7 +3,6 @@
 # define USER "e3r4p12 $>"
 # define MAX_LEN 2048
 
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -76,13 +75,15 @@ void	command_input(t_comm *command, char *str);
 char	*slice_operators(char *str);
 int		ft_index_of(char *str, char *set);
 int		ft_rindex_of(char *str, char *set);
+char	*strip_quotes(char *str, char *temp, char type);
+char	*strip_string_from_cmd(char *str);
 
 // terminal
 void	enableRawMode(void);
 void 	restore_term(void);
 void	delete_nbytes(int cp);
 void	delete_char(int *cp);
-void	new_line_command(void);
+void	new_line_command(int *cp);
 void	write_char(int *cp, char c);
 int		quit_gracefully(void);
 int		read_input(void);

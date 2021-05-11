@@ -16,8 +16,10 @@ int	main(int argc, char **argv, char **env)
 		exit(1);
 	init_env(env);
 	enableRawMode();
-//	ft_strlcpy(term->line, "echo 'dio can' | echo 'porco dio' > inputprova", 55);
-//	t_comm *comm = parse_input();
+
+
+//	ft_strlcpy(term->line, "echo \"dio bello\" > provaout < provain", 39);
+//	t_comm *comm = read_input();
 //	comm = NULL;
 //	restore_term();
 //	int i;
@@ -33,6 +35,8 @@ int	main(int argc, char **argv, char **env)
 //		comm = comm->next;
 //	}
 //	enableRawMode();
+
+
 	while (r > -1)
 		r = read_input();
 	free_all();
