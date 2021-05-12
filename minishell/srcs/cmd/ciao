@@ -6,11 +6,11 @@ Questa é una burla!
 4. $ e $?
 5. hystory
 
+aggiusngere newline in cmd
 in echo eliminare riga in piu a fine exec comando, anche con comandi bin
 creare funzione per $ --> sosituisce valore in cmd->args[i]
-x gestire in echo no argomenti
-x gestire in export no argomenti
-x proteggere unset
+parse ; da sistemare
+argomenti 
 malloc UNSET --> problemi di free!
 segfault se <
 PORCODIO!
