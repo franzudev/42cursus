@@ -67,7 +67,8 @@ int	cmd_bin(t_comm *cmd)
 			write(STDOUT_FILENO, "\n\x0d", 2);
 			execve(full_path, cmd->args, term->reenv);
 			
-		} else {
+		} 
+		else {
 			wait(NULL);
 			enableRawMode();
 		}

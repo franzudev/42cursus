@@ -106,6 +106,8 @@ int		exec_cmd(t_comm *cmd);
 char	**ft_dir_path(void);
 char	*ft_full_path(char **dir_path, char *cmd);
 int		cmd_bin(t_comm *cmd);
+void	apply_last_pipe(t_comm *cmd);
+void	apply_pipe(t_comm *cmd);
 
 
 t_term *term;

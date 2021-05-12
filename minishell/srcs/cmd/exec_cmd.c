@@ -1,5 +1,14 @@
 #include "../../minishell.h"
 
+
+// se ; esegui i cmd creando fork()
+
+// se INPUT...pipe con stdin lo stdout di "INPUT"
+
+// se OUTPUT ...pipe con stdin di ÖUTPUT lo stdout
+
+// se pipe fai pipe
+
 int		exec_cmd(t_comm *cmd)
 {
 	if (!ft_strncmp(cmd->value, "cd", 3))
