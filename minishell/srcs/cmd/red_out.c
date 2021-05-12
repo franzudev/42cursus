@@ -21,6 +21,7 @@ int	cmd_red_out(char *file_path, int i)
 	int fd;
 	char *out;
 	
+	fd = 0;
 	if (!(i == WRITE || i == APPEND))
 		return (EXIT_FAILURE);
 	if (i == WRITE)

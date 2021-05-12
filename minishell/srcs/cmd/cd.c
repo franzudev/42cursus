@@ -3,7 +3,7 @@
 static void	ft_set_pwd(void)
 {
 	t_list *t;
-	t_list *new;
+	t_env *new;
 	char	*cwd;
 	char	buff[MAX_LEN];
 	int	flag;
@@ -23,22 +23,23 @@ static void	ft_set_pwd(void)
 	}
 	if(!flag)
 	{
-		((t_env *)new->content)->name = "PWD";
-		((t_env *)new->content)->value = cwd;
-		ft_lstadd_back(&t, new);
+		new = (t_env *)malloc(sizeof(t_env));
+		new->name = "PWD";
+		new->value = cwd;
+		ft_lstadd_back(&t, ft_lstnew(new));
 	}
 }
 static void ft_set_old_pwd(char *old_pwd)
 {
 	t_list *t;
-	t_list *new;
+	t_env *new;
 	int	flag;
 
 	flag = 0;
 	t = term->env;
 	while(t)
 	{
-		if (ft_strncmp(((t_env *)t->content)->name, "OLD_PWD", 7) == 0)
+		if (ft_strncmp(((t_env *)t->content)->name, "OLDPWD", 6) == 0)
 		{
 			((t_env *)t->content)->value = old_pwd;
 			flag = 1;
@@ -48,9 +49,10 @@ static void ft_set_old_pwd(char *old_pwd)
 	}
 	if(!flag)
 	{
-		((t_env *)new->content)->name = "OLD_PWD";
-		((t_env *)new->content)->value = old_pwd;
-		ft_lstadd_back(&t, new);
+		new = (t_env *)malloc(sizeof(t_env));
+		new->name = "OLD_PWD";
+		new->value = old_pwd;
+		ft_lstadd_back(&t, ft_lstnew(new));
 	}
 }
 
@@ -84,7 +86,9 @@ int	cmd_cd(t_comm *cmd)
 		}
 		t = t->next;
 	}
-	if (!cmd->args)
+	if (!cmd->args[1])
 		return (ft_change_dir(home));
-	return (ft_change_dir(cmd->args));
+	return (ft_change_dir(cmd->args[1]));
 }
+
+// aggiungere errori

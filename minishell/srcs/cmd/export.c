@@ -1,11 +1,16 @@
 #include "../../minishell.h"
 
-int	cmd_export(t_comm *cmd) //ft_lstnew PORCODIO
+int	cmd_export(t_comm *cmd)
 {
 	t_list	*t;
 	t_env	*new;
 	char	**envval;
 
+	if (!cmd->args[1])
+	{
+		env_command();
+		return (EXIT_SUCCESS);
+	}
 	new = (t_env *)malloc(sizeof(t_env));
 	envval = ft_split(cmd->args[1], '=');
 	new->name = envval[0];

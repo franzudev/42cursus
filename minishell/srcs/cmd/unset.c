@@ -7,10 +7,12 @@ int cmd_unset(t_comm *cmd)
 	t_list *prev;
 
 	t = term->env;
-	len = ft_strlen(cmd->args);
+	if (!cmd->args[1])
+		return (EXIT_SUCCESS);
+	len = ft_strlen(cmd->args[1]);
 	while(t)
 	{
-		if(ft_strncmp(((t_env *)t->content)->name, cmd->args, len) == 0)
+		if(ft_strncmp(((t_env *)t->content)->name, cmd->args[1], len) == 0)
 		{
 			prev->next = t->next;
 			ft_lstdelone(t, lst_del);

@@ -19,6 +19,7 @@ char	**rebuild_env(t_list *env, char **reenv)
 	int		i;
 
 	i = 0;
+	
 	free_reenv(reenv);
 	new = (char **)malloc(sizeof(char *) * ft_lstsize(env));
 	while (env)
@@ -30,6 +31,7 @@ char	**rebuild_env(t_list *env, char **reenv)
 	}
 	return (new);
 }
+
 int	env_command(void)
 {
 	t_list	*t;
@@ -58,10 +60,6 @@ static t_list	*alloc_env(char *sys_env, t_list *temp)
 	env->name = envval[0];
 	env->value = envval[1];
 	ft_lstadd_back(&temp, ft_lstnew(env));
-//	temp->content = env;
-//	temp->next = (t_list *)malloc(sizeof(t_list));
-//	if (!temp->next)
-//		exit(1);
 	free(envval);
 	return (temp->next);
 }
@@ -82,9 +80,7 @@ void	init_env(char **sys_env)
 	env->name = envval[0];
 	env->value = envval[1];
 	env_list = ft_lstnew(env);
-//	env_list->next = (t_list *)malloc(sizeof(t_list));
 	temp = env_list;
-//	temp = temp->next;
 	free(envval);
 	while (sys_env[i])
 		temp = alloc_env(sys_env[i++], temp);

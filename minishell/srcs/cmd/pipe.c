@@ -1,15 +1,15 @@
 #include "../../minishell.h"
 
-static void	dup_n_close(int pipe[2], int pipe_dup)
-{
-	dup2(pipe[pipe_dup], pipe_dup);
-	close_pipe(pipe);
-}
-
 static void	close_pipe(int pipe[2])
 {
 	close(pipe[0]);
 	close(pipe[1]);
+}
+
+static void	dup_n_close(int pipe[2], int pipe_dup)
+{
+	dup2(pipe[pipe_dup], pipe_dup);
+	close_pipe(pipe);
 }
 
 void	apply_last_pipe(t_comm *cmd)

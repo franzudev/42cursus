@@ -1,1 +1,13 @@
 Questa é una burla!
+
+1. errori
+2. " " e ' '
+3. < > >> | ;
+4. $ e $?
+5. hystory
+
+in echo eliminare riga in piu a fine exec comando, anche con comandi bin
+creare funzione per $ --> sosituisce valore in cmd->args[i]
+x gestire in echo no argomenti
+x gestire in export no argomenti
+x proteggere unset

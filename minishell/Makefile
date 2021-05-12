@@ -15,7 +15,21 @@ PRS_SRCS_FILE = parser.c utils.c utils2.c
 
 TRM_SRCS_FILE = terminal.c utils.c
 
-CMD_SRCS_FILE = env.c pwd.c exit.c
+CMD_SRCS_FILE = exec_cmd.c \
+				exit.c \
+				export.c \
+				pipe.c \
+				pwd.c \
+				env.c \
+				red_in.c \
+				red_out.c \
+				unset.c \
+				echo.c \
+				cd.c \
+				builtin.c
+				
+				
+				
 
 MAIN = main.c
 

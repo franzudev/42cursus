@@ -11,6 +11,8 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "libft/libft.h"
 # include <errno.h>
 # include <limits.h>
@@ -101,9 +103,10 @@ int		cmd_red_out(char *file_path, int i);
 void	free_reenv(char **reenv);
 char	**rebuild_env(t_list *env, char **reenv);
 int		exec_cmd(t_comm *cmd);
+char	**ft_dir_path(void);
+char	*ft_full_path(char **dir_path, char *cmd);
+int		cmd_bin(t_comm *cmd);
 
 
 t_term *term;
 #endif
-
-PORCODIO non va su Ubuntu!!!...non ce termcap mi sa!!PORCOORCO!
