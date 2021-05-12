@@ -11,7 +11,7 @@ SRCS_DIR = srcs
 
 SRCS_FILE = utils.c
 
-PRS_SRCS_FILE = parser.c utils.c utils2.c
+PRS_SRCS_FILE = parser.c utils.c utils2.c dollaroni.c
 
 TRM_SRCS_FILE = terminal.c utils.c
 
@@ -27,9 +27,9 @@ CMD_SRCS_FILE = exec_cmd.c \
 				echo.c \
 				cd.c \
 				builtin.c
-				
-				
-				
+
+
+
 
 MAIN = main.c
 

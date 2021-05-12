@@ -34,6 +34,8 @@ static void parse_strings(t_comm *command, char *cmd)
 		if (ft_index_of(args[i], "'\"") != -1)
 		{
 			temp = strip_string_from_cmd(cmd);
+			if (temp[0] == '"')
+				ft_dollaroni(temp);
 			s = i;
 			free(args[i++]);
 			while (args[i])

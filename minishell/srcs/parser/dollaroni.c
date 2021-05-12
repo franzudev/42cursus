@@ -8,9 +8,10 @@
 
 char	*ft_dollaroni(char *usd)
 {
-	int index;
+	int		index;
 	char	*canada;
 
+	canada = ft_substr(usd, 1, ft_strlen(usd) - 2);
 	index = ft_index_of(usd, "$");
-	
+
 }
