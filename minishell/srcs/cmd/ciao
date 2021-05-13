@@ -2,7 +2,7 @@ Questa é una burla!
 
 1. errori
 2. " " e ' '
-3. < > >> | ; 
+3. < > >> | ;
 4. $ e $?
 5. hystory
 
@@ -10,8 +10,7 @@ ft cmd list freee
 aggiusngere newline in cmd
 in echo eliminare riga in piu a fine exec comando, anche con comandi bin
 creare funzione per $ --> sosituisce valore in cmd->args[i]
-parse ; da sistemare
-argomenti 
+[DONE] parse ; da sistemare
+argomenti
 malloc UNSET --> problemi di free!
-segfault se <
-PORCODIO!
+[DONE] segfault se <

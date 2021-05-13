@@ -34,8 +34,8 @@ static void parse_strings(t_comm *command, char *cmd)
 		if (ft_index_of(args[i], "'\"") != -1)
 		{
 			temp = strip_string_from_cmd(cmd);
-			if (temp[0] == '"')
-				ft_dollaroni(temp);
+//			if (temp[0] == '"')
+//				ft_dollaroni(temp);
 			s = i;
 			free(args[i++]);
 			while (args[i])
@@ -81,8 +81,11 @@ t_comm	*parse_input(void)
 
 	cmds = ft_split(term->line, ';');
 	commands = (t_comm *)malloc(sizeof(t_comm));
-	command = commands;
 	i = 0;
+	cmd = ft_split(cmds[i++], '|');
+	parse_command(commands, cmd);
+	command = commands->next;
+	free(cmd);
 	while (cmds[i])
 	{
 		cmd = ft_split(cmds[i], '|');

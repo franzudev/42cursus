@@ -75,6 +75,7 @@ t_comm	*parse_input(void);
 void	command_output(t_comm *command, char *str);
 void	command_input(t_comm *command, char *str);
 char	*slice_operators(char *str);
+//char	*ft_dollaroni(char *usd);
 int		ft_index_of(char *str, char *set);
 int		ft_rindex_of(char *str, char *set);
 char	*strip_quotes(char *str, char *temp, char type);

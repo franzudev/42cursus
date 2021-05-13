@@ -85,5 +85,11 @@ char	*slice_operators(char *str)
 		return (str);
 	if (inp < wri && inp != -1)
 		return (ft_substr(str, 0, inp));
+	if (wri < inp && wri != -1)
+		return (ft_substr(str, 0, wri));
+	if (wri != -1)
+		return (ft_substr(str, 0, wri));
+	if (inp != -1)
+		return (ft_substr(str, 0, inp));
 	return (ft_substr(str, 0, wri));
 }
