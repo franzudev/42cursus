@@ -18,10 +18,10 @@ int	main(int argc, char **argv, char **env)
 	enableRawMode();
 
 
-//	ft_strlcpy(term->line, "echo ciao;", 39);
+//	ft_strlcpy(term->line, "echo primo", 10);
 //	t_comm *comm = parse_input();
 //	comm = NULL;
-////	execve("/bin/bash", NULL, env);
+//	execve("/bin/bash", NULL, env);
 //	restore_term();
 //	int i;
 //	while (comm->next)

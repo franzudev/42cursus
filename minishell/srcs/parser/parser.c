@@ -52,7 +52,7 @@ static void parse_strings(t_comm *command, char *cmd)
 	}
 }
 
-static void	parse_command(t_comm *command, char **cmds)
+static t_comm	*parse_command(t_comm *command, char **cmds)
 {
 	int	j;
 	int	size;
@@ -64,11 +64,13 @@ static void	parse_command(t_comm *command, char **cmds)
 		parse_operators(command, cmds[j], size, j);
 		parse_strings(command, cmds[j]);
 		command->value = command->args[0];
-		command->next = (t_comm *)malloc(sizeof(t_comm));
+		if (j < size)
+			command->next = (t_comm *)malloc(sizeof(t_comm));
 		command = command->next;
 		free(cmds[j]);
 		j++;
 	}
+	return command;
 }
 
 t_comm	*parse_input(void)
@@ -81,15 +83,15 @@ t_comm	*parse_input(void)
 
 	cmds = ft_split(term->line, ';');
 	commands = (t_comm *)malloc(sizeof(t_comm));
+	command = commands;
 	i = 0;
 	cmd = ft_split(cmds[i++], '|');
-	parse_command(commands, cmd);
-	command = commands->next;
+	command = parse_command(command, cmd);
 	free(cmd);
 	while (cmds[i])
 	{
 		cmd = ft_split(cmds[i], '|');
-		parse_command(command, cmd);
+		command = parse_command(command, cmd);
 		free(cmd);
 		i++;
 	}
