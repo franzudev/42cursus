@@ -44,7 +44,7 @@ char	*ft_full_path(char **dir_path, char *cmd)
 		full_path = ft_strjoin(dir_path[i], cmd);
 		if (!lstat(full_path, stat))
 		{
-			free(stat);	
+			free(stat);
 			return (full_path);
 		}
 		free(full_path);
@@ -73,6 +73,6 @@ int	cmd_bin(t_comm *cmd)
 		wait(&status);
 		enableRawMode();
 		return (EXIT_SUCCESS);
-	}
+
 	return (EXIT_FAILURE);
 }

@@ -42,35 +42,35 @@ int	read_input(void)
 		if (c == '\r')
 		{
 			// history
-			// store_cmd();
+//			update_history();
 			comm = parse_input();
 //			if (!check_error(comm))
+<<<<<<< HEAD
 			//  restore_term();
 			// if(!ft_strncmp(comm->value, "exit", 4))
 			// 	return (cmd_exit());
 			launch_cmd(comm);
 
 			//  enableRawMode();
+=======
+			exec_cmd(comm);
+//			free_cmd(comm);
+//			free(comm);
+>>>>>>> 6bdf7bf3e6c8234a635261f1f96473e2c6926742
 
 //			 int i;
-//			 while (comm->value)
+//			 while (term->history)
 //			 {
-//			 	i = 0;
-//			 	ft_putstr_fd("\nCOMMAND: ", 1);
-//			 	ft_putendl_fd(comm->value, 1);
-//			 	while (comm->args[i])
+//			 	ft_putstr_fd("\nexecd: ", 1);
+//			 	ft_putendl_fd(term->history->executed, 1);
+//			 	ft_putstr_fd("\nexec: ", 1);
+//			 	ft_putendl_fd(term->history->display, 1);
+//			 	if (term->history->prev)
 //			 	{
-//			 		ft_putstr_fd("\nARGS: ", 1);
-//			 		ft_putstr_fd(comm->args[i++], 1);
-//			 	}
-//			 	ft_putstr_fd("\nINPUT: ", 1);
-//			 	ft_putendl_fd(comm->input, 1);
-//			 	ft_putstr_fd("\nOUTPUT: ", 1);
-//			 	ft_putendl_fd(comm->output, 1);
-//			 	ft_putstr_fd("\nOUTPUT TYPE: ", 1);
-//			 	ft_putnbr_fd(comm->output_type, 1);
-//			 	ft_putendl_fd("", 1);
-//			 	comm = comm->next;
+//			 		ft_putstr_fd("\nhistory: ", 1);
+//					ft_putendl_fd(term->history->prev->executed, 1);
+//				}
+//			 	term->history = term->history->next;
 //			 }
 
 
