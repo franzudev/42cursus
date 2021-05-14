@@ -14,3 +14,5 @@ creare funzione per $ --> sosituisce valore in cmd->args[i]
 argomenti
 malloc UNSET --> problemi di free!
 [DONE] segfault se <
+
+sistemare memoria in ft_dir_path() e forse in ft_full_path()

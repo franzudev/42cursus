@@ -44,7 +44,7 @@ char	*ft_full_path(char **dir_path, char *cmd)
 		full_path = ft_strjoin(dir_path[i], cmd);
 		if (!lstat(full_path, stat))
 		{
-			free(stat);	
+			free(stat);
 			return (full_path);
 		}
 		free(full_path);
@@ -66,8 +66,7 @@ int	cmd_bin(t_comm *cmd)
 			restore_term();
 			write(STDOUT_FILENO, "\n\x0d", 2);
 			execve(full_path, cmd->args, term->reenv);
-			
-		} 
+		}
 		else {
 			wait(NULL);
 			enableRawMode();

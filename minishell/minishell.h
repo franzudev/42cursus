@@ -36,16 +36,20 @@ enum e_arrows {
 	WRITE,
  };
 
+ typedef struct s_history {
+ 	char				*executed;
+ 	char 				*display;
+ 	struct s_history	*prev;
+ 	struct s_history	*next;
+ }				t_history;
+
 typedef struct	s_term{
 	struct	termios	old_conf;
 	char			**reenv;
 	t_list			*env;
 	char 			line[MAX_LEN];
+	t_history		*history;
 	int 			last_status_code;
-	int 			cx;
-	int				cy;
-	int 			rows;
-	int 			cols;
 }				t_term;
 
 typedef struct s_token {
@@ -109,6 +113,10 @@ char	*ft_full_path(char **dir_path, char *cmd);
 int		cmd_bin(t_comm *cmd);
 void	apply_last_pipe(t_comm *cmd);
 void	apply_pipe(t_comm *cmd);
+void	 free_cmd(t_comm *commands);
+
+// history
+void	update_history();
 
 
 t_term *term;
