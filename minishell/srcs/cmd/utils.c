@@ -1,5 +1,12 @@
 #include "../../minishell.h"
 
+int	ft_error(char *str, int i)
+{
+	ft_putstr_fd(str, 1);
+	ft_putstr_fd(": command not found\n\x0d", 1);
+	return(i);
+}
+
 void free_cmd(t_comm *commands)
 {
 	int	i;

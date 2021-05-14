@@ -15,7 +15,7 @@ int cmd_unset(t_comm *cmd)
 	len = ft_strlen(cmd->args[1]);
 	while(t)
 	{
-		if(ft_strncmp(((t_env *)t->content)->name, cmd->args[1], len) == 0)
+		if(ft_strncmp(((t_env *)t->content)->name, cmd->args[1], len + 1) == 0)
 		{
 			prev->next = t->next;
 			ft_lstdelone(t, lst_del);

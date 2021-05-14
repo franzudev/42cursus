@@ -47,12 +47,10 @@ int	read_input(void)
 //			if (!check_error(comm))
 			// if(!ft_strncmp(comm->value, "exit", 4))
 			// 	return (cmd_exit());
-			
-			 restore_term();
+			//  restore_term();
 			launch_cmd(comm);
-			 enableRawMode();
+			//  enableRawMode();
 
-			// free_cmd(comm);
 			// free(comm);
 
 			 
@@ -71,12 +69,13 @@ int	read_input(void)
 			//  }
 
 
-			new_line_command(&cp);
+			new_line_command(&cp, ft_strncmp(comm->args[1], "-n", 3), 0);
+			free_cmd(comm);
 		}
 		if (c == (('d') & 0x1f) && cp == 0)
 			return (quit_gracefully());
 		if (c == (('c') & 0x1f))
-			new_line_command(&cp);
+			new_line_command(&cp, 1, 1);
 		c = 0;
 		r = read(STDIN_FILENO, &c, 1);
 	}

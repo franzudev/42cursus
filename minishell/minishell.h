@@ -90,7 +90,7 @@ void	enableRawMode(void);
 void 	restore_term(void);
 void	delete_nbytes(int cp);
 void	delete_char(int *cp);
-void	new_line_command(int *cp);
+void	new_line_command(int *cp, int back, int nlm);
 void	write_char(int *cp, char c);
 int		quit_gracefully(void);
 int		read_input(void);
@@ -115,6 +115,7 @@ void	apply_last_pipe(t_comm *cmd);
 void	apply_pipe(t_comm *cmd);
 int		launch_cmd(t_comm *cmd);
 void	 free_cmd(t_comm *commands);
+int		ft_error(char *str, int i);
 
 // history
 void	update_history();

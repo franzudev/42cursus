@@ -76,7 +76,6 @@ static t_comm	*parse_command(t_comm *command, char **cmds, int i)
 t_comm	*parse_input(void)
 {
 	int		i;
-	int 	j;
 	char	**cmds;
 	char	**cmd;
 	t_comm	*commands;
