@@ -1,5 +1,16 @@
 #include "../../minishell.h"
 
+static void	free_path(char **dir_path)
+{
+	int i;
+
+	i = -1;
+	while (dir_path[++i])
+		free(dir_path[i]);
+	free(dir_path);
+	dir_path = NULL;
+}
+
 char	**ft_dir_path(void)
 {
 	t_list *t;
@@ -18,6 +29,7 @@ char	**ft_dir_path(void)
 			while (dir_path[i])
 			{
 				temp = ft_strjoin(dir_path[i], "/");
+				free(dir_path[i]);
 				dir_path[i] = ft_strdup(temp);
 				free (temp);
 				i++;
@@ -58,9 +70,11 @@ int	cmd_bin(t_comm *cmd)
 {
 	char *full_path;
 	int status;
+	char **dir_path;
 
-
-	full_path = ft_full_path(ft_dir_path(), cmd->value);
+	dir_path = ft_dir_path();
+	full_path = ft_full_path(dir_path, cmd->value);
+	free_path(dir_path);
 	if (full_path)
 	{
 		if (fork() == 0)
@@ -72,6 +86,7 @@ int	cmd_bin(t_comm *cmd)
 		} 
 		wait(&status);
 		enableRawMode();
+		free(full_path);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);

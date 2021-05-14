@@ -45,27 +45,30 @@ int	read_input(void)
 //			update_history();
 			comm = parse_input();
 //			if (!check_error(comm))
-			//  restore_term();
 			// if(!ft_strncmp(comm->value, "exit", 4))
 			// 	return (cmd_exit());
+			
+			 restore_term();
 			launch_cmd(comm);
+			 enableRawMode();
 
-			//  enableRawMode();
+			// free_cmd(comm);
+			// free(comm);
 
-//			 int i;
-//			 while (term->history)
-//			 {
-//			 	ft_putstr_fd("\nexecd: ", 1);
-//			 	ft_putendl_fd(term->history->executed, 1);
-//			 	ft_putstr_fd("\nexec: ", 1);
-//			 	ft_putendl_fd(term->history->display, 1);
-//			 	if (term->history->prev)
-//			 	{
-//			 		ft_putstr_fd("\nhistory: ", 1);
-//					ft_putendl_fd(term->history->prev->executed, 1);
-//				}
-//			 	term->history = term->history->next;
-//			 }
+			 
+			//  while (term->history)
+			//  {
+			//  	ft_putstr_fd("\nexecd: ", 1);
+			//  	ft_putendl_fd(term->history->executed, 1);
+			//  	ft_putstr_fd("\nexec: ", 1);
+			//  	ft_putendl_fd(term->history->display, 1);
+			//  	if (term->history->prev)
+			//  	{
+			//  		ft_putstr_fd("\nhistory: ", 1);
+			// 		ft_putendl_fd(term->history->prev->executed, 1);
+			// 	}
+			//  	term->history = term->history->next;
+			//  }
 
 
 			new_line_command(&cp);

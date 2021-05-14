@@ -74,7 +74,7 @@ int	cmd_cd(t_comm *cmd)
 {
 	char *home;
 	t_list	*t;
-
+	char *temp;
 	t = term->env;
 	while(t)
 	{
@@ -84,6 +84,13 @@ int	cmd_cd(t_comm *cmd)
 			break;
 		}
 		t = t->next;
+	}
+	if (cmd->args[1][0] == '~')
+	{
+		temp = ft_strjoin(home, cmd->args[1]+1);
+		free(cmd->args[1]);
+		cmd->args[1] = ft_strdup(temp);
+		free(temp);
 	}
 	if (!cmd->args[1])
 		return (ft_change_dir(home));

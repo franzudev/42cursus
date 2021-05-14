@@ -24,7 +24,7 @@ int	ft_out(t_comm *cmd)
 
         if (cmd_red_out(cmd->output, cmd->output_type) == EXIT_FAILURE)
         {
-            perror ("stocazzo");
+            perror ("red_in");
             exit (1);
         }
 		exit(0);
@@ -143,7 +143,7 @@ int	ft_in(t_comm *cmd)
 
         if (cmd_red_in(cmd->input) == EXIT_FAILURE)
         {
-            perror ("stocazzo");
+            perror ("red_out");
             exit (1);
         }
     }
@@ -184,30 +184,34 @@ int	ft_in(t_comm *cmd)
 
 int	launch_cmd(t_comm *cmd)
 {
+	if (!ft_strncmp(cmd->value, "cd", 3)
+	|| !ft_strncmp(cmd->value, "echo", 5)
+	|| !ft_strncmp(cmd->value, "pwd", 3))
+		ft_putstr_fd("\n\x0d", 1);
 
 	// aggiungere se redIn e redOut
 	//ft_putstr_fd("ce sto", 1);
 	while(cmd)
 	{
 		
-		if(cmd->input && cmd->output_type == 0)
-		{
-			ft_in(cmd);
+		// if(cmd->input && cmd->output_type == 0)
+		// {
+		// 	ft_in(cmd);
 			//cmd_red_in(cmd->args[1]);
-		}	//TODO: esegui red_in con path cmd->args[1] ed esegui cmd
-		else if(cmd->output_type == 2 || cmd->output_type == 3)
-		{
-			ft_out(cmd);
-			//cmd_red_out(cmd->args[1], cmd->output_type);
-		}
+		// }	//TODO: esegui red_in con path cmd->args[1] ed esegui cmd
+		// else if(cmd->output_type == 2 || cmd->output_type == 3)
+		// {
+		// 	ft_out(cmd);
+		// 	//cmd_red_out(cmd->args[1], cmd->output_type);
+		// }
 			//TODO: esegui red_out con path cmd->args[1] e output_type ed esegui cmd
-		else if(cmd->output_type == 1)
+		if(cmd->output_type == 1)
 		{
 			ft_pi(cmd);
 			cmd = cmd->next; //no
 		}
 			//TODO: esegui pipe cmd && cmd-next! 
-		else if (cmd->output_type == 0)
+		else
 		{
 
 			exec_cmd(cmd);

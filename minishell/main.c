@@ -18,9 +18,9 @@ int	main(int argc, char **argv, char **env)
 	enableRawMode();
 
 
-	ft_strlcpy(term->line, "echo quarto; echo quinto", 24);
-	t_comm *comm = parse_input();
-	comm = NULL;
+	// ft_strlcpy(term->line, "echo quarto; echo quinto", 24);
+	// t_comm *comm = parse_input();
+	// comm = NULL;
 //	free_cmd(comm);
 //	execve("/bin/bash", NULL, env);
 //	restore_term();

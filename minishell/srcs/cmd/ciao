@@ -20,5 +20,5 @@ ctrl + c ctrl + d ctrl + \ con processo aperto
 new line se comando non riconusciuto
 
 
-sistemare memoria in ft_dir_path() e forse in ft_full_path()
-
+[DONE]sistemare memoria in ft_dir_path() e forse in ft_full_path()
+[DONE]aggiungere tilde cd ~
