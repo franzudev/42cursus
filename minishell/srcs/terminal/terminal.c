@@ -45,10 +45,13 @@ int	read_input(void)
 			// store_cmd();
 			comm = parse_input();
 //			if (!check_error(comm))
-			exec_cmd(comm);
+			//  restore_term();
+			// if(!ft_strncmp(comm->value, "exit", 4))
+			// 	return (cmd_exit());
+			launch_cmd(comm);
 
+			//  enableRawMode();
 
-//			 restore_term();
 //			 int i;
 //			 while (comm->value)
 //			 {
@@ -69,7 +72,6 @@ int	read_input(void)
 //			 	ft_putendl_fd("", 1);
 //			 	comm = comm->next;
 //			 }
-//			 enableRawMode();
 
 
 			new_line_command(&cp);

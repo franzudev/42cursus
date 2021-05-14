@@ -36,7 +36,7 @@ int	cmd_echo(t_comm *cmd)
 	// }
 	// else
 	// {
-		write(STDOUT_FILENO, "\n\x0d", 2);
+		// write(STDOUT_FILENO, "\n\x0d", 2);
 		i = 1;
 		option = 0;
 		if (cmd->args[i])

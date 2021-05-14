@@ -109,6 +109,7 @@ char	*ft_full_path(char **dir_path, char *cmd);
 int		cmd_bin(t_comm *cmd);
 void	apply_last_pipe(t_comm *cmd);
 void	apply_pipe(t_comm *cmd);
+int		launch_cmd(t_comm *cmd);
 
 
 t_term *term;

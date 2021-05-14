@@ -2,22 +2,21 @@
 
 static void	ft_set_pwd(void)
 {
-	t_list *t;
-	t_env *new;
+	t_list	*t;
+	t_env	*new;
 	char	*cwd;
 	char	buff[MAX_LEN];
 	int	flag;
 
 	flag = 0;
 	t = term->env;
+	cwd = getcwd(buff, MAX_LEN);
 	while(t)
 	{
 		if (ft_strncmp(((t_env *)t->content)->name, "PWD", 3) == 0)
 		{
-			cwd = getcwd(buff, MAX_LEN);
 			((t_env *)t->content)->value = cwd;
 			flag = 1;
-			break ;
 		}
 		t = t->next;
 	}
@@ -26,7 +25,7 @@ static void	ft_set_pwd(void)
 		new = (t_env *)malloc(sizeof(t_env));
 		new->name = "PWD";
 		new->value = cwd;
-		ft_lstadd_back(&t, ft_lstnew(new));
+		ft_lstadd_back(&term->env, ft_lstnew(new));
 	}
 }
 static void ft_set_old_pwd(char *old_pwd)
@@ -50,9 +49,9 @@ static void ft_set_old_pwd(char *old_pwd)
 	if(!flag)
 	{
 		new = (t_env *)malloc(sizeof(t_env));
-		new->name = "OLD_PWD";
+		new->name = "OLDPWD";
 		new->value = old_pwd;
-		ft_lstadd_back(&t, ft_lstnew(new));
+		ft_lstadd_back(&term->env, ft_lstnew(new));
 	}
 }
 

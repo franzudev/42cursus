@@ -34,8 +34,8 @@ static void parse_strings(t_comm *command, char *cmd)
 		if (ft_index_of(args[i], "'\"") != -1)
 		{
 			temp = strip_string_from_cmd(cmd);
-//			if (temp[0] == '"')
-//				ft_dollaroni(temp);
+			// if (temp[0] == '"')
+			// 	ft_dollaroni(temp);
 			s = i;
 			free(args[i++]);
 			while (args[i])
@@ -64,13 +64,13 @@ static t_comm	*parse_command(t_comm *command, char **cmds)
 		parse_operators(command, cmds[j], size, j);
 		parse_strings(command, cmds[j]);
 		command->value = command->args[0];
-		if (j < size)
+		if (j < size - 1)
 			command->next = (t_comm *)malloc(sizeof(t_comm));
 		command = command->next;
 		free(cmds[j]);
 		j++;
 	}
-	return command;
+	return (command);
 }
 
 t_comm	*parse_input(void)

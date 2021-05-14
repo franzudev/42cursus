@@ -8,7 +8,10 @@ int cmd_unset(t_comm *cmd)
 
 	t = term->env;
 	if (!cmd->args[1])
+	{
+		write(STDOUT_FILENO, "\n\x0d", 2);
 		return (EXIT_SUCCESS);
+	}
 	len = ft_strlen(cmd->args[1]);
 	while(t)
 	{
@@ -16,10 +19,11 @@ int cmd_unset(t_comm *cmd)
 		{
 			prev->next = t->next;
 			ft_lstdelone(t, lst_del);
-			return (EXIT_SUCCESS);
 		}
 		prev = t;
 		t = t->next;
 	}
-	return (EXIT_FAILURE);
+	write(STDOUT_FILENO, "\n\x0d", 2);
+	term->last_status_code = 0;
+	return (EXIT_SUCCESS);
 }

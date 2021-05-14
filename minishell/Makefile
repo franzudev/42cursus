@@ -26,7 +26,8 @@ CMD_SRCS_FILE = exec_cmd.c \
 				unset.c \
 				echo.c \
 				cd.c \
-				builtin.c
+				builtin.c \
+				command.c
 
 
 

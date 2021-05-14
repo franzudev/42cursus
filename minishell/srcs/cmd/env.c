@@ -45,6 +45,7 @@ int	env_command(void)
 		ft_putstr_fd(((t_env *)t->content)->value, 1);
 		t = t->next;
 	}
+	write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }
 

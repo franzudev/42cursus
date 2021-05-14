@@ -9,11 +9,9 @@ int	cmd_pwd(void)
 	if (buf == NULL)
       return (EXIT_FAILURE);
     else
-	{
-	  write(STDOUT_FILENO, "\n\x0d", 2);
-      write(STDOUT_FILENO, buf, ft_strlen(buf));
-	}
+      ft_putstr_fd(buf, STDOUT_FILENO);
     free(buf);
+	write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }
 

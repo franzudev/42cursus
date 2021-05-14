@@ -57,6 +57,8 @@ char	*ft_full_path(char **dir_path, char *cmd)
 int	cmd_bin(t_comm *cmd)
 {
 	char *full_path;
+	int status;
+
 
 	full_path = ft_full_path(ft_dir_path(), cmd->value);
 	if (full_path)
@@ -66,13 +68,11 @@ int	cmd_bin(t_comm *cmd)
 			restore_term();
 			write(STDOUT_FILENO, "\n\x0d", 2);
 			execve(full_path, cmd->args, term->reenv);
-			
+			exit(0);
 		} 
-		else {
-			wait(NULL);
-			enableRawMode();
-		}
-			return (EXIT_SUCCESS);
+		wait(&status);
+		enableRawMode();
+		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);
 }

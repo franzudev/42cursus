@@ -9,8 +9,13 @@
 
 // se pipe fai pipe
 
+
 int		exec_cmd(t_comm *cmd)
 {
+	if ((!ft_strncmp(cmd->value, "cd", 3)
+	|| !ft_strncmp(cmd->value, "echo", 5)
+	|| !ft_strncmp(cmd->value, "pwd", 3)) && cmd->output_type < 2)
+		ft_putstr_fd("\n\x0d", 1);	
 	if (!ft_strncmp(cmd->value, "cd", 3))
 		return (cmd_cd(cmd));
 	else if(!ft_strncmp(cmd->value, "echo", 5))
