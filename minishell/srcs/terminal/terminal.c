@@ -45,18 +45,12 @@ int	read_input(void)
 //			update_history();
 			comm = parse_input();
 //			if (!check_error(comm))
-<<<<<<< HEAD
 			//  restore_term();
 			// if(!ft_strncmp(comm->value, "exit", 4))
 			// 	return (cmd_exit());
 			launch_cmd(comm);
 
 			//  enableRawMode();
-=======
-			exec_cmd(comm);
-//			free_cmd(comm);
-//			free(comm);
->>>>>>> 6bdf7bf3e6c8234a635261f1f96473e2c6926742
 
 //			 int i;
 //			 while (term->history)

@@ -73,6 +73,6 @@ int	cmd_bin(t_comm *cmd)
 		wait(&status);
 		enableRawMode();
 		return (EXIT_SUCCESS);
-
+	}
 	return (EXIT_FAILURE);
 }
