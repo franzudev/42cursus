@@ -76,6 +76,7 @@ static t_comm	*parse_command(t_comm *command, char **cmds, int i)
 t_comm	*parse_input(void)
 {
 	int		i;
+	int 	j;
 	char	**cmds;
 	char	**cmd;
 	t_comm	*commands;
@@ -85,7 +86,7 @@ t_comm	*parse_input(void)
 	commands = (t_comm *)malloc(sizeof(t_comm));
 	i = 0;
 	cmd = ft_split(cmds[i++], '|');
-	command = parse_command(commands, cmd, 0);
+	command = parse_command(commands, cmd, cmds[i] ? 0 : 1);
 	free(cmd);
 	while (cmds[i])
 	{
