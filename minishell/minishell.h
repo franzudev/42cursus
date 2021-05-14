@@ -90,7 +90,7 @@ void	enableRawMode(void);
 void 	restore_term(void);
 void	delete_nbytes(int cp);
 void	delete_char(int *cp);
-void	new_line_command(int *cp, int back, int nlm);
+void	new_line_command(int *cp);
 void	write_char(int *cp, char c);
 int		quit_gracefully(void);
 int		read_input(void);

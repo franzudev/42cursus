@@ -69,13 +69,13 @@ int	read_input(void)
 			//  }
 
 
-			new_line_command(&cp, ft_strncmp(comm->args[1], "-n", 3), 0);
+			new_line_command(&cp);
 			free_cmd(comm);
 		}
 		if (c == (('d') & 0x1f) && cp == 0)
 			return (quit_gracefully());
 		if (c == (('c') & 0x1f))
-			new_line_command(&cp, 1, 1);
+			new_line_command(&cp);
 		c = 0;
 		r = read(STDIN_FILENO, &c, 1);
 	}
