@@ -81,9 +81,11 @@ t_comm	*parse_input(void)
 	t_comm	*commands;
 	t_comm	*command;
 
+	if (ft_strlen(term->line) == 0)
+		return (NULL);
+	i = 0;
 	cmds = ft_split(term->line, ';');
 	commands = (t_comm *)malloc(sizeof(t_comm));
-	i = 0;
 	cmd = ft_split(cmds[i++], '|');
 	command = parse_command(commands, cmd, cmds[i] ? 0 : 1);
 	free(cmd);

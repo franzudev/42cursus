@@ -49,6 +49,7 @@ typedef struct	s_term{
 	t_list			*env;
 	char 			line[MAX_LEN];
 	t_history		*history;
+	t_history		*history_clone;
 	int 			last_status_code;
 }				t_term;
 
