@@ -111,10 +111,8 @@ int		exec_cmd(t_comm *cmd);
 char	**ft_dir_path(void);
 char	*ft_full_path(char **dir_path, char *cmd);
 int		cmd_bin(t_comm *cmd);
-void	apply_last_pipe(t_comm *cmd);
-void	apply_pipe(t_comm *cmd);
 int		launch_cmd(t_comm *cmd);
-void	 free_cmd(t_comm *commands);
+void	free_cmd(t_comm *commands);
 int		ft_error(char *str, int i);
 
 // history

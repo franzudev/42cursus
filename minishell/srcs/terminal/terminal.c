@@ -68,7 +68,7 @@ int	read_input(void)
 			//  	term->history = term->history->next;
 			//  }
 
-
+			
 			new_line_command(&cp);
 			free_cmd(comm);
 		}

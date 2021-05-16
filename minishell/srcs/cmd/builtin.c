@@ -7,6 +7,7 @@ static void	free_path(char **dir_path)
 	i = -1;
 	while (dir_path[++i])
 		free(dir_path[i]);
+		
 	free(dir_path);
 	dir_path = NULL;
 }
@@ -83,7 +84,7 @@ int	cmd_bin(t_comm *cmd)
 			write(STDOUT_FILENO, "\n\x0d", 2);
 			execve(full_path, cmd->args, term->reenv);
 			exit(0);
-		} 
+		}
 		wait(&status);
 		enableRawMode();
 		free(full_path);
