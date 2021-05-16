@@ -22,7 +22,7 @@ void	histadd_back(t_history **lst, t_history *new)
 		return ;
 	}
 	res = histlast(*lst);
-//	new->prev = res;
+	new->prev = res;
 	res->next = new;
 }
 
@@ -30,8 +30,12 @@ void	update_history()
 {
 	t_history *history;
 
+	if (!ft_strlen(term->line))
+		return ;
 	history = (t_history *) malloc(sizeof(t_history));
 	history->executed = ft_strdup(term->line);
 	history->display = ft_strdup(term->line);
 	histadd_back(&term->history, history);
+	if (!term->history_clone)
+		term->history_clone = term->history;
 }
