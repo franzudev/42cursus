@@ -19,7 +19,7 @@ char	**rebuild_env(t_list *env, char **reenv)
 	int		i;
 
 	i = 0;
-	
+
 	free_reenv(reenv);
 	new = (char **)malloc(sizeof(char *) * ft_lstsize(env));
 	while (env)
