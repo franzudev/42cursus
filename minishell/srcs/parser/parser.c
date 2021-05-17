@@ -73,6 +73,20 @@ static t_comm	*parse_command(t_comm *command, char **cmds, int i)
 	return (command);
 }
 
+void	ft_add_prev(t_comm *cmd)
+{
+	t_comm *prev;
+
+	cmd->prev = NULL;
+	prev = cmd;
+	cmd = cmd->next;
+	while(cmd)
+	{
+		cmd->prev = prev;
+		prev = cmd;
+		cmd = cmd->next;
+	}
+}
 t_comm	*parse_input(void)
 {
 	int		i;

@@ -69,25 +69,26 @@ char	*ft_full_path(char **dir_path, char *cmd)
 
 int	cmd_bin(t_comm *cmd)
 {
-	char *full_path;
-	int status;
-	char **dir_path;
+	char	*full_path;
+	//int		status;
+	char	**dir_path;
 
 	dir_path = ft_dir_path();
 	full_path = ft_full_path(dir_path, cmd->value);
 	free_path(dir_path);
 	if (full_path)
 	{
-		if (fork() == 0)
-		{
-			restore_term();
-			write(STDOUT_FILENO, "\n\x0d", 2);
+		// if (fork() == 0)
+		// {
+			//restore_term();
+			ft_putstr_fd("\n\x0d", 1);
+			//write(STDOUT_FILENO, "\n\x0d", 2);
 			execve(full_path, cmd->args, term->reenv);
-			exit(0);
-		}
-		wait(&status);
-		enableRawMode();
-		free(full_path);
+			// exit(0);
+		// }
+		// while(wait(&status) > 0);
+		//enableRawMode();
+		//free(full_path);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);

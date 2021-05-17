@@ -5,7 +5,7 @@ void	enableRawMode(void)
 	struct termios	raw;
 
 	if (tcgetattr(STDIN_FILENO, &term->old_conf) == -1)
-		exit(1);
+		exit(2);
 	raw = term->old_conf;
 	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 	raw.c_oflag &= ~(OPOST);
@@ -13,8 +13,8 @@ void	enableRawMode(void)
 	raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
 	raw.c_cc[VMIN] = 0;
 	raw.c_cc[VTIME] = 1;
-	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1)
-		exit(1);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &raw) == -1)
+		exit(3);
 }
 
 void	restore_term(void)
@@ -115,6 +115,7 @@ int	read_input(void)
 	char	c;
 	t_comm	*comm;
 
+
 	cp = 0;
 	write(1, USER, ft_strlen(USER));
 	r = read(STDIN_FILENO, &c, 1);
@@ -129,7 +130,8 @@ int	read_input(void)
 		if (c == '\r')
 		{
 			// history
-			update_history();
+			// update_history();
+			
 			comm = parse_input();
 
 //			restore_term();
@@ -148,13 +150,14 @@ int	read_input(void)
 //				temp = temp->next;
 //			}
 //			enableRawMode();
-
+			
 			if (comm)
 			{
+				restore_term();
 				launch_cmd(comm);
 				free_cmd(comm);
+				enableRawMode();
 			}
-
 			new_line_command(&cp);
 		}
 		if (c == (('d') & 0x1f) && cp == 0)

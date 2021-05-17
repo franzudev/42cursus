@@ -66,6 +66,7 @@ typedef struct s_comm {
 	char            *output;
 	int 			output_type;
 	int				pipe[2];
+	pid_t			pidC;
 	struct s_comm	*prev;
 	struct s_comm 	*next;
 }				t_comm;
@@ -85,6 +86,7 @@ int		ft_index_of(char *str, char *set);
 int		ft_rindex_of(char *str, char *set);
 char	*strip_quotes(char *str, char *temp, char type);
 char	*strip_string_from_cmd(char *str);
+void	ft_add_prev(t_comm *cmd);
 
 // terminal
 void	enableRawMode(void);
