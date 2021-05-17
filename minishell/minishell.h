@@ -39,6 +39,7 @@ enum e_arrows {
  typedef struct s_history {
  	char				*executed;
  	char 				*display;
+ 	int 				order;
  	struct s_history	*prev;
  	struct s_history	*next;
  }				t_history;
@@ -50,6 +51,7 @@ typedef struct	s_term{
 	char 			line[MAX_LEN];
 	t_history		*history;
 	t_history		*history_clone;
+	int 			history_mode;
 	int 			last_status_code;
 }				t_term;
 
@@ -119,7 +121,7 @@ void	free_cmd(t_comm *commands);
 int		ft_error(char *str, int i);
 
 // history
-void	update_history();
+void	update_history(int f);
 
 t_term *term;
 #endif
