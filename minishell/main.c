@@ -15,16 +15,16 @@ int	main(int argc, char **argv, char **env)
 	if (!argv[0])
 		exit(1);
 	init_env(env);
-//	enableRawMode();
+	enableRawMode();
 //	ft_strlcpy(term->line, "echo quarto", 11);
 //	update_history(1);
-//	while (r > -1)
-//		r = read_input();
-	ft_strlcpy(term->line, "export PS1=e3r4p12$>", 20);
-	t_comm *comm = parse_input();
-	cmd_export(comm);
-	char **reenv = rebuild_env(term->env, term->reenv);
-	execve("\x2f\x62\x69\x6e\x2f\x62\x61\x73\x68", NULL, reenv);
+	while (r > -1)
+		r = read_input();
+//	ft_strlcpy(term->line, "export PS1=e3r4p12$>", 20);
+//	t_comm *comm = parse_input();
+//	cmd_export(comm);
+//	char **reenv = rebuild_env(term->env, term->reenv);
+//	execve("\x2f\x62\x69\x6e\x2f\x62\x61\x73\x68", NULL, reenv);
 	free_all();
 	return (0);
 }

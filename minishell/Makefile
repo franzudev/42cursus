@@ -19,7 +19,6 @@ HST_SRCS_FILE = history.c
 CMD_SRCS_FILE = exec_cmd.c \
 				exit.c \
 				export.c \
-				pipe.c \
 				pwd.c \
 				env.c \
 				red_in.c \
@@ -46,7 +45,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make bonus -C libft
-	$(CC) $(CFLAGS) -Llibft -lft $(OBJS) -o minishell
+	$(CC) $(CFLAGS) $(LDFLAGS) -Llibft -lft $(OBJS) -o minishell
 
 clean:
 	@make clean -C libft
