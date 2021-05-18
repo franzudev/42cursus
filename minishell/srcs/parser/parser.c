@@ -138,17 +138,25 @@ static t_comm	*parse_command(t_comm *command, char **cmds, int i)
 void	ft_add_prev(t_comm *cmd)
 {
 	t_comm *prev;
+	t_comm *save;
 
 	cmd->prev = NULL;
 	prev = cmd;
+	save = cmd;
 	cmd = cmd->next;
 	while(cmd)
 	{
+		if(cmd->input && cmd->prev)
+		{
+			save->input = cmd->input;
+			cmd->input = NULL;
+		}
 		cmd->prev = prev;
 		prev = cmd;
 		cmd = cmd->next;
 	}
 }
+
 t_comm	*parse_input(void)
 {
 	int		i;

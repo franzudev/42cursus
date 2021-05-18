@@ -28,5 +28,8 @@ signal ctrl-c
 
 is_builtin function
 
+*	check < > >> con | 
+*	scrivere _ft con > & <  
+
 non viene aggiornato cd/pwd -> perche eseguito in processo child --- check anche env/export/unset PORCODIO!
 

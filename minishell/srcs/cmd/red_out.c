@@ -2,16 +2,16 @@
 
 static char *ft_read_n_write(void)
 {
-	char buff[ARG_MAX];
-	char *out;
+	char buff;
+	char temp[MAX_LEN];
+	int i;
+	char	*out;
 
-	out = ft_strdup("");
-	while (read(0, buff, 1) > 0)
-	{
-		out = ft_strjoin(out, buff);
-		if (!out)
-			return (NULL);
-	}
+	i = 0;
+	while (read(0, &buff, 1) > 0)
+		temp[i++] = buff;
+	temp[i] = 0;
+	out = ft_strdup(temp);
 	return (out);
 }
 
