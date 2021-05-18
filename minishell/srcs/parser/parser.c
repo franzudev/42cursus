@@ -84,8 +84,11 @@ void	ft_add_prev(t_comm *cmd)
 	cmd = cmd->next;
 	while(cmd)
 	{
-		if(cmd->input)
+		if(cmd->input && cmd->prev)
+		{
 			save->input = cmd->input;
+			cmd->input = NULL;
+		}
 		cmd->prev = prev;
 		prev = cmd;
 		cmd = cmd->next;

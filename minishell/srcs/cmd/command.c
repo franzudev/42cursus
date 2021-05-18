@@ -134,7 +134,7 @@ int	launch_cmd(t_comm *cmd)
 	ft_add_prev(cmd);
 	while(cmd)
 	{
-		if(!ft_strncmp(cmd->value, "exit", 4))
+		if(!ft_strncmp(cmd->value, "exit", 5))
 			return (cmd_exit());
 		else if (!ft_strncmp(cmd->value, "cd", 3))
 			(cmd_cd(cmd));

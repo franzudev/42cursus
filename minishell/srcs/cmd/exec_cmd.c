@@ -11,7 +11,7 @@ int		exec_cmd(t_comm *cmd)
 	 	return (cmd_echo(cmd));
 	else if(!ft_strncmp(cmd->value, "pwd", 4))
 		return (cmd_pwd());
-	else if(!ft_strncmp(cmd->value, "exit", 4))
+	else if(!ft_strncmp(cmd->value, "exit", 5))
 		return (cmd_exit());
 	else if(!ft_strncmp(cmd->value, "export", 7))
 		return (cmd_export(cmd));
