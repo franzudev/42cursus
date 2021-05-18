@@ -146,7 +146,6 @@ int	read_input(void)
 			// update_history();
 			
 			comm = parse_input();
-
 //			restore_term();
 //			t_history *temp = term->history;
 //			while (temp)

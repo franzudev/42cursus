@@ -9,7 +9,6 @@ t_history	*histlast(t_history *lst)
 	return (lst);
 }
 
-
 void	histadd_back(t_history **lst, t_history *new)
 {
 	t_history *res;

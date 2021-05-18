@@ -19,13 +19,64 @@ index)
 		command->args = ft_split(cmd, ' ');
 }
 
+static void	free_args(char **args, int i)
+{
+	int		q_idx;
+	int 	pos;
+	int		on;
+	char	type;
+	int 	size;
+
+	q_idx = ft_index_of(args[i], "'\"");
+	type = args[i][q_idx];
+	on = 0;
+	if (ft_rindex_of(args[i], &type) == q_idx)
+		pos = i + 1;
+	else
+	{
+		pos = i;
+		on = 1;
+	}
+	size = ft_size((void **)args);
+	free(args[i]);
+	args[i++] = NULL;
+	while (args[i])
+	{
+		if (ft_index_of(args[i], &type) == -1)
+		{
+			free(args[i]);
+			args[i] = NULL;
+		}
+		else
+		{
+			int diff = (i - pos);
+			if (on)
+				break;
+			else
+				diff++;
+			while (pos + diff <= size)
+			{
+				free(args[i]);
+				args[i++] = NULL;
+				args[pos] = args[pos + diff];
+				pos++;
+			}
+			break;
+		}
+		i++;
+	}
+}
+
 static void	parse_strings(t_comm *command, char *cmd)
 {
 	char	**args;
+	char	**cmd_p;
 	int		i;
 	int		s;
 	char	*temp;
 
+	cmd_p = (char **)malloc(sizeof(char *));
+	*cmd_p = cmd;
 	args = command->args;
 	temp = NULL;
 	i = 0;
@@ -33,23 +84,34 @@ static void	parse_strings(t_comm *command, char *cmd)
 	{
 		if (ft_index_of(args[i], "'\"") != -1)
 		{
-			temp = strip_string_from_cmd(cmd);
-			// if (temp[0] == '"')
-			// 	ft_dollaroni(temp);
-			s = i;
-			free(args[i++]);
-			while (args[i])
+			temp = strip_string_from_cmd(cmd_p);
+			if (!temp)
 			{
-				free(args[i]);
-				args[i++] = NULL;
+				args[i] = ft_strdup("");
+				i++;
+				continue;
 			}
-			args[s] = ft_strdup(temp);
+			s = i;
+			if (!(i == ft_size((void **)args) - 1))
+				free_args(args, i);
+//			free(args[i++]);
+//			while (args[i])
+//			{
+//				free(args[i]);
+//				args[i++] = NULL;
+//			}
+			args[s] = ft_strdup(++temp);
+			--temp;
+			i = s;
 			if (temp)
+			{
 				free(temp);
-			continue ;
+				temp = NULL;
+			}
 		}
 		i++;
 	}
+	free(cmd_p);
 }
 
 static t_comm	*parse_command(t_comm *command, char **cmds, int i)
@@ -110,8 +172,9 @@ t_comm	*parse_input(void)
 		free(cmd);
 		i++;
 	}
-	free(command);
-	command = NULL;
+//	if (command)
+//		free(command);
+//	command = NULL;
 	i = 0;
 	while (cmds[i])
 		free(cmds[i++]);
