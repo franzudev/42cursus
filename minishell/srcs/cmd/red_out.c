@@ -6,7 +6,7 @@ static char *ft_read_n_write(void)
 	char *out;
 
 	out = ft_strdup("");
-	while (read(0, buff, 1) > 0)
+	while (read(0, buff, MAX_LEN) > 0)
 	{
 		out = ft_strjoin(out, buff);
 		if (!out)

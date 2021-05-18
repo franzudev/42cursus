@@ -8,7 +8,7 @@ int	cmd_red_in(char *file_path)
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		return (EXIT_FAILURE);
-	while (read(fd, buff, 1) > 0)
+	while (read(fd, buff, MAX_LEN) > 0)
 	{
 		if (write(STDOUT_FILENO, buff, 1) < 0)
 			return (EXIT_FAILURE);

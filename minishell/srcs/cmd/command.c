@@ -87,6 +87,7 @@ static void	ft_out(t_comm *cmd)
 		dup2(cmd->pipe[1], 1);
 		close(cmd->pipe[0]);
 		close(cmd->pipe[1]);
+		wait(NULL);
 		exec_cmd(cmd);
 		exit(0);
 	}
@@ -94,6 +95,7 @@ static void	ft_out(t_comm *cmd)
 	close(cmd->pipe[1]);
 	waitpid(pidC, NULL, 0);
 }
+
 
 static void ft_in(t_comm *cmd)
 {
