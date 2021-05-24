@@ -56,19 +56,16 @@ int	hist_size(void)
 
 void 	arrow_up(int *cp)
 {
-//	ft_putnbr_fd(hist_size(), 1);
-	if (term->history->order == hist_size())
-	{
+	ft_putnbr_fd(hist_size(), 1);
+	if (term->history->order == hist_size() && !term->history_mode)
 		put_history(term->history->display, cp);
-		if (term->history->prev)
-			term->history = term->history->prev;
-		return ;
-	}
-	if (term->history->prev)
+	else if (term->history->prev)
 	{
 		put_history(term->history->prev->display, cp);
 		term->history = term->history->prev;
 	}
+	else
+		put_history(term->history->display, cp);
 }
 
 void 	arrow_down(int *cp)
@@ -77,24 +74,17 @@ void 	arrow_down(int *cp)
 
 	if (term->history->order == hist_size() && !ft_strlen(term->line))
 		return ;
-	else if (term->history->order == hist_size() && ft_strlen(term->line) && !term->history->executed)
+	else if (term->history->order == hist_size() && term->history_mode /*ft_strlen(term->line) && !term->history->executed*/)
+	{
 		put_history("", cp);
+		term->history_mode = 0;
+		if (term->history->next)
+			term->history = term->history->next;
+	}
 	if (term->history->next)
 	{
 		put_history(term->history->next->display, cp);
 		term->history = term->history->next;
-//		len = ft_strlen(term->line);
-//		if (len > 0)
-//		{
-//			delete_nbytes(len);
-//			ft_memset(term->line, 0, len);
-//		}
-//		len = 0;
-//		while (*term->history->next->display)
-//			term->line[len++] = *(term->history->next->display++);
-//		*cp = ft_strlen(term->line);
-//		write(1, term->line, len);
-//		term->history = term->history->next;
 	}
 }
 
@@ -103,16 +93,20 @@ void	is_arrow_key(int *cp)
 	char	buff[2];
 
 	read(STDIN_FILENO, &buff, 2);
+//	arrow_up(cp);
+//	arrow_up(cp);
+//	buff[0] = '[';
+//	buff[1] = 'B';
 	if (!term->history)
 		return ;
-//	ft_putnbr_fd(term->history->order, 1);
 	if (buff[0] == '[' && buff[1] == 'A')
 	{
-		if (ft_strlen(term->line) > 0 && ft_strncmp(term->line, term->history->display,
-													ft_strlen(term->history->display)))
+		if (ft_strlen(term->line) > 0 &&
+			ft_strncmp(term->line, term->history->display,
+					   ft_strlen(term->line)) != 0 && term->history_mode)
 		{
 			update_history(0);
-			term->history = term->history->next;
+//			term->history = term->history->next;
 		}
 		arrow_up(cp);
 	}
@@ -127,14 +121,14 @@ int	read_input(void)
 	int		cp;
 	char	c;
 	t_comm	*comm;
-
+//	int i = 0;
 
 	cp = 0;
 	write(1, USER, ft_strlen(USER));
 	r = read(STDIN_FILENO, &c, 1);
 	while (r > -1)
 	{
-		if (c == '\x1b')
+		if (c == '\x1b'/* || i == 3*/)
 			is_arrow_key(&cp);
 		if (ft_isprint(c))
 			write_char(&cp, c);
@@ -143,8 +137,10 @@ int	read_input(void)
 		if (c == '\r')
 		{
 			// history
-			// update_history();
-			
+			// if !history mode
+			// term->history->executed = term->line [needs realloc]
+			update_history(1);
+
 			comm = parse_input();
 //			restore_term();
 //			t_history *temp = term->history;
@@ -152,17 +148,17 @@ int	read_input(void)
 //			{
 //				write(1, "\n\x0dexecd: ", 9);
 //				write(1, temp->executed, ft_strlen(temp->executed));
-//				write(1, "\n\x0dexec: ", 8);
-//				write(1, temp->display, ft_strlen(temp->display));
+//				write(1, "\n\x0dorder: ", 9);
+//				ft_putnbr_fd(temp->order, 1);
 //				if (temp->prev)
 //				{
-//					write(1, "\n\x0dhistory: ", 11);
-//					write(1, temp->prev->executed, ft_strlen(temp->prev->executed));
+//					write(1, "\n\x0dprev_order: ", 14);
+//					ft_putnbr_fd(temp->prev->order, 1);
 //				}
 //				temp = temp->next;
 //			}
 //			enableRawMode();
-			
+
 			if (comm)
 			{
 				restore_term();
@@ -170,7 +166,9 @@ int	read_input(void)
 				free_cmd(comm);
 				enableRawMode();
 			}
+			term->history_mode = 0;
 			new_line_command(&cp);
+//			i++;
 		}
 		if (c == (('d') & 0x1f) && cp == 0)
 			return (quit_gracefully());

@@ -11,7 +11,7 @@ SRCS_DIR = srcs
 
 SRCS_FILE = utils.c
 
-PRS_SRCS_FILE = parser.c utils.c utils2.c 
+PRS_SRCS_FILE = parser.c utils.c utils2.c
 TRM_SRCS_FILE = terminal.c utils.c
 
 HST_SRCS_FILE = history.c
@@ -45,7 +45,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make bonus -C libft
-	$(CC) $(CFLAGS) $(LDFLAGS) -Llibft -lft $(OBJS) -o minishell
+	$(CC) $(CFLAGS) -Llibft -lft $(OBJS) -o minishell
 
 clean:
 	@make clean -C libft
