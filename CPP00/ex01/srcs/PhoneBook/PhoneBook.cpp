@@ -101,7 +101,7 @@ void	PhoneBook::printParams(std::string str, int toPrint)
 {
 	if (toPrint > 9)
 		str = str.substr(0, 9) + ".";
-	std::cout << std::setw(10) << std::left << str << '|';
+	std::cout << std::setw(10) << str << '|';
 }
 
 void	PhoneBook::searchContact(void) {
@@ -113,14 +113,14 @@ void	PhoneBook::searchContact(void) {
 		return ;
 	}
 	std::cout << "--------------------------------------------" << std::endl;
-	std::cout << std::setw(10) << std::left << "INDEX" << "|"
-			  << std::setw(10) << std::left << "FIRST NAME" << "|"
-			  << std::setw(10) << std::left << "LAST NAME" << "|"
-			  << std::setw(10) << std::left << "NICKNAME" << "|" << std::endl;
+	std::cout << std::setw(10) << "INDEX" << "|"
+			  << std::setw(10) << "FIRST NAME" << "|"
+			  << std::setw(10) << "LAST NAME" << "|"
+			  << std::setw(10) << "NICKNAME" << "|" << std::endl;
 	std::cout << "--------------------------------------------" << std::endl;
 	for (int i = 0; i < book_size - 1; i++)
 	{
-		std::cout << std::left << std::setw(10) << i + 1 << '|';
+		std::cout << std::setw(10) << i + 1 << '|';
 		printParams(book[i].getName(), book[i].getName().length());
 		printParams(book[i].getSurname(), book[i].getSurname().length());
 		printParams(book[i].getNickname(), book[i].getNickname().length());
