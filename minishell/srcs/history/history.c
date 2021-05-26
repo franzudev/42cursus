@@ -11,7 +11,7 @@ t_history	*histlast(t_history *lst)
 
 void	histadd_back(t_history **lst, t_history *new)
 {
-	t_history *res;
+	t_history	*res;
 
 	if (!new)
 		return ;
@@ -30,7 +30,7 @@ void	histadd_back(t_history **lst, t_history *new)
 
 void	update_history(int f)
 {
-	t_history *history;
+	t_history	*history;
 
 	if (!ft_strlen(term->line))
 		return ;

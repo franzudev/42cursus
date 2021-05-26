@@ -1,8 +1,19 @@
 #include "../../minishell.h"
 
+static void	restore_clone(void)
+{
+	while (term->history_clone)
+	{
+		if (term->history_clone->prev)
+			term->history_clone = term->history_clone->prev;
+		else
+			break ;
+	}
+}
+
 void	remove_unexecuted(void)
 {
-	t_history *prev;
+	t_history	*prev;
 
 	while (term->history_clone)
 	{
@@ -22,20 +33,14 @@ void	remove_unexecuted(void)
 		if (term->history_clone->next)
 			term->history_clone = term->history_clone->next;
 		else
-			break;
+			break ;
 	}
-	while (term->history_clone)
-	{
-		if (term->history_clone->prev)
-			term->history_clone = term->history_clone->prev;
-		else
-			break;
-	}
+	restore_clone();
 }
 
 void	put_history(char *display, int *cp)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(term->line);
 	if (len > 0)
@@ -57,7 +62,7 @@ int	hist_size(void)
 
 	hist = term->history_clone;
 	len = 0;
-	while  (hist)
+	while (hist)
 	{
 		len++;
 		hist = hist->next;
@@ -65,9 +70,9 @@ int	hist_size(void)
 	return (len);
 }
 
-int		is_same_history(void)
+int	is_same_history(void)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(term->line);
 	if (ft_strncmp(term->line, term->history->display, len) == 0)
