@@ -2,9 +2,9 @@
 
 char	*replace_dollar(char *str)
 {
-	t_list 	*temp;
+	t_list	*temp;
 	t_env	*env;
-	int 	i;
+	int		i;
 
 	temp = term->env;
 	i = 0;
@@ -37,8 +37,8 @@ char	*strip_quotes(char *str, char **temp, char type)
 	ft_strlcat(*temp, str++, 2);
 	while (*str && *str != type)
 	{
-		if (type == '"' && *str == '$' && (*(str + 1) != ' ' && *(str + 1) !=
-		'"'))
+		if (type == '"' && *str == '$' && (*(str + 1) != ' '
+				&& *(str + 1) != '"'))
 		{
 			dollar = replace_dollar(++str);
 			if (dollar)
@@ -61,7 +61,7 @@ char	*strip_quotes(char *str, char **temp, char type)
 char	*strip_string_from_cmd(char **string)
 {
 	char	**temp;
-	char 	*str;
+	char	*str;
 
 	str = *string;
 	temp = (char **)malloc(sizeof(char *));
