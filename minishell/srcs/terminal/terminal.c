@@ -54,18 +54,36 @@ int	hist_size(void)
 	return (len);
 }
 
+int		is_same_history()
+{
+	int len;
+
+	len = ft_strlen(term->line);
+	if (ft_strncmp(term->line, term->history->display, len) == 0)
+		return (1);
+	return (0);
+}
+
 void 	arrow_up(int *cp)
 {
-	ft_putnbr_fd(hist_size(), 1);
-	if (term->history->order == hist_size() && !term->history_mode)
-		put_history(term->history->display, cp);
-	else if (term->history->prev)
+	t_history *history;
+
+	history = term->history;
+	if (!history->executed)
 	{
-		put_history(term->history->prev->display, cp);
-		term->history = term->history->prev;
+		ft_memset(history->display, 0, ft_strlen(history->display));
+		history->display = ft_strdup(term->line);
+	}
+	if (history->order == hist_size() && !term->history_mode)
+		put_history(history->display, cp);
+	else if (history->prev)
+	{
+		put_history(history->prev->display, cp);
+		term->history = history->prev;
 	}
 	else
-		put_history(term->history->display, cp);
+		put_history(history->display, cp);
+	term->history_mode = 1;
 }
 
 void 	arrow_down(int *cp)
@@ -74,18 +92,28 @@ void 	arrow_down(int *cp)
 
 	if (term->history->order == hist_size() && !ft_strlen(term->line))
 		return ;
-	else if (term->history->order == hist_size() && term->history_mode /*ft_strlen(term->line) && !term->history->executed*/)
+	else if (!term->history->executed)
+		return;
+	else if (term->history->order == hist_size())
 	{
 		put_history("", cp);
 		term->history_mode = 0;
 		if (term->history->next)
 			term->history = term->history->next;
 	}
-	if (term->history->next)
+	else if (term->history->next)
 	{
 		put_history(term->history->next->display, cp);
 		term->history = term->history->next;
+		term->history_mode = 1;
 	}
+//	else
+//	{
+//		put_history("", cp);
+//		term->history_mode = 0;
+//		if (term->history->next)
+//			term->history = term->history->next;
+//	}
 }
 
 void	is_arrow_key(int *cp)
@@ -101,9 +129,8 @@ void	is_arrow_key(int *cp)
 		return ;
 	if (buff[0] == '[' && buff[1] == 'A')
 	{
-		if (ft_strlen(term->line) > 0 &&
-			ft_strncmp(term->line, term->history->display,
-					   ft_strlen(term->line)) != 0 && term->history_mode)
+		if (ft_strlen(term->line) > 0
+		&& hist_size() == term->history->order && !is_same_history())
 		{
 			update_history(0);
 //			term->history = term->history->next;
@@ -112,7 +139,39 @@ void	is_arrow_key(int *cp)
 	}
 	if (buff[0] == '[' && buff[1] == 'B')
 		arrow_down(cp);
-	term->history_mode = 1;
+}
+
+void	remove_unexecuted()
+{
+	t_history *prev;
+
+	while (term->history_clone)
+	{
+		if (!term->history_clone->executed)
+		{
+			free(term->history_clone->display);
+			if (term->history_clone->prev)
+			{
+				prev = term->history_clone->prev;
+				prev->next = term->history_clone->next;
+			}
+			else
+				prev = term->history_clone->next;
+			free(term->history_clone);
+			term->history_clone = prev;
+		}
+		if (term->history_clone->next)
+			term->history_clone = term->history_clone->next;
+		else
+			break;
+	}
+	while (term->history_clone)
+	{
+		if (term->history_clone->prev)
+			term->history_clone = term->history_clone->prev;
+		else
+			break;
+	}
 }
 
 int	read_input(void)
@@ -137,28 +196,20 @@ int	read_input(void)
 		if (c == '\r')
 		{
 			// history
-			// if !history mode
-			// term->history->executed = term->line [needs realloc]
-			update_history(1);
-
+			if (term->history && !term->history->executed)
+				term->history->executed = ft_strdup(term->line);
+			else
+			{
+				if (term->history)
+				{
+					ft_memset(term->history->display, 0,
+							  ft_strlen(term->history->display));
+					term->history->display = ft_strdup(term->history->executed);
+				}
+				remove_unexecuted();
+				update_history(1);
+			}
 			comm = parse_input();
-//			restore_term();
-//			t_history *temp = term->history;
-//			while (temp)
-//			{
-//				write(1, "\n\x0dexecd: ", 9);
-//				write(1, temp->executed, ft_strlen(temp->executed));
-//				write(1, "\n\x0dorder: ", 9);
-//				ft_putnbr_fd(temp->order, 1);
-//				if (temp->prev)
-//				{
-//					write(1, "\n\x0dprev_order: ", 14);
-//					ft_putnbr_fd(temp->prev->order, 1);
-//				}
-//				temp = temp->next;
-//			}
-//			enableRawMode();
-
 			if (comm)
 			{
 				restore_term();

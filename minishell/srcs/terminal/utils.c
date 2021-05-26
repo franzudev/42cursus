@@ -11,17 +11,28 @@ void	delete_nbytes(int cp)
 	}
 }
 
+void	edit_history()
+{
+	if (term->history_mode)
+	{
+		ft_memset(term->history->display, 0, ft_strlen(term->history->display));
+		term->history->display = ft_strdup(term->line);
+	}
+}
+
 void	delete_char(int *cp)
 {
 	delete_nbytes(1);
 	*cp -= 1;
 	term->line[*cp] = '\0';
+	edit_history();
 }
 
 void	write_char(int *cp, char c)
 {
 	write(STDOUT_FILENO, &c, 1);
 	term->line[*cp] = c;
+	edit_history();
 	*cp += 1;
 }
 
