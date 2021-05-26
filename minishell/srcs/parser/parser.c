@@ -22,10 +22,10 @@ index)
 static void	free_args(char **args, int i)
 {
 	int		q_idx;
-	int 	pos;
+	int		pos;
 	int		on;
 	char	type;
-	int 	size;
+	int		size;
 
 	q_idx = ft_index_of(args[i], "'\"");
 	type = args[i][q_idx];
@@ -89,17 +89,11 @@ static void	parse_strings(t_comm *command, char *cmd)
 			{
 				args[i] = ft_strdup("");
 				i++;
-				continue;
+				continue ;
 			}
 			s = i;
 			if (!(i == ft_size((void **)args) - 1))
 				free_args(args, i);
-//			free(args[i++]);
-//			while (args[i])
-//			{
-//				free(args[i]);
-//				args[i++] = NULL;
-//			}
 			args[s] = ft_strdup(++temp);
 			--temp;
 			i = s;
@@ -137,16 +131,16 @@ static t_comm	*parse_command(t_comm *command, char **cmds, int i)
 
 void	ft_add_prev(t_comm *cmd)
 {
-	t_comm *prev;
-	t_comm *save;
+	t_comm	*prev;
+	t_comm	*save;
 
 	cmd->prev = NULL;
 	prev = cmd;
 	save = cmd;
 	cmd = cmd->next;
-	while(cmd)
+	while (cmd)
 	{
-		if(cmd->input && cmd->prev)
+		if (cmd->input && cmd->prev)
 		{
 			save->input = cmd->input;
 			cmd->input = NULL;
