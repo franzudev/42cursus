@@ -14,7 +14,7 @@
 
 static int	digit_count(long n)
 {
-	int count;
+	int	count;
 
 	count = 1;
 	if (n < 0)
@@ -30,7 +30,7 @@ static int	digit_count(long n)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*res;
 	long	t;

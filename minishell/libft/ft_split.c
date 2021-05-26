@@ -14,8 +14,8 @@
 
 static char	**count_and_alloc(const char *str, char charset)
 {
-	int w;
-	int i;
+	int	w;
+	int	i;
 
 	if (!str)
 		return (0);
@@ -28,14 +28,14 @@ static char	**count_and_alloc(const char *str, char charset)
 			w++;
 		i++;
 	}
-	return (char **)malloc(sizeof(char **) * (w + 1));
+	return ((char **)malloc(sizeof(char **) * (w + 1)));
 }
 
 static void	alloc_string_space(char **res, char const *str, char charset)
 {
-	int w;
-	int i;
-	int len;
+	int	w;
+	int	i;
+	int	len;
 
 	i = 0;
 	w = 0;
@@ -53,7 +53,7 @@ static void	alloc_string_space(char **res, char const *str, char charset)
 	}
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**res;
 	int		w;
