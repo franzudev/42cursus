@@ -112,11 +112,12 @@ void	PhoneBook::searchContact(void) {
 		std::cout << "PHONE BOOK IS EMPTY, ADD ALMOST ONE CONTACT" << std::endl;
 		return ;
 	}
+	std::cout << "--------------------------------------------" << std::endl;
 	std::cout << std::setw(10) << std::left << "INDEX" << "|"
 			  << std::setw(10) << std::left << "FIRST NAME" << "|"
 			  << std::setw(10) << std::left << "LAST NAME" << "|"
 			  << std::setw(10) << std::left << "NICKNAME" << "|" << std::endl;
-	std::cout << "____________________________________________" << std::endl;
+	std::cout << "--------------------------------------------" << std::endl;
 	for (int i = 0; i < book_size - 1; i++)
 	{
 		std::cout << std::left << std::setw(10) << i + 1 << '|';
@@ -125,7 +126,7 @@ void	PhoneBook::searchContact(void) {
 		printParams(book[i].getNickname(), book[i].getNickname().length());
 		std::cout << std::endl;
 	}
-	std::cout << "____________________________________________" << std::endl;
+	std::cout << "--------------------------------------------" << std::endl;
 	std::cout << "SELECT AN INDEX TO SHOW CONTACT'S INFORMATIONS" << std::endl;
 	std::getline(std::cin, input);
 	try
