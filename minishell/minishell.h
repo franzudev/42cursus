@@ -122,6 +122,13 @@ int		ft_error(char *str, int i);
 
 // history
 void	update_history(int f);
+void	is_arrow_key(int *cp);
+void 	arrow_up(int *cp);
+void 	arrow_down(int *cp);
+void	put_history(char *display, int *cp);
+int		hist_size(void);
+int		is_same_history(void);
+void	remove_unexecuted(void);
 
 t_term *term;
 #endif

@@ -14,7 +14,7 @@ SRCS_FILE = utils.c
 PRS_SRCS_FILE = parser.c utils.c utils2.c
 TRM_SRCS_FILE = terminal.c utils.c
 
-HST_SRCS_FILE = history.c
+HST_SRCS_FILE = history.c arrow_keys.c utils.c
 
 CMD_SRCS_FILE = exec_cmd.c \
 				exit.c \
