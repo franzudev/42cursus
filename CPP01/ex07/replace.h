@@ -5,4 +5,7 @@
 #ifndef CPP01_REPLACE_H
 #define CPP01_REPLACE_H
 
+#include <iostream>
+#include <fstream>
+
 #endif //CPP01_REPLACE_H
