@@ -6,6 +6,6 @@
 #define CPP01_REPLACE_H
 
 #include <iostream>
-#include <fstream>
+#include "Sed.hpp"
 
 #endif //CPP01_REPLACE_H
