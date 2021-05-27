@@ -13,4 +13,5 @@ int main(int argc, char *argv[])
 	}
 	Sed sed = Sed(argv[1], argv[2], argv[3]);
 	sed.replace();
+	return (0);
 }

@@ -53,7 +53,16 @@ void Sed::replace()
 	std::ofstream	outputFile;
 
 	inputFile.open(_inputFileName);
+	if (inputFile.fail())
+	{
+		std::cout << "Input file does not exist" << std::endl;
+		exit(1);
+	}
 	outputFile.open(getOutpuFileName(), std::ios::out | std::ios::trunc);
+	if (outputFile.fail())
+	{
+		std::cout << "Can't create output file" << std::endl;
+	}
 	while (std::getline(inputFile, line))
 	{
 		if (line.find(_strToFind))
