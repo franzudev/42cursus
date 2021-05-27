@@ -22,7 +22,7 @@ std::string Sed::getOutpuFileName()
 	return filename;
 }
 
-std::string Sed::searchAndReplace(std::string line)
+std::string Sed::generateSubstitute(std::string line)
 {
 	std::string res;
 	std::size_t found;
@@ -66,7 +66,7 @@ void Sed::replace()
 	while (std::getline(inputFile, line))
 	{
 		if (line.find(_strToFind))
-			replaced = searchAndReplace(line);
+			replaced = generateSubstitute(line);
 		else
 			replaced = line;
 		outputFile << replaced << std::endl;

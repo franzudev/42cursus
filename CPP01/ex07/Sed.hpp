@@ -14,7 +14,7 @@ class Sed {
 	std::string		_strToReplace;
 
 	std::string		getOutpuFileName();
-	std::string		searchAndReplace(std::string line);
+	std::string		generateSubstitute(std::string line);
 public:
 	Sed();
 	Sed(std::string inputFileName, std::string strToFind, std::string strToReplace);
