@@ -4,6 +4,14 @@
 
 #include "FragTrap.hpp"
 
+std::string attacks[5] = {
+		"10,000,000 Volt Thunderbolt",
+		"All-Out Pummeling",
+		"G-Max Cannonade",
+		"Moongeist Beam",
+		"Soul-Stealing 7-Star Strike"
+};
+
 FragTrap::FragTrap() {
 	name = "NullFrag";
 	hitPoints = 100;
@@ -35,15 +43,8 @@ FragTrap::~FragTrap() {
 }
 
 FragTrap::FragTrap(const FragTrap &fragTrap) {
+	*this = fragTrap;
 	name = fragTrap.name + ".clone";
-	hitPoints = fragTrap.hitPoints;
-	maxHitPoints = fragTrap.maxHitPoints;
-	energyPoints = fragTrap.energyPoints;
-	maxEnergyPoints = fragTrap.maxEnergyPoints;
-	level = fragTrap.level;
-	meleeAttackDamage = fragTrap.meleeAttackDamage;
-	rangedAttackDamage = fragTrap.rangedAttackDamage;
-	armorDamageReduction = fragTrap.armorDamageReduction;
 	std::cout << "<FR4G-TP> " + fragTrap.name + ".clone ready to destroy!" << std::endl;
 }
 
@@ -53,7 +54,8 @@ void FragTrap::rangedAttack(const std::string &target) {
 }
 
 void FragTrap::meleeAttack(const std::string &target) {
-	std::cout << "<FR4G-TP> " + name + " attacks " + target + " in melee!" << std::endl;
+	std::cout << "<FR4G-TP> " + name + " attacks " + target + " at range, causing "
+			  << meleeAttackDamage << " points of damage!" << std::endl;
 }
 
 void FragTrap::takeDamage(unsigned int amount) {
@@ -70,4 +72,15 @@ void FragTrap::beRepaired(unsigned int amount) {
 		energyPoints = maxEnergyPoints;
 	else
 		energyPoints = energyPoints + amount;
+}
+
+void	FragTrap::vaulthunter_dot_exe(std::string const & target) {
+	if (energyPoints < 25)
+	{
+		std::cout << "<FR4G-TP> " + name + " doesn't have enough energy!" << std::endl;
+		return;
+	}
+	std::cout << "<FR4G-TP> " + name + " use " + attacks[rand() % 5] + " on " + target + " causing "
+			  << rand() % 50 << " points of damage!" << std::endl;
+	energyPoints -= 25;
 }

@@ -27,11 +27,8 @@ FragTrap::FragTrap() {
 
 
 FragTrap::FragTrap(std::string const &_name): name(_name) {
-	hitPoints = 100;
-	maxHitPoints = 100;
 	energyPoints = 100;
 	maxEnergyPoints = 100;
-	level = 1;
 	meleeAttackDamage = 30;
 	rangedAttackDamage = 20;
 	armorDamageReduction = 5;
