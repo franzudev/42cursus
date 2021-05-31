@@ -14,6 +14,7 @@ public:
 	ScavTrap(std::string const &_name);
 	~ScavTrap();
 	ScavTrap(const ScavTrap& scavTrap);
+	ScavTrap& operator=(const ScavTrap &scavTrap);
 	void	challengeNewcomer(void);
 };
 

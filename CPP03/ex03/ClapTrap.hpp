@@ -23,6 +23,7 @@ public:
 	ClapTrap(std::string const &_name);
 	virtual ~ClapTrap();
 	ClapTrap(const ClapTrap& clapTrap);
+	ClapTrap& operator=(const ClapTrap &clapTrap);
 	void	rangedAttack(std::string const & target);
 	void	meleeAttack(std::string const & target);
 	void	takeDamage(unsigned int amount);

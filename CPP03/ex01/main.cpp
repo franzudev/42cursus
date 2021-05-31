@@ -18,7 +18,7 @@ int main() {
 
 	fragTrap1.meleeAttack("Egidio");
 	fragTrap.takeDamage(30);
-	fragTrap.rangedAttack("Egidio.clone");
+	fragTrap.rangedAttack("Egidio.clone.clone");
 	fragTrap3.takeDamage(20);
 	fragTrap3.meleeAttack("NullFrag");
 	fragTrap1.takeDamage(30);
@@ -32,14 +32,14 @@ int main() {
 	fragTrap3.vaulthunter_dot_exe("Egidio");
 
 
-	scavTrap1.meleeAttack("Boris");
+	scavTrap1.meleeAttack("NullScav");
 	scavTrap.takeDamage(30);
-	scavTrap.rangedAttack("Boris.clone");
+	scavTrap.rangedAttack("NullScav.clone.clone");
 	scavTrap3.takeDamage(20);
-	scavTrap3.meleeAttack("NullFrag");
-	scavTrap1.takeDamage(30);
-	scavTrap1.beRepaired(7);
-	scavTrap.beRepaired(23);
+	scavTrap3.meleeAttack("NullScav");
+	scavTrap.takeDamage(30);
+	scavTrap.beRepaired(7);
+	scavTrap1.beRepaired(23);
 	scavTrap3.beRepaired(15);
 	scavTrap.challengeNewcomer();
 	scavTrap3.challengeNewcomer();

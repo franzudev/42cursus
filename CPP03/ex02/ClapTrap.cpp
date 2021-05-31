@@ -18,7 +18,7 @@ ClapTrap::ClapTrap() {
 }
 
 
-ClapTrap::ClapTrap(std::string const &_name): name(_name) {
+ClapTrap::ClapTrap(std::string const &_name, int type): name(_name), type(type){
 	hitPoints = 100;
 	maxHitPoints = 100;
 	energyPoints = 100;
@@ -35,13 +35,44 @@ ClapTrap::~ClapTrap() {
 }
 
 ClapTrap::ClapTrap(const ClapTrap &clapTrap) {
-	*this = clapTrap;
 	name = clapTrap.name + ".clone";
-	std::cout << "<CL4P-TP> " + clapTrap.name + ".clone ready to destroy!" << std::endl;
+	type = clapTrap.type;
+	hitPoints = clapTrap.hitPoints;
+	maxHitPoints = clapTrap.maxHitPoints;
+	energyPoints = clapTrap.energyPoints;
+	maxEnergyPoints = clapTrap.maxEnergyPoints;
+	level = clapTrap.level;
+	meleeAttackDamage = clapTrap.meleeAttackDamage;
+	rangedAttackDamage = clapTrap.rangedAttackDamage;
+	armorDamageReduction = clapTrap.armorDamageReduction;
+
+	std::cout << "<CL4P-TP> " + name + " ready to destroy!" << std::endl;
+}
+
+ClapTrap& ClapTrap::operator=(const ClapTrap &clapTrap) {
+	name = clapTrap.name + ".clone";
+	type = clapTrap.type;
+	hitPoints = clapTrap.hitPoints;
+	maxHitPoints = clapTrap.maxHitPoints;
+	energyPoints = clapTrap.energyPoints;
+	maxEnergyPoints = clapTrap.maxEnergyPoints;
+	level = clapTrap.level;
+	meleeAttackDamage = clapTrap.meleeAttackDamage;
+	rangedAttackDamage = clapTrap.rangedAttackDamage;
+	armorDamageReduction = clapTrap.armorDamageReduction;
+
+	std::cout << "<CL4P-TP> " + name + " ready to destroy!" << std::endl;
+
+	return *this;
 }
 
 void ClapTrap::rangedAttack(const std::string &target) {
-	std::cout << "<CL4P-TP> " + name + " attacks " + target + " at range, causing "
+	if (type == FRAG)
+		std::cout << "<FR4G-TP> ";
+	else if (type == SCAV)
+		std::cout << "<SC4V-TP> ";
+
+	std::cout << name + " attacks " + target + " at range, causing "
 			  << rangedAttackDamage << " points of damage!" << std::endl;
 }
 

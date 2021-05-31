@@ -41,8 +41,21 @@ FragTrap::~FragTrap() {
 
 FragTrap::FragTrap(const FragTrap &fragTrap) {
 	*this = fragTrap;
+}
+
+FragTrap& FragTrap::operator=(const FragTrap &fragTrap) {
 	name = fragTrap.name + ".clone";
-	std::cout << "<FR4G-TP> " + fragTrap.name + ".clone ready to destroy!" << std::endl;
+	hitPoints = fragTrap.hitPoints;
+	maxHitPoints = fragTrap.maxHitPoints;
+	energyPoints = fragTrap.energyPoints;
+	maxEnergyPoints = fragTrap.maxEnergyPoints;
+	level = fragTrap.level;
+	meleeAttackDamage = fragTrap.meleeAttackDamage;
+	rangedAttackDamage = fragTrap.rangedAttackDamage;
+	armorDamageReduction = fragTrap.armorDamageReduction;
+	std::cout << "<FR4G-TP> " + name + " ready to destroy!" << std::endl;
+
+	return *this;
 }
 
 void FragTrap::rangedAttack(const std::string &target) {

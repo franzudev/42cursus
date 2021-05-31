@@ -17,7 +17,7 @@ ScavTrap::ScavTrap(): ClapTrap() {
 	std::cout << "<SC4V-TP> " + name + " engine start... ROARRRRRR!!!" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string const &_name): ClapTrap(_name) {
+ScavTrap::ScavTrap(std::string const &_name): ClapTrap(_name, SCAV) {
 	energyPoints = 50;
 	maxEnergyPoints = 50;
 	level = 1;
@@ -32,9 +32,32 @@ ScavTrap::~ScavTrap() {
 }
 
 ScavTrap::ScavTrap(const ScavTrap &scavTrap): ClapTrap(scavTrap) {
-	*this = scavTrap;
 	name = scavTrap.name + ".clone";
-	std::cout << "<SC4V-TP> " + scavTrap.name + ".clone ready to destroy!" << std::endl;
+	hitPoints = scavTrap.hitPoints;
+	maxHitPoints = scavTrap.maxHitPoints;
+	energyPoints = scavTrap.energyPoints;
+	maxEnergyPoints = scavTrap.maxEnergyPoints;
+	level = scavTrap.level;
+	meleeAttackDamage = scavTrap.meleeAttackDamage;
+	rangedAttackDamage = scavTrap.rangedAttackDamage;
+	armorDamageReduction = scavTrap.armorDamageReduction;
+	std::cout << "<SC4V-TP> " + name + " ready to destroy!" << std::endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap &scavTrap) {
+	ClapTrap::operator=(scavTrap);
+	name = scavTrap.name + ".clone";
+	hitPoints = scavTrap.hitPoints;
+	maxHitPoints = scavTrap.maxHitPoints;
+	energyPoints = scavTrap.energyPoints;
+	maxEnergyPoints = scavTrap.maxEnergyPoints;
+	level = scavTrap.level;
+	meleeAttackDamage = scavTrap.meleeAttackDamage;
+	rangedAttackDamage = scavTrap.rangedAttackDamage;
+	armorDamageReduction = scavTrap.armorDamageReduction;
+	std::cout << "<SC4V-TP> " + name + " ready to destroy!" << std::endl;
+
+	return *this;
 }
 
 void ScavTrap::challengeNewcomer() {

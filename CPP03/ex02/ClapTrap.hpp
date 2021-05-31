@@ -7,6 +7,11 @@
 
 #include <iostream>
 
+enum TrapType {
+	FRAG,
+	SCAV
+};
+
 class ClapTrap {
 protected:
 	std::string		name;
@@ -18,11 +23,14 @@ protected:
 	unsigned int	meleeAttackDamage;
 	unsigned int	rangedAttackDamage;
 	unsigned int	armorDamageReduction;
+private:
+	int				type;
 public:
 	ClapTrap();
-	ClapTrap(std::string const &_name);
+	ClapTrap(std::string const &_name, int type);
 	virtual ~ClapTrap();
 	ClapTrap(const ClapTrap& clapTrap);
+	ClapTrap& operator=(const ClapTrap &clapTrap);
 	void	rangedAttack(std::string const & target);
 	void	meleeAttack(std::string const & target);
 	void	takeDamage(unsigned int amount);

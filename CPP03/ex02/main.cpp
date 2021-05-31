@@ -14,7 +14,7 @@ int main() {
 	ScavTrap scavTrap3;
 
 	fragTrap3 = FragTrap(fragTrap);
-	scavTrap3 = ScavTrap(scavTrap);
+	scavTrap3 = ScavTrap(scavTrap1);
 
 	fragTrap1.meleeAttack("Egidio");
 	fragTrap.takeDamage(30);

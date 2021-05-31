@@ -35,9 +35,32 @@ NinjaTrap::~NinjaTrap() {
 }
 
 NinjaTrap::NinjaTrap(const NinjaTrap &ninjaTrap): ClapTrap(ninjaTrap) {
-	*this = ninjaTrap;
 	name = ninjaTrap.name + ".clone";
-	std::cout << "<NNJ4-TP> " + ninjaTrap.name + ".clone ready to destroy!" << std::endl;
+	hitPoints = ninjaTrap.hitPoints;
+	maxHitPoints = ninjaTrap.maxHitPoints;
+	energyPoints = ninjaTrap.energyPoints;
+	maxEnergyPoints = ninjaTrap.maxEnergyPoints;
+	level = ninjaTrap.level;
+	meleeAttackDamage = ninjaTrap.meleeAttackDamage;
+	rangedAttackDamage = ninjaTrap.rangedAttackDamage;
+	armorDamageReduction = ninjaTrap.armorDamageReduction;
+	std::cout << "<FR4G-TP> " + name + " ready to destroy!" << std::endl;
+}
+
+NinjaTrap& NinjaTrap::operator=(const NinjaTrap &ninjaTrap) {
+	ClapTrap::operator=(ninjaTrap);
+	name = ninjaTrap.name + ".clone";
+	hitPoints = ninjaTrap.hitPoints;
+	maxHitPoints = ninjaTrap.maxHitPoints;
+	energyPoints = ninjaTrap.energyPoints;
+	maxEnergyPoints = ninjaTrap.maxEnergyPoints;
+	level = ninjaTrap.level;
+	meleeAttackDamage = ninjaTrap.meleeAttackDamage;
+	rangedAttackDamage = ninjaTrap.rangedAttackDamage;
+	armorDamageReduction = ninjaTrap.armorDamageReduction;
+	std::cout << "<FR4G-TP> " + name + " ready to destroy!" << std::endl;
+
+	return *this;
 }
 
 void NinjaTrap::ninjaShoebox(ClapTrap &clapTrap) {
@@ -57,5 +80,5 @@ void NinjaTrap::ninjaShoebox(ScavTrap &scavTrap) {
 
 void NinjaTrap::ninjaShoebox(NinjaTrap &ninjaTrap) {
 	std::cout << "<NNJ4-TP> " + name + " use ninjaShoebox to " + ninjaTrap.name + " and gives him " << 40 << " damages!" << std::endl;
-	ninjaTrap.takeDamage(25);
+	ninjaTrap.takeDamage(40);
 }

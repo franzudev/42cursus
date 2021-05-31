@@ -35,9 +35,33 @@ ClapTrap::~ClapTrap() {
 }
 
 ClapTrap::ClapTrap(const ClapTrap &clapTrap) {
-	*this = clapTrap;
 	name = clapTrap.name + ".clone";
-	std::cout << "<CL4P-TP> " + clapTrap.name + ".clone ready to destroy!" << std::endl;
+	hitPoints = clapTrap.hitPoints;
+	maxHitPoints = clapTrap.maxHitPoints;
+	energyPoints = clapTrap.energyPoints;
+	maxEnergyPoints = clapTrap.maxEnergyPoints;
+	level = clapTrap.level;
+	meleeAttackDamage = clapTrap.meleeAttackDamage;
+	rangedAttackDamage = clapTrap.rangedAttackDamage;
+	armorDamageReduction = clapTrap.armorDamageReduction;
+
+	std::cout << "<CL4P-TP> " + name + " ready to destroy!" << std::endl;
+}
+
+ClapTrap& ClapTrap::operator=(const ClapTrap &clapTrap) {
+	name = clapTrap.name + ".clone";
+	hitPoints = clapTrap.hitPoints;
+	maxHitPoints = clapTrap.maxHitPoints;
+	energyPoints = clapTrap.energyPoints;
+	maxEnergyPoints = clapTrap.maxEnergyPoints;
+	level = clapTrap.level;
+	meleeAttackDamage = clapTrap.meleeAttackDamage;
+	rangedAttackDamage = clapTrap.rangedAttackDamage;
+	armorDamageReduction = clapTrap.armorDamageReduction;
+
+	std::cout << "<CL4P-TP> " + name + " ready to destroy!" << std::endl;
+
+	return *this;
 }
 
 void ClapTrap::rangedAttack(const std::string &target) {

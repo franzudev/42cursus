@@ -14,6 +14,7 @@ public:
 	FragTrap(std::string const &_name);
 	virtual ~FragTrap();
 	FragTrap(const FragTrap& fragTrap);
+	FragTrap& operator=(const FragTrap &fragTrap);
 	void	vaulthunter_dot_exe(std::string const & target);
 };
 
