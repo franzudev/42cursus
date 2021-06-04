@@ -19,11 +19,11 @@ static void	ft_set_pwd(void)
 static void ft_set_old_pwd(char *old_pwd)
 {
 	t_list *t;
-	
+
 	t = term->env;
 	while(t)
 	{
-		if (ft_strncmp(((t_env *)t->content)->name, "OLDPWD", 7) == 0)
+		if (ft_strncmp(((t_env *)t->content)->name, "OLDPWD", 6) == 0)
 			((t_env *)t->content)->value = old_pwd;
 		t = t->next;
 	}
@@ -60,7 +60,7 @@ int	cmd_cd(t_comm *cmd)
 		}
 		t = t->next;
 	}
-	if (cmd->args[1][0] == '~')
+	if (cmd->args[1] && cmd->args[1][0] == '~')
 	{
 		temp = ft_strjoin(home, cmd->args[1] + 1);
 		free(cmd->args[1]);

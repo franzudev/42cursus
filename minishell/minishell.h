@@ -89,6 +89,7 @@ int		ft_rindex_of(char *str, char *set);
 char	*strip_quotes(char *str, char **temp, char type);
 char	*strip_string_from_cmd(char **str);
 void	ft_add_prev(t_comm *cmd);
+char	*replace_dollar(char *str);
 
 // terminal
 void	enableRawMode(void);

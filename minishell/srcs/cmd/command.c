@@ -43,12 +43,9 @@ static void	ft_pipe(t_comm *cmd)
 		close(cmd->pipe[0]);
 		exec_cmd(cmd);
 		exit(EXIT_FAILURE);
-		}
-		else
-		{
-			wait(NULL);
-		close(cmd->pipe[1]);
 	}
+	waitpid(cmd->pidC, NULL, 0);
+	close(cmd->pipe[1]);
 }
 
 static void	ft_std(t_comm *cmd)
@@ -65,6 +62,7 @@ static void	ft_std(t_comm *cmd)
 		exec_cmd(cmd);
 		exit(0);
 	}
+	waitpid(cmd->pidC, NULL, 0);
 }
 
 static void	ft_out(t_comm *cmd)
@@ -87,7 +85,8 @@ static void	ft_out(t_comm *cmd)
 		dup2(cmd->pipe[1], 1);
 		close(cmd->pipe[0]);
 		close(cmd->pipe[1]);
-		wait(NULL);
+		waitpid(pidC, NULL, 0);
+//		wait(NULL);
 		exec_cmd(cmd);
 		exit(0);
 	}
@@ -137,8 +136,12 @@ int	launch_cmd(t_comm *cmd)
 		if(!ft_strncmp(cmd->value, "exit", 5))
 			return (cmd_exit());
 		else if (!ft_strncmp(cmd->value, "cd", 3))
-			(cmd_cd(cmd));
-		if (cmd->input)
+			cmd_cd(cmd);
+		else if (!ft_strncmp(cmd->value, "export", 7))
+			cmd_export(cmd);
+		else if (!ft_strncmp(cmd->value, "unset", 6))
+			cmd_unset(cmd);
+		else if (cmd->input)
 			ft_in(cmd);
 		else if (cmd->output_type == STD)
 			ft_std(cmd);

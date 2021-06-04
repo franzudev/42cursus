@@ -66,7 +66,7 @@ static void	parse_n_exec(int *cp)
 		update_history(1);
 	}
 	comm = parse_input();
-	if (comm)
+ 	if (comm)
 	{
 		restore_term();
 		launch_cmd(comm);
@@ -94,12 +94,15 @@ int	read_input(void)
 			write_char(&cp, c);
 		if (c == 127 && cp != 0)
 			delete_char(&cp);
-		if (c == '\r')
+		if (c == '\n')
 			parse_n_exec(&cp);
 		if (c == (('d') & 0x1f) && cp == 0)
 			return (quit_gracefully());
 		if (c == (('c') & 0x1f))
+		{
+			ft_putstr_fd("\n\x0d", 1);
 			new_line_command(&cp);
+		}
 		c = 0;
 		r = read(STDIN_FILENO, &c, 1);
 	}

@@ -108,7 +108,28 @@ static void	parse_strings(t_comm *command, char *cmd)
 	free(cmd_p);
 }
 
-static t_comm	*parse_command(t_comm *command, char **cmds, int i)
+/*static void parse_dollar(char **args)
+{
+	int i;
+	int j;
+	char *tmp;
+
+	i = 0;
+	j = 0;
+	while (args[i])
+	{
+		while (args[i][j])
+		{
+			if (args[i][j] == '$' && args[i][j + 1] != ' ')
+			{
+
+			}
+			j++;
+		}
+	}
+}*/
+
+static t_comm	*parse_command(t_comm *command, char **cmds)
 {
 	int	j;
 	int	size;
@@ -119,10 +140,39 @@ static t_comm	*parse_command(t_comm *command, char **cmds, int i)
 	{
 		parse_operators(command, cmds[j], size, j);
 		parse_strings(command, cmds[j]);
+//		parse_dollar(command->args);
 		command->value = command->args[0];
-		if (j < size - i)
-			command->next = (t_comm *)malloc(sizeof(t_comm));
-		command = command->next;
+		free(cmds[j]);
+		if (j < size - 1)
+		{
+			command->next = (t_comm *) malloc(sizeof(t_comm));
+			command = command->next;
+		}
+		j++;
+	}
+	return (command);
+}
+
+static t_comm	*parse_command2(t_comm *command, char **cmds)
+{
+	int	j;
+	int	size;
+
+	j = 0;
+	size = ft_size((void **)cmds);
+	command->next = (t_comm *) malloc(sizeof(t_comm));
+	command = command->next;
+	while (cmds[j])
+	{
+		parse_operators(command, cmds[j], size, j);
+		parse_strings(command, cmds[j]);
+//		parse_dollar(command->args);
+		command->value = command->args[0];
+		if (j < size - 1)
+		{
+			command = (t_comm *) malloc(sizeof(t_comm));
+			command = command->next;
+		}
 		free(cmds[j]);
 		j++;
 	}
@@ -137,17 +187,20 @@ void	ft_add_prev(t_comm *cmd)
 	cmd->prev = NULL;
 	prev = cmd;
 	save = cmd;
-	cmd = cmd->next;
-	while (cmd)
+	if (cmd->next != NULL)
 	{
-		if (cmd->input && cmd->prev)
-		{
-			save->input = cmd->input;
-			cmd->input = NULL;
-		}
-		cmd->prev = prev;
-		prev = cmd;
 		cmd = cmd->next;
+		while (cmd)
+		{
+			if (cmd->input != NULL)  //&& cmd->prev)
+			{
+				save->input = cmd->input;
+				cmd->input = NULL;
+			}
+			cmd->prev = prev;
+			prev = cmd;
+			cmd = cmd->next;
+		}
 	}
 }
 
@@ -165,18 +218,20 @@ t_comm	*parse_input(void)
 	cmds = ft_split(term->line, ';');
 	commands = (t_comm *)malloc(sizeof(t_comm));
 	cmd = ft_split(cmds[i++], '|');
-	command = parse_command(commands, cmd, cmds[i] ? 0 : 1);
+	command = parse_command(commands, cmd);
 	free(cmd);
 	while (cmds[i])
 	{
 		cmd = ft_split(cmds[i], '|');
-		command = parse_command(command, cmd, 1);
+		command = parse_command2(command, cmd);
 		free(cmd);
 		i++;
 	}
-//	if (command)
+//	if (!command->value)
+//	{
 //		free(command);
-//	command = NULL;
+//		command = NULL;
+//	}
 	i = 0;
 	while (cmds[i])
 		free(cmds[i++]);

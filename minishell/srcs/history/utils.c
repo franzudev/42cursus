@@ -15,6 +15,8 @@ void	remove_unexecuted(void)
 {
 	t_history	*prev;
 
+	if (!term->history_clone)
+		return ;
 	while (term->history_clone)
 	{
 		if (!term->history_clone->executed)

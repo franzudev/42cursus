@@ -4,8 +4,8 @@ int	cmd_pwd(void)
 {
 	char	*buf;
 
-	buf = NULL;
-	buf = getcwd(buf, MAX_LEN);
+//	buf = NULL;
+	buf = getcwd(NULL, MAX_LEN);
 	if (buf == NULL)
       return (EXIT_FAILURE);
     else
