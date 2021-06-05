@@ -8,9 +8,6 @@
 #include "Enemy.hpp"
 
 class RadScorpion: public Enemy {
-protected:
-	unsigned int	hp;
-	std::string		type;
 public:
 	RadScorpion();
 	RadScorpion(const RadScorpion& radScorpion);

@@ -8,9 +8,6 @@
 #include "Enemy.hpp"
 
 class SuperMutant: public Enemy {
-protected:
-	unsigned int	hp;
-	std::string		type;
 public:
 	SuperMutant();
 	SuperMutant(const SuperMutant& superMutant);

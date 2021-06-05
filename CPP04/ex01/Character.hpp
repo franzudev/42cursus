@@ -14,6 +14,7 @@ private:
 	int	ap;
 	AWeapon			*weapon;
 public:
+	Character();
 	Character(std::string const & name);
 	Character(const Character& character);
 	~Character();
