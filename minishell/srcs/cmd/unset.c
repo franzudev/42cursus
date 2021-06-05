@@ -10,7 +10,7 @@ int cmd_unset(t_comm *cmd)
 	t = term->env;
 	if (!cmd->args[1])
 	{
-		write(STDOUT_FILENO, "\n\x0d", 2);
+		write(STDOUT_FILENO, "unset: not enough arguments\n\x0d", 29);
 		return (EXIT_SUCCESS);
 	}
 	len = ft_strlen(cmd->args[1]);

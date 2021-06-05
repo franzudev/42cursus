@@ -37,7 +37,7 @@ int	cmd_red_out(char *file_path, int i)
 		return (EXIT_FAILURE);
 	free(out);
 	close(fd);
-	write(STDOUT_FILENO, "\n\x0d", 2);
+	//write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }
 

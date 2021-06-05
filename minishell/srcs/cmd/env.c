@@ -39,13 +39,12 @@ int	env_command(void)
 	t = term->env;
 	while (t)
 	{
-		ft_putstr_fd("\n\x0d", 2);
 		ft_putstr_fd(((t_env *)t->content)->name, 1);
 		ft_putstr_fd("=", 1);
 		ft_putstr_fd(((t_env *)t->content)->value, 1);
+		ft_putstr_fd("\n\x0d", 1);
 		t = t->next;
 	}
-	write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }
 

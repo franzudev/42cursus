@@ -33,10 +33,17 @@
 
 static void	ft_pipe(t_comm *cmd)
 {
-	pipe(cmd->pipe);
+	if(!cmd->input)
+		pipe(cmd->pipe);
 	cmd->pidC = fork();
 	if (cmd->pidC == 0)
 	{
+		if(cmd->input)
+		{
+			dup2(cmd->pipe[0], 0);
+			// close(cmd->pipe[0]);
+			// close(cmd->pipe[1]);
+		}
 		if(cmd->prev)
 			dup2(cmd->prev->pipe[0], 0);
 		dup2(cmd->pipe[1], 1);
@@ -53,6 +60,13 @@ static void	ft_std(t_comm *cmd)
 	cmd->pidC = fork();
 	if (cmd->pidC == 0)
 	{
+		if(cmd->input)
+		{
+			dup2(cmd->pipe[0], 0);
+			close(cmd->pipe[0]);
+			close(cmd->pipe[1]);
+		}
+
 		if(cmd->prev && cmd->prev->output_type == PIPE)
 		{
 			dup2(cmd->prev->pipe[0], 0);
@@ -62,6 +76,8 @@ static void	ft_std(t_comm *cmd)
 		exec_cmd(cmd);
 		exit(0);
 	}
+	// close(cmd->prev->pipe[0]);
+	// close(cmd->prev->pipe[1]);
 	waitpid(cmd->pidC, NULL, 0);
 }
 
@@ -73,15 +89,21 @@ static void	ft_out(t_comm *cmd)
 	cmd->pidC = fork();
 	if (cmd->pidC == 0)
 	{
-		dup2(cmd->pipe[0], 0);
-		close(cmd->pipe[0]);
-		close(cmd->pipe[1]);
+			dup2(cmd->pipe[0], 0);
+			close(cmd->pipe[0]);
+			close(cmd->pipe[1]);
 		cmd_red_out(cmd->output, cmd->output_type);
 		exit(0);
 	}
 	pidC = fork();
 	if (pidC == 0)
 	{
+		if(cmd->prev && cmd->prev->output_type == PIPE)
+		{
+			dup2(cmd->prev->pipe[0], 0);
+			close(cmd->prev->pipe[0]);
+			close(cmd->prev->pipe[1]);
+		}
 		dup2(cmd->pipe[1], 1);
 		close(cmd->pipe[0]);
 		close(cmd->pipe[1]);
@@ -98,7 +120,7 @@ static void	ft_out(t_comm *cmd)
 
 static void ft_in(t_comm *cmd)
 {
-	pid_t pidC;
+	// pid_t pidC;
 
 	pipe(cmd->pipe);
 	cmd->pidC = fork();
@@ -110,19 +132,19 @@ static void ft_in(t_comm *cmd)
 		cmd_red_in(cmd->input);
 		exit(0);
 	}
-	pidC = fork();
-	if (pidC == 0)
-	{
-		dup2(cmd->pipe[0], 0);
-		close(cmd->pipe[0]);
-		close(cmd->pipe[1]);
-		exec_cmd(cmd);
-		exit(0);
-	}
-	close(cmd->pipe[0]);
+	// pidC = fork();
+	// if (pidC == 0)
+	// {
+	// 	dup2(cmd->pipe[0], 0);
+	// 	close(cmd->pipe[0]);
+	// 	close(cmd->pipe[1]);
+	// 	exec_cmd(cmd);
+	// 	exit(0);
+	// // }
+	// close(cmd->pipe[0]);
 	close(cmd->pipe[1]);
-	waitpid(pidC, NULL , 0);
-	//waitpid(cmd->pidC, NULL, 0);
+	waitpid(cmd->pidC, NULL , 0);
+		//waitpid(cmd->pidC, NULL, 0);
 }
 
 int	launch_cmd(t_comm *cmd)
@@ -131,6 +153,7 @@ int	launch_cmd(t_comm *cmd)
 
 	save = cmd;
 	ft_add_prev(cmd);
+	ft_putstr_fd("\n\x0d", 1);
 	while(cmd)
 	{
 		if(!ft_strncmp(cmd->value, "exit", 5))
@@ -141,14 +164,17 @@ int	launch_cmd(t_comm *cmd)
 			cmd_export(cmd);
 		else if (!ft_strncmp(cmd->value, "unset", 6))
 			cmd_unset(cmd);
-		else if (cmd->input)
-			ft_in(cmd);
-		else if (cmd->output_type == STD)
-			ft_std(cmd);
-		else if (cmd->output_type == WRITE || cmd->output_type == APPEND)
-			ft_out(cmd);
-		else if (cmd->output_type == PIPE)
-			ft_pipe(cmd);
+		else
+		{
+			if (cmd->input)
+				ft_in(cmd);
+			if (cmd->output_type == STD)
+				ft_std(cmd);
+			if (cmd->output_type == WRITE || cmd->output_type == APPEND)
+				ft_out(cmd);
+			else if (cmd->output_type == PIPE)
+				ft_pipe(cmd);
+		}
 		cmd = cmd->next;
 	 }
 	while (save)
