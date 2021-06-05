@@ -86,7 +86,7 @@ void	free_all(void)
 	ft_histclear(&term->history_clone, free);
 	ft_lstclear(&term->env, lst_del);
 	ft_lstclear(&term->env, free);
-	free(term->history);
+//	free(term->history);
 	free(term->env);
 	free(term);
 }

@@ -145,7 +145,7 @@ static t_comm	*parse_command(t_comm *command, char **cmds)
 		free(cmds[j]);
 		if (j < size - 1)
 		{
-			command->next = (t_comm *) malloc(sizeof(t_comm));
+			command->next = init_command();
 			command = command->next;
 		}
 		j++;
@@ -160,7 +160,7 @@ static t_comm	*parse_command2(t_comm *command, char **cmds)
 
 	j = 0;
 	size = ft_size((void **)cmds);
-	command->next = (t_comm *) malloc(sizeof(t_comm));
+	command->next = init_command();
 	command = command->next;
 	while (cmds[j])
 	{
@@ -170,7 +170,7 @@ static t_comm	*parse_command2(t_comm *command, char **cmds)
 		command->value = command->args[0];
 		if (j < size - 1)
 		{
-			command = (t_comm *) malloc(sizeof(t_comm));
+			command = init_command();
 			command = command->next;
 		}
 		free(cmds[j]);
@@ -204,6 +204,22 @@ void	ft_add_prev(t_comm *cmd)
 	}
 }
 
+t_comm *init_command()
+{
+	t_comm *command;
+
+	command = (t_comm *) malloc(sizeof(t_comm));
+	command->next = NULL;
+	command->args = NULL;
+	command->input = NULL;
+	command->prev = NULL;
+	command->value = NULL;
+	command->error = NULL;
+	command->output = NULL;
+
+	return command;
+}
+
 t_comm	*parse_input(void)
 {
 	int		i;
@@ -216,7 +232,7 @@ t_comm	*parse_input(void)
 		return (NULL);
 	i = 0;
 	cmds = ft_split(term->line, ';');
-	commands = (t_comm *)malloc(sizeof(t_comm));
+	commands = init_command();
 	cmd = ft_split(cmds[i++], '|');
 	command = parse_command(commands, cmd);
 	free(cmd);

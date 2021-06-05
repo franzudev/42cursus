@@ -4,25 +4,6 @@
 int	quit_gracefully(void)
 {
 	write(STDOUT_FILENO, "exit\n\x0d", 6);
-	// to remove
-	int file;
-	file = open("history.txt", O_WRONLY);
-	t_history *temp = term->history_clone;
-	while (temp)
-	{
-		if (temp->prev)
-		{
-			ft_putstr_fd("\nhistory: ", file);
-			ft_putstr_fd(temp->prev->executed, file);
-		}
-		ft_putstr_fd("\nexecuted: ", file);
-		ft_putstr_fd(temp->executed, file);
-		ft_putstr_fd("\nexec: ", file);
-		ft_putstr_fd(temp->display, file);
-		temp = temp->next;
-	}
-	close(file);
-	// till here
 	return (-1);
 }
 
@@ -56,9 +37,9 @@ static void	parse_n_exec(int *cp)
 		term->history->executed = ft_strdup(term->line);
 	else
 	{
-		ft_putstr_fd("song ca", 1);
 		if (term->history)
 		{
+			free(term->history->display);
 			ft_memset(term->history->display, \
 			 0, ft_strlen(term->history->display));
 			term->history->display = ft_strdup(term->history->executed);
@@ -70,10 +51,8 @@ static void	parse_n_exec(int *cp)
  	if (comm)
 	{
 		restore_term();
-		ft_putstr_fd("agg a puli'", 1);
 //		launch_cmd(comm);
 		free_cmd(comm);
-		ft_putstr_fd("agg pulit'", 1);
 		enableRawMode();
 	}
  	else

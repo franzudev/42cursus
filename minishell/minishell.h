@@ -90,6 +90,7 @@ char	*strip_quotes(char *str, char **temp, char type);
 char	*strip_string_from_cmd(char **str);
 void	ft_add_prev(t_comm *cmd);
 char	*replace_dollar(char *str);
+t_comm	*init_command();
 
 // terminal
 void	enableRawMode(void);
