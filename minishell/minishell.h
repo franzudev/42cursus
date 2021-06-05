@@ -17,9 +17,9 @@
 # include <errno.h>
 # include <limits.h>
 
-typedef struct	s_env {
-	char*			name;
-	char*			value;
+typedef struct s_env {
+	char	*name;
+	char	*value;
 }				t_env;
 
 enum e_arrows {
@@ -29,49 +29,49 @@ enum e_arrows {
 	DOWN
 };
 
- enum e_output {
- 	STD,
+enum e_output {
+	STD,
 	PIPE,
 	APPEND,
 	WRITE,
- };
+};
 
- typedef struct s_history {
- 	char				*executed;
- 	char 				*display;
- 	int 				order;
- 	struct s_history	*prev;
- 	struct s_history	*next;
- }				t_history;
+typedef struct s_history {
+	char				*executed;
+	char				*display;
+	int					order;
+	struct s_history	*prev;
+	struct s_history	*next;
+}				t_history;
 
-typedef struct	s_term{
-	struct	termios	old_conf;
+typedef struct s_term {
+	struct termios	old_conf;
 	char			**reenv;
 	t_list			*env;
-	char 			line[MAX_LEN];
+	char			line[MAX_LEN];
 	t_history		*history;
 	t_history		*history_clone;
-	int 			history_mode;
-	int 			last_status_code;
+	int				history_mode;
+	int				last_status_code;
 }				t_term;
 
 typedef struct s_token {
 	char			*value;
-	int 			type;
+	int				type;
 	struct s_token	*next;
 }				t_token;
 
 typedef struct s_comm {
 	char			*value;
-	char 			**args;
-	char 			*input;
-	char            *output;
+	char			**args;
+	char			*input;
+	char			*output;
 	char			*error;
-	int 			output_type;
+	int				output_type;
 	int				pipe[2];
 	pid_t			pidC;
 	struct s_comm	*prev;
-	struct s_comm 	*next;
+	struct s_comm	*next;
 }				t_comm;
 
 void	init_env(char **sys_env);
@@ -90,11 +90,11 @@ char	*strip_quotes(char *str, char **temp, char type);
 char	*strip_string_from_cmd(char **str);
 void	ft_add_prev(t_comm *cmd);
 char	*replace_dollar(char *str);
-t_comm	*init_command();
+t_comm	*init_command(void);
 
 // terminal
 void	enableRawMode(void);
-void 	restore_term(void);
+void	restore_term(void);
 void	delete_nbytes(int cp);
 void	delete_char(int *cp);
 void	new_line_command(int *cp);
@@ -108,7 +108,7 @@ int		cmd_cd(t_comm *cmd);
 int		cmd_pwd(void);
 int		cmd_exit(void);
 int		cmd_export(t_comm *cmd);
-int 	cmd_unset(t_comm *cmd);
+int		cmd_unset(t_comm *cmd);
 int		env_command(int export);
 int		cmd_red_in(char *file_path);
 int		cmd_red_out(char *file_path, int i);
@@ -125,12 +125,12 @@ int		ft_error(char *str, int i);
 // history
 void	update_history(int f);
 void	is_arrow_key(int *cp);
-void 	arrow_up(int *cp);
-void 	arrow_down(int *cp);
+void	arrow_up(int *cp);
+void	arrow_down(int *cp);
 void	put_history(char *display, int *cp);
 int		hist_size(void);
 int		is_same_history(void);
 void	remove_unexecuted(void);
 
-t_term *term;
+t_term	*term;
 #endif

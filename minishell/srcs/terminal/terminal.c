@@ -1,6 +1,5 @@
 #include "../../minishell.h"
 
-
 int	quit_gracefully(void)
 {
 	write(STDOUT_FILENO, "exit\n\x0d", 6);
@@ -48,14 +47,14 @@ static void	parse_n_exec(int *cp)
 		update_history(1);
 	}
 	comm = parse_input();
- 	if (comm)
+	if (comm)
 	{
 		restore_term();
 		launch_cmd(comm);
 		free_cmd(comm);
 		enableRawMode();
 	}
- 	else
+	else
 		ft_putstr_fd("\n\x0d", 1);
 	term->history_mode = 0;
 	new_line_command(cp);

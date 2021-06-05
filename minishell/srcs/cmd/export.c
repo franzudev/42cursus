@@ -17,7 +17,6 @@ int	cmd_export(t_comm *cmd)
 	new->value = envval[1];
 	free(envval);
 	t = ft_lstnew(new);
-	ft_lstadd_back(&term->env,t);
-	//write(STDOUT_FILENO, "\n\x0d", 2);
+	ft_lstadd_back(&term->env, t);
 	return (EXIT_SUCCESS);
 }

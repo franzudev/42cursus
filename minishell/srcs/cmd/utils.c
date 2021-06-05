@@ -4,19 +4,20 @@ int	ft_error(char *str, int i)
 {
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd(": command not found\n\x0d", 2);
-	return(i);
+	return (i);
 }
 
-void free_cmd(t_comm *commands)
+void	free_cmd(t_comm *commands)
 {
-	int	i;
-	t_comm *command;
+	int		i;
+	t_comm	*command;
 
 	command = commands;
 	while (command)
 	{
 		i = 0;
-		if (command->args) {
+		if (command->args)
+		{
 			while (command->args[i])
 			{
 				free(command->args[i]);
@@ -30,9 +31,9 @@ void free_cmd(t_comm *commands)
 			free(commands);
 			command = command->next;
 			commands = command;
-			continue;
+			continue ;
 		}
-		break;
+		break ;
 	}
 	free(commands);
 }

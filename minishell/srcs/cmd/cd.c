@@ -8,7 +8,7 @@ static void	ft_set_pwd(void)
 
 	t = term->env;
 	cwd = getcwd(buff, MAX_LEN);
-	while(t)
+	while (t)
 	{
 		if (!ft_strncmp(((t_env *)t->content)->name, "PWD", 3))
 			((t_env *)t->content)->value = cwd;
@@ -16,12 +16,12 @@ static void	ft_set_pwd(void)
 	}
 }
 
-static void ft_set_old_pwd(char *old_pwd)
+static void	ft_set_old_pwd(char *old_pwd)
 {
-	t_list *t;
+	t_list	*t;
 
 	t = term->env;
-	while(t)
+	while (t)
 	{
 		if (ft_strncmp(((t_env *)t->content)->name, "OLDPWD", 6) == 0)
 			((t_env *)t->content)->value = old_pwd;
@@ -41,6 +41,9 @@ static int	ft_change_dir(char *path)
 		ft_set_pwd();
 		return (EXIT_SUCCESS);
 	}
+	write(1, "cd: ", 4);
+	write(1, path, ft_strlen(path));
+	write(1, ": No such file or directory\n\x0d", 29);
 	return (EXIT_FAILURE);
 }
 
@@ -51,12 +54,12 @@ int	cmd_cd(t_comm *cmd)
 	char	*temp;
 
 	t = term->env;
-	while(t)
+	while (t)
 	{
 		if (ft_strncmp(((t_env *)t->content)->name, "HOME", 4) == 0)
 		{
 			home = ((t_env *)t->content)->value;
-			break;
+			break ;
 		}
 		t = t->next;
 	}

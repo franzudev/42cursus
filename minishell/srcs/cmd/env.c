@@ -2,12 +2,12 @@
 
 void	free_reenv(char **reenv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!reenv)
 		return ;
-	while(reenv[i])
+	while (reenv[i])
 		free(reenv[i++]);
 	free(reenv);
 }
@@ -19,7 +19,6 @@ char	**rebuild_env(t_list *env, char **reenv)
 	int		i;
 
 	i = 0;
-
 	free_reenv(reenv);
 	new = (char **)malloc(sizeof(char *) * ft_lstsize(env));
 	while (env)
