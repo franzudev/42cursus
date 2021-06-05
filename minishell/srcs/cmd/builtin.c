@@ -72,16 +72,27 @@ int	cmd_bin(t_comm *cmd)
 	char	*full_path;
 	//int		status;
 	char	**dir_path;
+	void	*stat;
 
-	dir_path = ft_dir_path();
-	full_path = ft_full_path(dir_path, cmd->value);
-	free_path(dir_path);
+	if (!(stat = malloc(sizeof(struct stat))))
+		return (EXIT_FAILURE);
+	if (!lstat(cmd->value, stat))
+	{
+		free(stat);
+		full_path = cmd->value;
+	}
+	else
+	{
+		dir_path = ft_dir_path();
+		full_path = ft_full_path(dir_path, cmd->value);
+		free_path(dir_path);
+	}
 	if (full_path)
 	{
 		// if (fork() == 0)
 		// {
 			//restore_term();
-			ft_putstr_fd("\n\x0d", 1);
+			// ft_putstr_fd("\n\x0d", 1);
 			//write(STDOUT_FILENO, "\n\x0d", 2);
 			execve(full_path, cmd->args, term->reenv);
 			// exit(0);
