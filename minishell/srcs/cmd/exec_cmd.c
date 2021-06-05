@@ -17,7 +17,7 @@ int		exec_cmd(t_comm *cmd)
 	// else if(!ft_strncmp(cmd->value, "export", 7))
 	// 	return (cmd_export(cmd));
 	else if(!ft_strncmp(cmd->value, "env", 4))
-		return (env_command());
+		return (env_command(0));
 	// else if(!ft_strncmp(cmd->value, "unset", 6))
 	// 	return (cmd_unset(cmd));
 	else if(!cmd_bin(cmd))

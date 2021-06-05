@@ -8,7 +8,7 @@ int	cmd_export(t_comm *cmd)
 
 	if (!cmd->args[1])
 	{
-		env_command();
+		env_command(1);
 		return (EXIT_SUCCESS);
 	}
 	new = (t_env *)malloc(sizeof(t_env));

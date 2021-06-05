@@ -32,16 +32,22 @@ char	**rebuild_env(t_list *env, char **reenv)
 	return (new);
 }
 
-int	env_command(void)
+int	env_command(int export)
 {
 	t_list	*t;
 
 	t = term->env;
 	while (t)
 	{
+		if (export)
+			ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(((t_env *)t->content)->name, 1);
 		ft_putstr_fd("=", 1);
+		if (export)
+			ft_putstr_fd("\"", 1);
 		ft_putstr_fd(((t_env *)t->content)->value, 1);
+		if (export)
+			ft_putstr_fd("\"", 1);
 		ft_putstr_fd("\n\x0d", 1);
 		t = t->next;
 	}

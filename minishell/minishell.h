@@ -109,7 +109,7 @@ int		cmd_pwd(void);
 int		cmd_exit(void);
 int		cmd_export(t_comm *cmd);
 int 	cmd_unset(t_comm *cmd);
-int		env_command(void);
+int		env_command(int export);
 int		cmd_red_in(char *file_path);
 int		cmd_red_out(char *file_path, int i);
 void	free_reenv(char **reenv);
