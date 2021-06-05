@@ -1,12 +1,8 @@
 #include "minishell.h"
-#include <sys/types.h>
-#include <sys/stat.h>
 
 int	main(int argc, char **argv, char **env)
 {
-	atexit(restore_term); // to remove
 	int r;
-//	struct stat st;
 
 	r = 0;
 	term = (t_term *)malloc(sizeof(t_term));
@@ -27,6 +23,7 @@ int	main(int argc, char **argv, char **env)
 //	update_history(1);
 	while (r > -1)
 		r = read_input();
+	restore_term();
 	free_all();
 	return (0);
 }

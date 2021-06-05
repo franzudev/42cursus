@@ -56,6 +56,7 @@ static void	parse_n_exec(int *cp)
 		term->history->executed = ft_strdup(term->line);
 	else
 	{
+		ft_putstr_fd("song ca", 1);
 		if (term->history)
 		{
 			ft_memset(term->history->display, \
@@ -69,8 +70,10 @@ static void	parse_n_exec(int *cp)
  	if (comm)
 	{
 		restore_term();
-		launch_cmd(comm);
+		ft_putstr_fd("agg a puli'", 1);
+//		launch_cmd(comm);
 		free_cmd(comm);
+		ft_putstr_fd("agg pulit'", 1);
 		enableRawMode();
 	}
  	else

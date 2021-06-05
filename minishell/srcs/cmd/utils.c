@@ -18,7 +18,10 @@ void free_cmd(t_comm *commands)
 		i = 0;
 		if (command->args) {
 			while (command->args[i])
-				free(command->args[i++]);
+			{
+				free(command->args[i]);
+				command->args[i++] = NULL;
+			}
 			free(command->args);
 			if (command->input)
 				free(command->input);
