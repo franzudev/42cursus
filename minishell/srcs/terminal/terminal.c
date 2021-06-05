@@ -51,7 +51,7 @@ static void	parse_n_exec(int *cp)
  	if (comm)
 	{
 		restore_term();
-//		launch_cmd(comm);
+		launch_cmd(comm);
 		free_cmd(comm);
 		enableRawMode();
 	}

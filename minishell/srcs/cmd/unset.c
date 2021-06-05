@@ -36,7 +36,7 @@ int cmd_unset(t_comm *cmd)
 		first = 1;
 		t = t->next;
 	}
-	write(STDOUT_FILENO, "\n\x0d", 2);
+	//write(STDOUT_FILENO, "\n\x0d", 2);
 	term->last_status_code = 0;
 	return (EXIT_SUCCESS);
 }
