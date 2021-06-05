@@ -6,7 +6,7 @@ char	*replace_dollar(char *str)
 	t_env	*env;
 	int		i;
 
-	temp = term->env;
+	temp = g_term->env;
 	i = 0;
 	while (ft_isalpha(str[i]))
 		i++;

@@ -132,5 +132,5 @@ int		hist_size(void);
 int		is_same_history(void);
 void	remove_unexecuted(void);
 
-t_term	*term;
+t_term	*g_term;
 #endif

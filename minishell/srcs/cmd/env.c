@@ -35,7 +35,7 @@ int	env_command(int export)
 {
 	t_list	*t;
 
-	t = term->env;
+	t = g_term->env;
 	while (t)
 	{
 		if (export)
@@ -89,5 +89,5 @@ void	init_env(char **sys_env)
 	free(envval);
 	while (sys_env[i])
 		temp = alloc_env(sys_env[i++], temp);
-	term->env = env_list;
+	g_term->env = env_list;
 }

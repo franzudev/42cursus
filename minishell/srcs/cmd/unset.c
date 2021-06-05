@@ -7,7 +7,7 @@ int	cmd_unset(t_comm *cmd)
 	t_list	*t;
 	t_list	*prev;
 
-	t = term->env;
+	t = g_term->env;
 	if (!cmd->args[1])
 	{
 		write(STDOUT_FILENO, "unset: not enough arguments\n\x0d", 29);
@@ -36,6 +36,6 @@ int	cmd_unset(t_comm *cmd)
 		first = 1;
 		t = t->next;
 	}
-	term->last_status_code = 0;
+	g_term->last_status_code = 0;
 	return (EXIT_SUCCESS);
 }

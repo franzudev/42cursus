@@ -4,37 +4,37 @@ void 	arrow_up(int *cp)
 {
 	t_history	*history;
 
-	history = term->history;
-	if (history->order == hist_size() && !term->history_mode)
+	history = g_term->history;
+	if (history->order == hist_size() && !g_term->history_mode)
 		put_history(history->display, cp);
 	else if (history->prev)
 	{
 		put_history(history->prev->display, cp);
-		term->history = history->prev;
+		g_term->history = history->prev;
 	}
 	else
 		put_history(history->display, cp);
-	term->history_mode = 1;
+	g_term->history_mode = 1;
 }
 
 void 	arrow_down(int *cp)
 {
-	if (term->history->order == hist_size() && !ft_strlen(term->line))
+	if (g_term->history->order == hist_size() && !ft_strlen(g_term->line))
 		return ;
-	else if (!term->history->executed)
+	else if (!g_term->history->executed)
 		return ;
-	else if (term->history->order == hist_size())
+	else if (g_term->history->order == hist_size())
 	{
 		put_history("", cp);
-		term->history_mode = 0;
-		if (term->history->next)
-			term->history = term->history->next;
+		g_term->history_mode = 0;
+		if (g_term->history->next)
+			g_term->history = g_term->history->next;
 	}
-	else if (term->history->next)
+	else if (g_term->history->next)
 	{
-		put_history(term->history->next->display, cp);
-		term->history = term->history->next;
-		term->history_mode = 1;
+		put_history(g_term->history->next->display, cp);
+		g_term->history = g_term->history->next;
+		g_term->history_mode = 1;
 	}
 }
 
@@ -47,15 +47,15 @@ void	is_arrow_key(int *cp)
 //	arrow_up(cp);
 //	buff[0] = '[';
 //	buff[1] = 'B';
-	if (!term->history)
+	if (!g_term->history)
 		return ;
 	if (buff[0] == '[' && buff[1] == 'A')
 	{
-		if (ft_strlen(term->line) > 0
-			&& hist_size() == term->history->order && !is_same_history())
+		if (ft_strlen(g_term->line) > 0
+			&& hist_size() == g_term->history->order && !is_same_history())
 		{
 			update_history(0);
-//			term->history = term->history->next;
+//			g_term->history = g_term->history->next;
 		}
 		arrow_up(cp);
 	}

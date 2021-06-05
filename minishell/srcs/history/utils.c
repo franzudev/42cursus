@@ -2,10 +2,10 @@
 
 static void	restore_clone(void)
 {
-	while (term->history_clone)
+	while (g_term->history_clone)
 	{
-		if (term->history_clone->prev)
-			term->history_clone = term->history_clone->prev;
+		if (g_term->history_clone->prev)
+			g_term->history_clone = g_term->history_clone->prev;
 		else
 			break ;
 	}
@@ -15,25 +15,25 @@ void	remove_unexecuted(void)
 {
 	t_history	*prev;
 
-	if (!term->history_clone)
+	if (!g_term->history_clone)
 		return ;
-	while (term->history_clone)
+	while (g_term->history_clone)
 	{
-		if (!term->history_clone->executed)
+		if (!g_term->history_clone->executed)
 		{
-			free(term->history_clone->display);
-			if (term->history_clone->prev)
+			free(g_term->history_clone->display);
+			if (g_term->history_clone->prev)
 			{
-				prev = term->history_clone->prev;
-				prev->next = term->history_clone->next;
+				prev = g_term->history_clone->prev;
+				prev->next = g_term->history_clone->next;
 			}
 			else
-				prev = term->history_clone->next;
-			free(term->history_clone);
-			term->history_clone = prev;
+				prev = g_term->history_clone->next;
+			free(g_term->history_clone);
+			g_term->history_clone = prev;
 		}
-		if (term->history_clone->next)
-			term->history_clone = term->history_clone->next;
+		if (g_term->history_clone->next)
+			g_term->history_clone = g_term->history_clone->next;
 		else
 			break ;
 	}
@@ -44,17 +44,17 @@ void	put_history(char *display, int *cp)
 {
 	int	len;
 
-	len = ft_strlen(term->line);
+	len = ft_strlen(g_term->line);
 	if (len > 0)
 	{
 		delete_nbytes(len);
-		ft_memset(term->line, 0, len);
+		ft_memset(g_term->line, 0, len);
 	}
 	len = 0;
 	while (*display)
-		term->line[len++] = *(display++);
+		g_term->line[len++] = *(display++);
 	*cp = len;
-	write(1, term->line, len);
+	write(1, g_term->line, len);
 }
 
 int	hist_size(void)
@@ -62,7 +62,7 @@ int	hist_size(void)
 	int			len;
 	t_history	*hist;
 
-	hist = term->history_clone;
+	hist = g_term->history_clone;
 	len = 0;
 	while (hist)
 	{
@@ -76,8 +76,8 @@ int	is_same_history(void)
 {
 	int	len;
 
-	len = ft_strlen(term->line);
-	if (ft_strncmp(term->line, term->history->display, len) == 0)
+	len = ft_strlen(g_term->line);
+	if (ft_strncmp(g_term->line, g_term->history->display, len) == 0)
 		return (1);
 	return (0);
 }

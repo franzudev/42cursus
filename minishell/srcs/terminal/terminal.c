@@ -10,9 +10,9 @@ void	enableRawMode(void)
 {
 	struct termios	raw;
 
-	if (tcgetattr(STDIN_FILENO, &term->old_conf) == -1)
+	if (tcgetattr(STDIN_FILENO, &g_term->old_conf) == -1)
 		exit(2);
-	raw = term->old_conf;
+	raw = g_term->old_conf;
 	raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 	raw.c_oflag &= ~(OPOST);
 	raw.c_cflag |= (CS8);
@@ -25,23 +25,23 @@ void	enableRawMode(void)
 
 void	restore_term(void)
 {
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &term->old_conf);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_term->old_conf);
 }
 
 static void	parse_n_exec(int *cp)
 {
 	t_comm	*comm;
 
-	if (term->history && !term->history->executed)
-		term->history->executed = ft_strdup(term->line);
+	if (g_term->history && !g_term->history->executed)
+		g_term->history->executed = ft_strdup(g_term->line);
 	else
 	{
-		if (term->history)
+		if (g_term->history)
 		{
-			free(term->history->display);
-			ft_memset(term->history->display, \
-			 0, ft_strlen(term->history->display));
-			term->history->display = ft_strdup(term->history->executed);
+			free(g_term->history->display);
+			ft_memset(g_term->history->display, \
+			 0, ft_strlen(g_term->history->display));
+			g_term->history->display = ft_strdup(g_term->history->executed);
 		}
 		remove_unexecuted();
 		update_history(1);
@@ -56,7 +56,7 @@ static void	parse_n_exec(int *cp)
 	}
 	else
 		ft_putstr_fd("\n\x0d", 1);
-	term->history_mode = 0;
+	g_term->history_mode = 0;
 	new_line_command(cp);
 }
 

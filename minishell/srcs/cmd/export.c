@@ -17,6 +17,6 @@ int	cmd_export(t_comm *cmd)
 	new->value = envval[1];
 	free(envval);
 	t = ft_lstnew(new);
-	ft_lstadd_back(&term->env, t);
+	ft_lstadd_back(&g_term->env, t);
 	return (EXIT_SUCCESS);
 }

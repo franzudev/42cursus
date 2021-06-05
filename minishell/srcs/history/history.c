@@ -32,16 +32,16 @@ void	update_history(int f)
 {
 	t_history	*history;
 
-	if (!ft_strlen(term->line))
+	if (!ft_strlen(g_term->line))
 		return ;
 	history = (t_history *) malloc(sizeof(t_history));
 	if (!history)
 		return ;
 	if (f)
-		history->executed = ft_strdup(term->line);
-	history->display = ft_strdup(term->line);
-	histadd_back(&term->history, history);
-	term->history = history;
-	if (!term->history_clone)
-		term->history_clone = term->history;
+		history->executed = ft_strdup(g_term->line);
+	history->display = ft_strdup(g_term->line);
+	histadd_back(&g_term->history, history);
+	g_term->history = history;
+	if (!g_term->history_clone)
+		g_term->history_clone = g_term->history;
 }

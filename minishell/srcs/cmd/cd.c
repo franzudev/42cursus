@@ -6,7 +6,7 @@ static void	ft_set_pwd(void)
 	char	*cwd;
 	char	buff[MAX_LEN];
 
-	t = term->env;
+	t = g_term->env;
 	cwd = getcwd(buff, MAX_LEN);
 	while (t)
 	{
@@ -20,7 +20,7 @@ static void	ft_set_old_pwd(char *old_pwd)
 {
 	t_list	*t;
 
-	t = term->env;
+	t = g_term->env;
 	while (t)
 	{
 		if (ft_strncmp(((t_env *)t->content)->name, "OLDPWD", 6) == 0)
@@ -53,7 +53,7 @@ int	cmd_cd(t_comm *cmd)
 	t_list	*t;
 	char	*temp;
 
-	t = term->env;
+	t = g_term->env;
 	while (t)
 	{
 		if (ft_strncmp(((t_env *)t->content)->name, "HOME", 4) == 0)

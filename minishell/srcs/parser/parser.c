@@ -228,10 +228,10 @@ t_comm	*parse_input(void)
 	t_comm	*commands;
 	t_comm	*command;
 
-	if (ft_strlen(term->line) == 0)
+	if (ft_strlen(g_term->line) == 0)
 		return (NULL);
 	i = 0;
-	cmds = ft_split(term->line, ';');
+	cmds = ft_split(g_term->line, ';');
 	commands = init_command();
 	cmd = ft_split(cmds[i++], '|');
 	command = parse_command(commands, cmd);

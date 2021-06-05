@@ -16,7 +16,7 @@ static void	ft_pipe(t_comm *cmd)
 		dup2(cmd->pipe[1], 1);
 		close(cmd->pipe[0]);
 		exec_cmd(cmd);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 	waitpid(cmd->pidC, NULL, 0);
 	close(cmd->pipe[1]);

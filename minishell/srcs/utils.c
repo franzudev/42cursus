@@ -82,10 +82,10 @@ void	ft_histclear(t_history **lst, void (*del)(void *))
 
 void	free_all(void)
 {
-	ft_histclear(&term->history_clone, hist_del);
-	ft_histclear(&term->history_clone, free);
-	ft_lstclear(&term->env, lst_del);
-	ft_lstclear(&term->env, free);
-	free(term->env);
-	free(term);
+	ft_histclear(&g_term->history_clone, hist_del);
+	ft_histclear(&g_term->history_clone, free);
+	ft_lstclear(&g_term->env, lst_del);
+	ft_lstclear(&g_term->env, free);
+	free(g_term->env);
+	free(g_term);
 }

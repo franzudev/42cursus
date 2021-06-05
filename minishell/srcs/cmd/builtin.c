@@ -19,7 +19,7 @@ char	**ft_dir_path(void)
 	char	*temp;
 
 	dir_path = NULL;
-	t = term->env;
+	t = g_term->env;
 	while (t)
 	{
 		if (!ft_strncmp(((t_env *)t->content)->name, "PATH", 4))
@@ -89,11 +89,11 @@ int	cmd_bin(t_comm *cmd)
 	}
 	if (full_path)
 	{
-		execve(full_path, cmd->args, term->reenv);
-		term->last_status_code = 0;
+		execve(full_path, cmd->args, g_term->reenv);
+		g_term->last_status_code = 0;
 		return (EXIT_SUCCESS);
 	}
-	term->last_status_code = errno;
-	ft_putnbr_fd(term->last_status_code, 1);
+	// g_term->last_status_code = errno;
+	// ft_putnbr_fd(g_term->last_status_code, 1);
 	return (EXIT_FAILURE);
 }
