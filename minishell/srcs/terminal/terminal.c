@@ -73,6 +73,8 @@ static void	parse_n_exec(int *cp)
 		free_cmd(comm);
 		enableRawMode();
 	}
+ 	else
+		ft_putstr_fd("\n\x0d", 1);
 	term->history_mode = 0;
 	new_line_command(cp);
 }
@@ -94,7 +96,7 @@ int	read_input(void)
 			write_char(&cp, c);
 		if (c == 127 && cp != 0)
 			delete_char(&cp);
-		if (c == '\n')
+		if (c == '\r')
 			parse_n_exec(&cp);
 		if (c == (('d') & 0x1f) && cp == 0)
 			return (quit_gracefully());
