@@ -16,8 +16,6 @@ MateriaSource::MateriaSource(const MateriaSource &materiaSource) {
 }
 
 MateriaSource::~MateriaSource() {
-	for (unsigned int i = 0; i < inventorySize; i++)
-		delete inventory[i];
 	delete[] inventory;
 }
 
@@ -34,14 +32,26 @@ unsigned int MateriaSource::getSize() const{
 }
 
 void MateriaSource::learnMateria(AMateria *aMateria) {
+	unsigned int i;
+
+	i = 0;
 	if (inventorySize >= 4 || aMateria == nullptr)
 		return;
+	while (i < inventorySize)
+	{
+		if (!inventory[inventorySize])
+		{
+			inventory[i] = aMateria;
+			return;
+		}
+		i++;
+	}
 	inventory[inventorySize++] = aMateria;
 }
 
 AMateria * MateriaSource::createMateria(const std::string &type) {
-	for (unsigned int i = 0; i < inventorySize; i++)
-		if (inventory[i]->getType() == type)
+	for (unsigned int i = inventorySize - 1; i >= 0; i--)
+		if (inventory[i] && inventory[i]->getType() == type)
 			return inventory[i];
 	return 0;
 }
