@@ -32,11 +32,15 @@ typedef struct s_state {
 	int 			time_sleep;
 	int 			meals;
 
+	uint64_t		start;
+
 	pthread_mutex_t	*forks_mutex;
+	pthread_mutex_t write_mutex;
 	t_philo			*philos;
 }	t_state;
 
 int			ft_atoi(const char *str);
 t_state		*ft_init(int argc, char **argv);
+void		*thread_start(void *arg);
 
 #endif //PHILOSOPHERS_PHILO_H
