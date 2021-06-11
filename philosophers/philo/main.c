@@ -1,9 +1,41 @@
 #include "philo.h"
 
+enum e_msg_type {
+	EAT = 1,
+	SLEEP,
+	FORK,
+	THINK
+};
+
+char *get_action(int type)
+{
+	if (type == EAT)
+		return " is eating\n";
+	else if (type == SLEEP)
+		return " is sleeping\n";
+	else if (type == FORK)
+		return " has taken a fork\n";
+	else if (type == THINK)
+		return " is thinking\n";
+	return (0);
+}
+
+void print_msg(t_philo *philo, enum e_msg_type type)
+{
+	t_state *state;
+
+	state = philo->state;
+	pthread_mutex_lock(&state->write_mutex);
+	printf("%-10llu %d%s", get_time() - state->start,
+	   philo->thread_num, get_action(type));
+
+	pthread_mutex_unlock(&state->write_mutex);
+}
+
 void	ft_sleep(t_philo *philo)
 {
-	printf("Thread %d is sleeping\n", philo->thread_num);
-	usleep(65000);
+	print_msg(philo, SLEEP);
+	usleep(philo->state->time_sleep * 1000);
 }
 
 void	eat(t_philo *philo)
@@ -11,13 +43,10 @@ void	eat(t_philo *philo)
 	t_state *state;
 
 	state = philo->state;
-	if (philo->lfork && philo->rfork)
-	{
-		printf("Thread %d is eating\n", philo->thread_num);
-		usleep(65000);
-		pthread_mutex_unlock(&state->forks_mutex[philo->thread_num - 1]);
-		pthread_mutex_unlock(&state->forks_mutex[philo->thread_num]);
-	}
+	print_msg(philo, EAT);
+	usleep(state->time_eat * 1000);
+	pthread_mutex_unlock(&state->forks_mutex[philo->lfork]);
+	pthread_mutex_unlock(&state->forks_mutex[philo->rfork]);
 }
 
 void take_fork(t_philo *philo)
@@ -25,30 +54,15 @@ void take_fork(t_philo *philo)
 	t_state *state;
 
 	state = philo->state;
-	if (pthread_mutex_lock(&state->forks_mutex[philo->thread_num - 1]) == 0)
-	{
-		philo->lfork = 1;
-		printf("Thread %d has taken fork %d\n", philo->thread_num,
-			   philo->thread_num - 1);
-	}
-	if (philo->thread_num == philo->state->num_philos)
-	{
-		if (pthread_mutex_lock(&state->forks_mutex[0]) == 0)
-		{
-			printf("Thread %d has taken fork 0\n", philo->thread_num);
-			philo->rfork = 1;
-		}
-		return;
-	}
-	else
-	{
-		if (pthread_mutex_lock(&state->forks_mutex[philo->thread_num]) == 0)
-		{
-			printf("Thread %d has taken fork %d\n", philo->thread_num,
-				   philo->thread_num);
-			philo->rfork = 1;
-		}
-	}
+	pthread_mutex_lock(&state->forks_mutex[philo->lfork]);
+	print_msg(philo, FORK);
+	pthread_mutex_lock(&state->forks_mutex[philo->rfork]);
+	print_msg(philo, FORK);
+}
+
+void	think(t_philo *philo)
+{
+	print_msg(philo, THINK);
 }
 
 void	*thread_start(void *arg)
@@ -60,10 +74,9 @@ void	*thread_start(void *arg)
 		pthread_mutex_lock(&philo->mutex);
 		take_fork(philo);
 		eat(philo);
-		write(1, "porca madonna", 13);
 		ft_sleep(philo);
+		think(philo);
 		pthread_mutex_unlock(&philo->mutex);
-//		think();
 	}
 	return philo;
 }
@@ -81,8 +94,6 @@ int
 main(int argc, char *argv[])
 {
 	t_state *state;
-//	struct timeval	tv;
-//	int time;
 	int i;
 
 	state = ft_init(argc, argv);
@@ -101,6 +112,5 @@ main(int argc, char *argv[])
 		pthread_mutex_destroy(&state->philos[i].mutex);
 		pthread_mutex_destroy(&state->forks_mutex[i++]);
 	}
-
 	return /*ft_terminate(state,*/ EXIT_SUCCESS/*)*/;
 }

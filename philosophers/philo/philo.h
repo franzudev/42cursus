@@ -42,5 +42,6 @@ typedef struct s_state {
 int			ft_atoi(const char *str);
 t_state		*ft_init(int argc, char **argv);
 void		*thread_start(void *arg);
+uint64_t	get_time();
 
 #endif //PHILOSOPHERS_PHILO_H
