@@ -1,11 +1,19 @@
-//
-// Created by Federico Francois on 6/9/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/12 11:14:15 by ffrancoi          #+#    #+#             */
+/*   Updated: 2021/01/12 11:14:22 by ffrancoi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 static	int	ft_isspace(char c)
 {
 	if (c == '\n' || c == '\r' || c == '\f' || c == '\t' || c == '\v'
-		|| c == ' ')
+	|| c == ' ')
 		return (1);
 	return (0);
 }
@@ -49,9 +57,9 @@ int			ft_atoi(const char *str)
 		str++;
 	while (is_sign(*str))
 	{
-		if (*(str++) == '-')
-			s = -1;
-		break;
+        if (*(str++) == '-')
+            s = -1;
+        break;
 	}
 	return (get_result(str, res, s));
 }

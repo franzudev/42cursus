@@ -8,7 +8,10 @@ LDFLAGS=-Llibft-done -lft
 
 SRCS=	main.c \
 		ft_atoi.c \
-		init.c
+		init.c \
+		routines.c \
+		actions.c \
+		utils.c
 
 OBJS = $(SRCS:.c=.o)
 
