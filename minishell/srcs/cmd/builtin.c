@@ -2,26 +2,25 @@
 
 static void	free_path(char **dir_path)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (dir_path[++i])
 		free(dir_path[i]);
-		
 	free(dir_path);
 	dir_path = NULL;
 }
 
 char	**ft_dir_path(void)
 {
-	t_list *t;
-	char 	**dir_path;
+	t_list	*t;
+	char	**dir_path;
 	int		i;
-	char *temp;
+	char	*temp;
 
 	dir_path = NULL;
-	t = term->env;
-	while(t)
+	t = g_term->env;
+	while (t)
 	{
 		if (!ft_strncmp(((t_env *)t->content)->name, "PATH", 4))
 		{
@@ -35,7 +34,7 @@ char	**ft_dir_path(void)
 				free (temp);
 				i++;
 			}
-			break;
+			break ;
 		}
 		t = t->next;
 	}
@@ -48,7 +47,8 @@ char	*ft_full_path(char **dir_path, char *cmd)
 	int		i;
 	void	*stat;
 
-	if (!(stat = malloc(sizeof(struct stat))))
+	stat = malloc(sizeof(struct stat));
+	if (!stat)
 		return (NULL);
 	i = 0;
 	full_path = NULL;
@@ -70,26 +70,30 @@ char	*ft_full_path(char **dir_path, char *cmd)
 int	cmd_bin(t_comm *cmd)
 {
 	char	*full_path;
-	//int		status;
 	char	**dir_path;
+	void	*stat;
 
-	dir_path = ft_dir_path();
-	full_path = ft_full_path(dir_path, cmd->value);
-	free_path(dir_path);
+	stat = malloc(sizeof(struct stat));
+	if (!stat)
+		return (EXIT_FAILURE);
+	if (!lstat(cmd->value, stat))
+	{
+		free(stat);
+		full_path = cmd->value;
+	}
+	else
+	{
+		dir_path = ft_dir_path();
+		full_path = ft_full_path(dir_path, cmd->value);
+		free_path(dir_path);
+	}
 	if (full_path)
 	{
-		// if (fork() == 0)
-		// {
-			//restore_term();
-			ft_putstr_fd("\n\x0d", 1);
-			//write(STDOUT_FILENO, "\n\x0d", 2);
-			execve(full_path, cmd->args, term->reenv);
-			// exit(0);
-		// }
-		// while(wait(&status) > 0);
-		//enableRawMode();
-		//free(full_path);
+		execve(full_path, cmd->args, g_term->reenv);
+		g_term->last_status_code = 0;
 		return (EXIT_SUCCESS);
 	}
+	// g_term->last_status_code = errno;
+	// ft_putnbr_fd(g_term->last_status_code, 1);
 	return (EXIT_FAILURE);
 }

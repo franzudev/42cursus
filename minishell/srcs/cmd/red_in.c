@@ -2,8 +2,8 @@
 
 int	cmd_red_in(char *file_path)
 {
-	int	fd;
-	char buff;
+	int		fd;
+	char	buff;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
@@ -14,6 +14,5 @@ int	cmd_red_in(char *file_path)
 			return (EXIT_FAILURE);
 	}
 	close(fd);
-	write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }

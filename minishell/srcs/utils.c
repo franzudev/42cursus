@@ -48,10 +48,44 @@ void	lst_del(void *lst)
 	lst = NULL;
 }
 
+void	hist_del(void *lst)
+{
+	if (!lst)
+		return ;
+	free(((t_history *)lst)->executed);
+	free(((t_history *)lst)->display);
+}
+
+void	ft_histdelone(t_history *lst, void (*del)(void *))
+{
+	if (!lst)
+		return ;
+	del(lst);
+	free(lst);
+	lst = NULL;
+}
+
+void	ft_histclear(t_history **lst, void (*del)(void *))
+{
+	t_history	*temp;
+
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		ft_histdelone(*lst, del);
+		*lst = temp;
+	}
+	*lst = 0;
+}
+
 void	free_all(void)
 {
-	ft_lstclear(&term->env, lst_del);
-	ft_lstclear(&term->env, free);
-	free(term->env);
-	free(term);
+	ft_histclear(&g_term->history_clone, hist_del);
+	ft_histclear(&g_term->history_clone, free);
+	ft_lstclear(&g_term->env, lst_del);
+	ft_lstclear(&g_term->env, free);
+	free(g_term->env);
+	free(g_term);
 }

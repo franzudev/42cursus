@@ -11,47 +11,34 @@ void	delete_nbytes(int cp)
 	}
 }
 
+static void	edit_history(void)
+{
+	if (g_term->history_mode)
+	{
+		ft_memset(g_term->history->display, 0, ft_strlen(g_term->history->display));
+		g_term->history->display = ft_strdup(g_term->line);
+	}
+}
+
 void	delete_char(int *cp)
 {
 	delete_nbytes(1);
 	*cp -= 1;
-	term->line[*cp] = '\0';
+	g_term->line[*cp] = '\0';
+	edit_history();
 }
 
 void	write_char(int *cp, char c)
 {
 	write(STDOUT_FILENO, &c, 1);
-	term->line[*cp] = c;
+	g_term->line[*cp] = c;
+	edit_history();
 	*cp += 1;
 }
 
 void	new_line_command(int *cp)
 {
-	write(1, "\x0d", 2);  // aggiungere se echo -n allora non scarrella!
 	write(1, USER, ft_strlen(USER));
-	ft_memset(term->line, 0, ft_strlen(term->line));
+	ft_memset(g_term->line, 0, ft_strlen(g_term->line));
 	*cp = 0;
-}
-
-int	quit_gracefully(void)
-{
-	write(STDOUT_FILENO, "exit\n\x0d", 6);
-	int file;
-	file = open("history.txt", O_WRONLY);
-	t_history *temp = term->history_clone;
-	while (temp)
-	{
-		if (temp->prev)
-		{
-			ft_putstr_fd("\nhistory: ", file);
-			ft_putstr_fd(temp->prev->executed, file);
-		}
-		ft_putstr_fd("\nexecuted: ", file);
-		ft_putstr_fd(temp->executed, file);
-		ft_putstr_fd("\nexec: ", file);
-		ft_putstr_fd(temp->display, file);
-		temp = temp->next;
-	}
-	close(file);
-	return (-1);
 }

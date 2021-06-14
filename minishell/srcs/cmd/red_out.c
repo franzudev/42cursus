@@ -1,10 +1,10 @@
 #include "../../minishell.h"
 
-static char *ft_read_n_write(void)
+static char	*ft_read_n_write(void)
 {
-	char buff;
-	char temp[MAX_LEN];
-	int i;
+	char	buff;
+	char	temp[MAX_LEN];
+	int		i;
 	char	*out;
 
 	i = 0;
@@ -15,12 +15,11 @@ static char *ft_read_n_write(void)
 	return (out);
 }
 
-
 int	cmd_red_out(char *file_path, int i)
 {
-	int fd;
-	char *out;
-	
+	int		fd;
+	char	*out;
+
 	fd = 0;
 	if (!(i == WRITE || i == APPEND))
 		return (EXIT_FAILURE);
@@ -37,7 +36,5 @@ int	cmd_red_out(char *file_path, int i)
 		return (EXIT_FAILURE);
 	free(out);
 	close(fd);
-	write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }
-

@@ -2,12 +2,12 @@
 
 void	free_reenv(char **reenv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!reenv)
 		return ;
-	while(reenv[i])
+	while (reenv[i])
 		free(reenv[i++]);
 	free(reenv);
 }
@@ -19,7 +19,6 @@ char	**rebuild_env(t_list *env, char **reenv)
 	int		i;
 
 	i = 0;
-
 	free_reenv(reenv);
 	new = (char **)malloc(sizeof(char *) * ft_lstsize(env));
 	while (env)
@@ -32,20 +31,25 @@ char	**rebuild_env(t_list *env, char **reenv)
 	return (new);
 }
 
-int	env_command(void)
+int	env_command(int export)
 {
 	t_list	*t;
 
-	t = term->env;
+	t = g_term->env;
 	while (t)
 	{
-		ft_putstr_fd("\n\x0d", 2);
+		if (export)
+			ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(((t_env *)t->content)->name, 1);
 		ft_putstr_fd("=", 1);
+		if (export)
+			ft_putstr_fd("\"", 1);
 		ft_putstr_fd(((t_env *)t->content)->value, 1);
+		if (export)
+			ft_putstr_fd("\"", 1);
+		ft_putstr_fd("\n\x0d", 1);
 		t = t->next;
 	}
-	write(STDOUT_FILENO, "\n\x0d", 2);
 	return (EXIT_SUCCESS);
 }
 
@@ -85,5 +89,5 @@ void	init_env(char **sys_env)
 	free(envval);
 	while (sys_env[i])
 		temp = alloc_env(sys_env[i++], temp);
-	term->env = env_list;
+	g_term->env = env_list;
 }
