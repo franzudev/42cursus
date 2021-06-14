@@ -74,14 +74,14 @@ void	assign_env(char *str, enum e_type type, t_env **env_lst)
 	export_env(env_lst, env[0], env[1]);
 }
 
-void	init_env(t_env **env_lst, char **envp)
+void	init_env(t_env **env_lst, char **env)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (env[i])
 	{
-		assign_env(envp[i], ARG, env_lst);
+		assign_env(env[i], ARG, env_lst);
 		i++;
 	}
 	return ;

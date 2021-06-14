@@ -37,23 +37,48 @@ void	redir_append(t_state *st, char **args, enum e_type type)
 	ft_close(st->fdout);
 }
 
-/*
-** arg as input `[cmd] < [input]`
-*/
-
-int	input(t_state *st, char **args)
+static int michia(t_state *st, char **argv)
 {
-	args++;
-	st->fdin = open(*args, O_RDONLY, S_IRWXU);
-	if (st->fdin == -1)
+	int fd;
+	char buff;
+
+	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC);
+	if (fd < 0)
+		return (EXIT_FAILURE);
+	write(1, "> ", 2);
+	while (read(1, &buff, 1) > 0)
 	{
-		ft_putstr_fd("msh: ", STDERR);
-		ft_putstr_fd(*args, STDERR);
-		ft_putendl_fd(": No such file or directory", STDERR);
-		g_sig.exit_status = 1;
-		return (1);
+		if (buff == '\n')
+			write(1, "> ", 2);
+		// aggiungere argv == EOF
+		if (write(fd, &buff, 1) < 0)
+			return (EXIT_FAILURE);
 	}
+	st->fdin = open(".heredoc", O_RDONLY, S_IRWXU);
 	dup2(st->fdin, STDIN);
 	ft_close(st->fdin);
+	close(fd);
+	return (EXIT_SUCCESS);
+}
+
+int	input(t_state *st, char **args, enum e_type type)
+{
+	args++;
+	if (type == INPUT)
+	{
+		st->fdin = open(*args, O_RDONLY, S_IRWXU);
+		if (st->fdin == -1)
+		{
+			ft_putstr_fd("msh: ", STDERR);
+			ft_putstr_fd(*args, STDERR);
+			ft_putendl_fd(": No such file or directory", STDERR);
+			g_sig.exit_status = 1;
+			return (1);
+		}
+		dup2(st->fdin, STDIN);
+		ft_close(st->fdin);
+	}
+	else if (type == MINCHIA)
+		minchia(st, args);
 	return (0);
 }

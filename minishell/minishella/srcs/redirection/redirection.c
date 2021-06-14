@@ -20,7 +20,8 @@ bool	has_redirection(t_cmd *cmd_lst)
 	while (cmd_lst->type[i])
 	{
 		if (cmd_lst->type[i] == REDIR || cmd_lst->type[i] == INPUT
-			|| cmd_lst->type[i] == APPEND)
+			|| cmd_lst->type[i] == APPEND
+			|| cmd_lst->type[i] == MINCHIA)
 			return (true);
 		i++;
 	}
@@ -48,7 +49,7 @@ void	get_redir(t_state *st, t_cmd *cmd_lst, char **buffer)
 		}
 		if (cmd_lst->type[i] == INPUT)
 		{
-			if (input(st, &buffer[i]))
+			if (input(st, &buffer[i], cmd_lst->type[i]))
 				return ;
 			i++;
 		}

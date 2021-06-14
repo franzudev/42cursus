@@ -20,11 +20,21 @@ void	set_type(t_ast *ptr, enum e_type type)
 
 static void	set_redir_append(t_ast *ptr)
 {
-	if (!ft_strncmp(ptr->value, ">>", 3))
-		ptr->type = APPEND;
-	else if (!ptr->left || (ptr->left && ptr->left->type != ESCAPE
-			&& ptr->left->type != REDIR))
-		ptr->type = REDIR;
+	if (ptr->value[0] == '>')
+	{
+		if (!ft_strncmp(ptr->value, ">>", 3))
+			ptr->type = APPEND;
+		else if (!ptr->left || (ptr->left && ptr->left->type != ESCAPE
+				&& ptr->left->type != REDIR))
+			ptr->type = REDIR;
+	}
+	else if (ptr->value[0] == '<')
+	{
+		if (!ft_strncmp(ptr->value, "<<", 3))
+			ptr->type = MINCHIA;
+		else
+			ptr->type = INPUT;
+	}
 }
 
 static void	set_escape(t_ast *ptr)
@@ -46,7 +56,7 @@ static void	ast_check_type2(t_ast *ptr)
 	else if (ptr->value[0] == '\"')
 		set_type(ptr, DBLQUOTE);
 	else if (ptr->value[0] == '<')
-		set_type(ptr, INPUT);
+		set_redir_append(ptr);
 	else if (ptr->value[0] == '>')
 		set_redir_append(ptr);
 	else if (ptr->left && ptr->left->type == DOLLAR)

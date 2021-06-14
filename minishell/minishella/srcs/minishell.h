@@ -65,7 +65,8 @@ enum			e_type
 	SEMICOLON,
 	QUOTE,
 	DBLQUOTE,
-	QUEST
+	QUEST,
+	MINCHIA
 };
 
 enum			e_key
@@ -159,7 +160,7 @@ void			handle_backspace(void);
 
 void			parse_redirection(t_state *st, t_cmd *cmd_lst);
 void			redir_append(t_state *st, char **args, enum e_type type);
-int				input(t_state *st, char **args);
+int				input(t_state *st, char **args, enum e_type type);
 void			init_fds(t_state **st);
 void			reset_std(t_state *st);
 void			close_fds(t_state *st);

@@ -16,7 +16,7 @@ static bool	spc_tkn(t_ast *tkn)
 {
 	if (tkn->type == SEMICOLON || tkn->type == PIPE
 		|| tkn->type == REDIR || tkn->type == APPEND
-		|| tkn->type == INPUT)
+		|| tkn->type == INPUT || tkn->type == MINCHIA)
 		return (true);
 	return (false);
 }

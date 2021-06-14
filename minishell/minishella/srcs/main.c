@@ -14,7 +14,7 @@
 
 t_sig	g_sig;
 
-void	init_msh(t_state **st, t_env **env_lst, char **envp)
+void	init_msh(t_state **st, t_env **env_lst, char **env)
 {
 	int		lvl;
 	char	*tmp;
@@ -28,7 +28,7 @@ void	init_msh(t_state **st, t_env **env_lst, char **envp)
 	ft_bzero(buf, BUF_SIZE);
 	init_fds(st);
 	sig_init(NULL);
-	init_env(env_lst, envp);
+	init_env(env_lst, env);
 	tmp = get_env(*env_lst, "SHLVL");
 	if (tmp != NULL)
 	{

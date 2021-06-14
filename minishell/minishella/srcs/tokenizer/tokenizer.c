@@ -24,7 +24,8 @@ static bool	is_special_tkn(char c)
 
 bool	is_append_tkn(char *input, int pos)
 {
-	if (input[pos] == '>' && input[pos + 1] == '>')
+	if (input[pos] == '>' && input[pos + 1] == '>'
+	|| input[pos] == '<' && input[pos + 1] == '<')
 		return (true);
 	return (false);
 }
