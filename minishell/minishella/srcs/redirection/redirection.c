@@ -47,7 +47,7 @@ void	get_redir(t_state *st, t_cmd *cmd_lst, char **buffer)
 			redir_append(st, &buffer[i], cmd_lst->type[i]);
 			i++;
 		}
-		if (cmd_lst->type[i] == INPUT)
+		if (cmd_lst->type[i] == INPUT || cmd_lst->type[i] == MINCHIA)
 		{
 			if (input(st, &buffer[i], cmd_lst->type[i]))
 				return ;
