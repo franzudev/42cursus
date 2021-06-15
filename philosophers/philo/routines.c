@@ -1,40 +1,94 @@
 #include "philo.h"
 
-void	*monitoring(void *arg)
+/*static void
+*monitor_count(void *state_v)
 {
-	(void)arg;
-	t_philo *philo;
-	t_state	*state;
+	t_state *state;
+	int		i;
+	int		total;
 
-	philo = (t_philo *)arg;
+	state = (t_state*)state_v;
+	total = 0;
+	while (total < state->meals)
+	{
+		i = 0;
+		while (i < state->num_philos)
+			pthread_mutex_lock(&state->philos[i++].count_mutex);
+		total++;
+	}
+	print_msg(&state->philos[0], DIE);
+	pthread_mutex_unlock(&state->main_mutex);
+	return ((void*)0);
+}*/
+
+static void
+*monitor(void *arg)
+{
+	t_philo		*philo;
+	t_state		*state;
+
+	philo = arg;
 	state = philo->state;
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex);
-		printf("monitor\n");
+//		printf("get_time(): %llu\nstate->start: %llu\nphilo->last_meal: %llu\nstate->start + philo->last_meal: %llu\ntime: %llu\n", get_time(), state->start, philo->last_meal, state->start + philo->last_meal, time);
+		if (!philo->is_eating && get_time() > philo->time_to_die)
+		{
+			print_msg(philo, DIE);
+			pthread_mutex_unlock(&philo->mutex);
+			pthread_mutex_unlock(&state->main_mutex);
+			return ((void*)0);
+		}
 		pthread_mutex_unlock(&philo->mutex);
+		usleep(1000);
 	}
-	return NULL;
 }
 
 void	*thread_start(void *arg)
 {
 	t_philo *philo;
-//	int		s;
+	int		s;
 
 	philo = (t_philo *)arg;
-//	s = pthread_create(&philo->thread_id, NULL, &monitoring, &philo);
-//	pthread_detach(philo->thread_id);
-//	if (s != 0)
-//		return (NULL);
+	philo->last_meal = get_time();
+	philo->time_to_die = philo->last_meal + philo->state->time_die;
+	s = pthread_create(&philo->thread_id, NULL, &monitor, philo);
+	pthread_detach(philo->thread_id);
+	if (s != 0)
+		return (NULL);
 	while (1)
 	{
-//		pthread_mutex_lock(&philo->mutex);
 		take_fork(philo);
 		eat(philo);
 		ft_sleep(philo);
 		think(philo);
-//		pthread_mutex_unlock(&philo->mutex);
 	}
 	return philo;
+}
+
+int	start_routines(t_state *state)
+{
+	int			i;
+	t_philo		*phs;
+//	pthread_t	tid;
+
+	i = 0;
+	phs = state->philos;
+/*	if (state->meals > 0)
+	{
+		if (pthread_create(&tid, NULL, &monitor_count, state) != 0)
+			return (0);
+		pthread_detach(tid);
+	}*/
+	while (i < state->num_philos)
+	{
+		if (pthread_create(&phs[i].thread_id, NULL, &thread_start, &phs[i]) !=
+			0)
+			return (0);
+		pthread_detach(phs[i].thread_id);
+		usleep(100);
+		i++;
+	}
+	return (1);
 }

@@ -10,13 +10,9 @@ char *get_action(int type)
 		return " has taken a fork\n";
 	else if (type == THINK)
 		return " is thinking\n";
+	else if (type == DIE)
+		return " died\n";
 	return (0);
-}
-
-void	ft_sleep(t_philo *philo)
-{
-	print_msg(philo, SLEEP);
-	usleep(philo->state->time_sleep * 1000);
 }
 
 void	eat(t_philo *philo)
@@ -25,12 +21,26 @@ void	eat(t_philo *philo)
 
 	pthread_mutex_lock(&philo->mutex);
 	state = philo->state;
+	philo->is_eating = 1;
+	philo->last_meal = get_time();
+	philo->time_to_die = philo->last_meal + philo->state->time_die;
 	print_msg(philo, EAT);
-	philo->eaten_meals++;
 	usleep(state->time_eat * 1000);
+	philo->eaten_meals++;
+	philo->is_eating = 0;
+	pthread_mutex_unlock(&philo->mutex);
+//	pthread_mutex_unlock(&philo->count_mutex);
+}
+
+void	ft_sleep(t_philo *philo)
+{
+	t_state *state;
+
+	state = philo->state;
+	print_msg(philo, SLEEP);
 	pthread_mutex_unlock(&state->forks_mutex[philo->lfork]);
 	pthread_mutex_unlock(&state->forks_mutex[philo->rfork]);
-	pthread_mutex_unlock(&philo->mutex);
+	usleep(philo->state->time_sleep * 1000);
 }
 
 void take_fork(t_philo *philo)

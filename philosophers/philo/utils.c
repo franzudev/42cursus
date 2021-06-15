@@ -1,20 +1,33 @@
 #include "philo.h"
 
+void static	print_error(int sig)
+{
+	if (sig == 1)
+		write(2, "Invalid arguments\n", 18);
+	if (sig == 2)
+		write(2, "Fatal error\n", 12);
+}
+
+
 int	ft_terminate(t_state *state, int sig)
 {
 	int	i;
 
-//	i = 0;
-//	while (i < state->num_philos)
-//		pthread_join(state->philos[i++].thread_id, NULL);
 	i = 0;
-	while (i < state->num_philos)
+	if (state->forks_mutex)
 	{
-		pthread_mutex_destroy(&state->philos[i].mutex);
-		pthread_mutex_destroy(&state->forks_mutex[i++]);
+		free(state->forks_mutex);
+		while (i < state->num_philos)
+			pthread_mutex_destroy(&state->forks_mutex[i++]);
 	}
-	free(state->philos);
-	free(state->forks_mutex);
+	i = 0;
+	if (state->philos)
+	{
+		free(state->philos);
+		while (i < state->num_philos)
+			pthread_mutex_destroy(&state->philos[i++].mutex);
+	}
+	print_error(sig);
 	return (sig);
 }
 

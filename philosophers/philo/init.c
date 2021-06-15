@@ -3,7 +3,6 @@
 t_philo	*init_philos(t_state *state)
 {
 	int				i;
-	int				s;
 	t_philo			*philos;
 
 	philos = (t_philo *) malloc(sizeof(t_philo) * state->num_philos);
@@ -13,17 +12,13 @@ t_philo	*init_philos(t_state *state)
 	while (i < state->num_philos)
 	{
 		philos[i].thread_num = i + 1;
-		pthread_mutex_init(&philos[i].mutex, NULL);
 		philos[i].eaten_meals = 0;
 		philos[i].state = state;
 		philos[i].lfork = i;
 		philos[i].rfork = philos[i].thread_num % state->num_philos;
-		s = pthread_create(&philos[i].thread_id, NULL, \
-			&thread_start, &philos[i]);
-		pthread_detach(philos[i].thread_id);
-		usleep(10);
-		if (s != 0)
-			return (NULL);
+		pthread_mutex_init(&philos[i].mutex, NULL);
+//		pthread_mutex_init(&philos[i].count_mutex, NULL);
+//		pthread_mutex_lock(&philos[i].count_mutex);
 		i++;
 	}
 	return (philos);
@@ -55,7 +50,7 @@ static void	init_forks(t_state *state)
 
 static t_state	*check_init(t_state *state)
 {
-	if (state->num_philos < 2 || state->time_die < 1
+	if (state->num_philos < 1 || state->time_die < 1
 		|| state->time_eat < 1 || state->time_sleep < 1)
 		return (NULL);
 	init_forks(state);
@@ -66,13 +61,15 @@ static t_state	*check_init(t_state *state)
 	if (!state->philos)
 		return (NULL);
 	pthread_mutex_init(&state->write_mutex, NULL);
+	pthread_mutex_init(&state->main_mutex, NULL);
+	pthread_mutex_lock(&state->main_mutex);
 	return (state);
 }
 
 t_state	*ft_init(int argc, char **argv, t_state *state)
 {
-	if (!state)
-		return (NULL);
+	state->forks_mutex = NULL;
+	state->philos = NULL;
 	if (!(argc == 5 || argc == 6))
 		return (NULL);
 	state->num_philos = ft_atoi(argv[1]);

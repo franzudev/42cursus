@@ -4,7 +4,7 @@ CC=		gcc
 
 CFLAGS=	-g -Wall -Wextra -Werror
 
-LDFLAGS=-Llibft-done -lft
+#LDFLAGS=-Llibft-done -lft
 
 SRCS=	main.c \
 		ft_atoi.c \
@@ -18,7 +18,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME):$(OBJS)
-	make -C libft-done/
+	#make -C libft-done/
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(NAME)
 
 clean:
