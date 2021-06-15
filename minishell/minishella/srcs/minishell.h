@@ -6,16 +6,14 @@
 /*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:04:08 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/06/15 12:54:52 by lincerpi         ###   ########.fr       */
+/*   Updated: 2021/06/15 14:37:17 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
 # include <stdio.h>
-# include <stdlib.h>
 # include <stdbool.h>
 # include <string.h>
 # include <sys/types.h>

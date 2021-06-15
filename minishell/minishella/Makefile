@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 # only for personal mac
-LDFLAGS = -L/usr/local/opt/ncurses/lib -lncurses
+# LDFLAGS = -L/usr/local/opt/ncurses/lib -lncurses
 
 SRCS_DIR = srcs
 
