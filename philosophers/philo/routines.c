@@ -1,13 +1,12 @@
 #include "philo.h"
 
-static void
-*had_eaten(void *state_v)
+static void	*had_eaten(void *state_v)
 {
-	t_state *state;
+	t_state	*state;
 	int		i;
 	int		total;
 
-	state = (t_state*)state_v;
+	state = (t_state *)state_v;
 	total = 0;
 	while (total < state->meals)
 	{
@@ -18,11 +17,10 @@ static void
 	}
 	print_msg(&state->philos[0], COUNT);
 	pthread_mutex_unlock(&state->main_mutex);
-	return ((void*)0);
+	return (NULL);
 }
 
-static void
-*is_dying(void *arg)
+static void	*is_dying(void *arg)
 {
 	t_philo		*philo;
 	t_state		*state;
@@ -32,15 +30,16 @@ static void
 	while (1)
 	{
 		if (state->is_dead)
-			return NULL;
+			return (NULL);
 		pthread_mutex_lock(&philo->mutex);
-		if (!philo->is_eating && get_time() > philo->time_to_die && !state->is_dead)
+		if (!philo->is_eating && get_time() > philo->time_to_die
+			&& !state->is_dead)
 		{
 			state->is_dead = 1;
 			print_msg(philo, DIE);
 			pthread_mutex_unlock(&philo->mutex);
 			pthread_mutex_unlock(&state->main_mutex);
-			return ((void*)0);
+			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->mutex);
 		usleep(1000);
@@ -49,7 +48,7 @@ static void
 
 void	*thread_start(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 	int		s;
 
 	philo = (t_philo *)arg;
@@ -66,7 +65,7 @@ void	*thread_start(void *arg)
 		ft_sleep(philo);
 		think(philo);
 	}
-	return philo;
+	return (philo);
 }
 
 int	start_routines(t_state *state)
@@ -85,8 +84,8 @@ int	start_routines(t_state *state)
 	}
 	while (i < state->num_philos)
 	{
-		if (pthread_create(&phs[i].thread_id, NULL, &thread_start, &phs[i]) !=
-			0)
+		if (pthread_create(&phs[i].thread_id, NULL, &thread_start, &phs[i])
+			!= 0)
 			return (0);
 		pthread_detach(phs[i].thread_id);
 		usleep(100);

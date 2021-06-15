@@ -43,10 +43,8 @@ typedef struct s_state {
 	int				time_eat;
 	int				time_sleep;
 	int				meals;
-	int 			is_dead;
-
+	int				is_dead;
 	uint64_t		start;
-
 	pthread_mutex_t	*forks_mutex;
 	pthread_mutex_t	write_mutex;
 	pthread_mutex_t	main_mutex;

@@ -1,25 +1,25 @@
 #include "philo.h"
 
-char *get_action(int type)
+char	*get_action(int type)
 {
 	if (type == EAT)
-		return " is eating\n";
+		return (" is eating\n");
 	else if (type == SLEEP)
-		return " is sleeping\n";
+		return (" is sleeping\n");
 	else if (type == FORK)
-		return " has taken a fork\n";
+		return (" has taken a fork\n");
 	else if (type == THINK)
-		return " is thinking\n";
+		return (" is thinking\n");
 	else if (type == DIE)
-		return " died\n";
+		return (" died\n");
 	else if (type == COUNT)
-		return " agg magnat'\n";
+		return (" agg magnat'\n");
 	return (0);
 }
 
 void	eat(t_philo *philo)
 {
-	t_state *state;
+	t_state	*state;
 
 	state = philo->state;
 	if (state->is_dead)
@@ -38,7 +38,7 @@ void	eat(t_philo *philo)
 
 void	ft_sleep(t_philo *philo)
 {
-	t_state *state;
+	t_state	*state;
 
 	state = philo->state;
 	if (state->is_dead)
@@ -49,9 +49,9 @@ void	ft_sleep(t_philo *philo)
 	usleep(philo->state->time_sleep * 1000);
 }
 
-void take_fork(t_philo *philo)
+void	take_fork(t_philo *philo)
 {
-	t_state *state;
+	t_state	*state;
 
 	state = philo->state;
 	if (state->is_dead)

@@ -13,7 +13,7 @@
 static	int	ft_isspace(char c)
 {
 	if (c == '\n' || c == '\r' || c == '\f' || c == '\t' || c == '\v'
-	|| c == ' ')
+		|| c == ' ')
 		return (1);
 	return (0);
 }
@@ -46,7 +46,7 @@ static	int	get_result(const char *str, long res, int s)
 	return ((int)(res * s));
 }
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int		s;
 	long	res;
@@ -57,9 +57,9 @@ int			ft_atoi(const char *str)
 		str++;
 	while (is_sign(*str))
 	{
-        if (*(str++) == '-')
-            s = -1;
-        break;
+		if (*(str++) == '-')
+			s = -1;
+		break ;
 	}
 	return (get_result(str, res, s));
 }

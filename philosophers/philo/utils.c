@@ -8,7 +8,6 @@ void static	print_error(int sig)
 		write(2, "Fatal error\n", 12);
 }
 
-
 int	ft_terminate(t_state *state, int sig)
 {
 	int	i;
@@ -33,9 +32,9 @@ int	ft_terminate(t_state *state, int sig)
 	return (sig);
 }
 
-uint64_t	get_time()
+uint64_t	get_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
