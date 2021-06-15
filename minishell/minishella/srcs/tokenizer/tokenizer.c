@@ -6,7 +6,7 @@
 /*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:09:47 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/06/15 10:23:37 by lincerpi         ###   ########.fr       */
+/*   Updated: 2021/06/15 12:53:26 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	is_special_tkn(char c)
 bool	is_append_tkn(char *input, int pos)
 {
 	if ((input[pos] == '>' && input[pos + 1] == '>')
-	|| (input[pos] == '<' && input[pos + 1] == '<'))
+		|| (input[pos] == '<' && input[pos + 1] == '<'))
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:21:51 by ffrancoi          #+#    #+#             */
-/*   Updated: 2021/06/14 20:02:51 by lincerpi         ###   ########.fr       */
+/*   Updated: 2021/06/15 12:55:38 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -67,6 +67,6 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-char	*ft_strcat(char *dest, const char *src);
+char			*ft_strcat(char *dest, const char *src);
 
 #endif

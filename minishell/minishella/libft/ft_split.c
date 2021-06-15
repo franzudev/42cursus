@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:26:13 by ffrancoi          #+#    #+#             */
-/*   Updated: 2021/01/12 11:26:17 by ffrancoi         ###   ########.fr       */
+/*   Updated: 2021/06/15 12:57:29 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	**count_and_alloc(const char *str, char charset)
 {
-	int w;
-	int i;
+	int	w;
+	int	i;
 
 	if (!str)
 		return (0);
@@ -28,14 +28,14 @@ static char	**count_and_alloc(const char *str, char charset)
 			w++;
 		i++;
 	}
-	return (char **)malloc(sizeof(char **) * (w + 1));
+	return ((char **)malloc(sizeof(char **) * (w + 1)));
 }
 
 static void	alloc_string_space(char **res, char const *str, char charset)
 {
-	int w;
-	int i;
-	int len;
+	int	w;
+	int	i;
+	int	len;
 
 	i = 0;
 	w = 0;
@@ -53,7 +53,7 @@ static void	alloc_string_space(char **res, char const *str, char charset)
 	}
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**res;
 	int		w;

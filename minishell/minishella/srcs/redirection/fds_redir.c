@@ -6,7 +6,7 @@
 /*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:08:49 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/06/15 11:19:42 by lincerpi         ###   ########.fr       */
+/*   Updated: 2021/06/15 12:53:55 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	redir_append(t_state *st, char **args, enum e_type type)
 	ft_close(st->fdout);
 }
 
-static int minchia(t_state *st, char **args)
+static int	minchia(t_state *st, char **args)
 {
-	int fd;
-	char buff;
+	int		fd;
+	char	buff;
 
 	(void)args;
 	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
@@ -52,7 +52,7 @@ static int minchia(t_state *st, char **args)
 		if (buff == '\n')
 			write(1, "> ", 2);
 		if (buff == 'x') //solo un carattere porcaccia la madonna
-			break;
+			break ;
 		// aggiungere argv == EOF o ctrl D
 		if (write(fd, &buff, 1) < 0)
 			return (EXIT_FAILURE);

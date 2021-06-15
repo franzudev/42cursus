@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffrancoi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:25:22 by ffrancoi          #+#    #+#             */
-/*   Updated: 2021/01/12 11:25:23 by ffrancoi         ###   ########.fr       */
+/*   Updated: 2021/06/15 12:58:10 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	digit_count(long n)
 {
-	int count;
+	int	count;
 
 	count = 1;
 	if (n < 0)
@@ -30,7 +30,7 @@ static int	digit_count(long n)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*res;
 	long	t;
