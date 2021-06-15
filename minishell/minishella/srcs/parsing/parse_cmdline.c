@@ -6,7 +6,7 @@
 /*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:08:14 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/06/14 20:18:27 by lincerpi         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:59:08 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_invalid_type(enum e_type *types, int i)
 	else if (types[i] == SEMICOLON && (types[i + 1] != SEMICOLON))
 		return (0);
 	else if (((types[i + 1] == REDIR
-				|| types[i + 1] == APPEND || types[i + 1] == INPUT
+				|| types[i + 1] == APPEND || types[i + 1] == INPUT || types[i + 1] == MINCHIA
 				|| types[i + 1] == PIPE || types[i + 1] == SEMICOLON)))
 		return (1);
 	return (0);
@@ -75,6 +75,8 @@ static int	test_syntax_error(enum e_type *types)
 			return (error_syntax(">>"));
 		else if (types[i] == INPUT && is_invalid_type(types, i))
 			return (error_syntax("<"));
+		else if (types[i] == MINCHIA && is_invalid_type(types, i))
+			return (error_syntax("<<"));
 		i++;
 	}
 	return (0);

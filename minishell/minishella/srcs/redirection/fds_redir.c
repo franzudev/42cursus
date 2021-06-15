@@ -6,7 +6,7 @@
 /*   By: lincerpi <lincerpi@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 20:08:49 by lincerpi          #+#    #+#             */
-/*   Updated: 2021/06/14 20:21:50 by lincerpi         ###   ########.fr       */
+/*   Updated: 2021/06/15 11:19:42 by lincerpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ void	redir_append(t_state *st, char **args, enum e_type type)
 	ft_close(st->fdout);
 }
 
-static int michia(t_state *st, char **argv)
+static int minchia(t_state *st, char **args)
 {
 	int fd;
 	char buff;
 
-	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC);
+	(void)args;
+	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	if (fd < 0)
 		return (EXIT_FAILURE);
 	write(1, "> ", 2);
@@ -50,14 +51,16 @@ static int michia(t_state *st, char **argv)
 	{
 		if (buff == '\n')
 			write(1, "> ", 2);
-		// aggiungere argv == EOF
+		if (buff == 'x') //solo un carattere porcaccia la madonna
+			break;
+		// aggiungere argv == EOF o ctrl D
 		if (write(fd, &buff, 1) < 0)
 			return (EXIT_FAILURE);
 	}
+	close(fd);
 	st->fdin = open(".heredoc", O_RDONLY, S_IRWXU);
 	dup2(st->fdin, STDIN);
 	ft_close(st->fdin);
-	close(fd);
 	return (EXIT_SUCCESS);
 }
 
