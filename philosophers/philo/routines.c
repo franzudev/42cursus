@@ -1,7 +1,7 @@
 #include "philo.h"
 
 static void
-*monitor_count(void *state_v)
+*had_eaten(void *state_v)
 {
 	t_state *state;
 	int		i;
@@ -22,7 +22,7 @@ static void
 }
 
 static void
-*monitor(void *arg)
+*is_dying(void *arg)
 {
 	t_philo		*philo;
 	t_state		*state;
@@ -55,7 +55,7 @@ void	*thread_start(void *arg)
 	philo = (t_philo *)arg;
 	philo->last_meal = get_time();
 	philo->time_to_die = philo->last_meal + philo->state->time_die;
-	s = pthread_create(&philo->thread_id, NULL, &monitor, philo);
+	s = pthread_create(&philo->thread_id, NULL, &is_dying, philo);
 	pthread_detach(philo->thread_id);
 	if (s != 0)
 		return (NULL);
@@ -79,7 +79,7 @@ int	start_routines(t_state *state)
 	phs = state->philos;
 	if (state->meals > 0)
 	{
-		if (pthread_create(&tid, NULL, &monitor_count, state) != 0)
+		if (pthread_create(&tid, NULL, &had_eaten, state) != 0)
 			return (0);
 		pthread_detach(tid);
 	}
