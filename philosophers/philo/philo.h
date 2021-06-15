@@ -67,6 +67,7 @@ void		*monitoring(void *arg);
 uint64_t	get_time(void);
 int			ft_terminate(t_state *state, int sig);
 void		print_msg(t_philo *philo, enum e_msg_type type);
+void		ft_usleep(int time, t_state *all);
 
 /*
  * Actions

@@ -1,5 +1,14 @@
 #include "philo.h"
 
+void	ft_usleep(int time, t_state *all)
+{
+	unsigned long	end;
+
+	end = get_time() + time;
+	while (get_time() < end && !all->is_dead)
+		usleep(time);
+}
+
 static void	*had_eaten(void *state_v)
 {
 	t_state	*state;

@@ -13,7 +13,7 @@ char	*get_action(int type)
 	else if (type == DIE)
 		return (" died\n");
 	else if (type == COUNT)
-		return (" agg magnat'\n");
+		return (" they ate\n");
 	return (0);
 }
 
@@ -29,7 +29,7 @@ void	eat(t_philo *philo)
 	philo->last_meal = get_time();
 	philo->time_to_die = philo->last_meal + philo->state->time_die;
 	print_msg(philo, EAT);
-	usleep(state->time_eat * 1000);
+	ft_usleep(state->time_eat, state);
 	philo->eaten_meals++;
 	philo->is_eating = 0;
 	pthread_mutex_unlock(&philo->mutex);
@@ -46,7 +46,7 @@ void	ft_sleep(t_philo *philo)
 	print_msg(philo, SLEEP);
 	pthread_mutex_unlock(&state->forks_mutex[philo->lfork]);
 	pthread_mutex_unlock(&state->forks_mutex[philo->rfork]);
-	usleep(philo->state->time_sleep * 1000);
+	ft_usleep(state->time_sleep, state);
 }
 
 void	take_fork(t_philo *philo)
