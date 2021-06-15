@@ -17,8 +17,8 @@ t_philo	*init_philos(t_state *state)
 		philos[i].lfork = i;
 		philos[i].rfork = philos[i].thread_num % state->num_philos;
 		pthread_mutex_init(&philos[i].mutex, NULL);
-//		pthread_mutex_init(&philos[i].count_mutex, NULL);
-//		pthread_mutex_lock(&philos[i].count_mutex);
+		pthread_mutex_init(&philos[i].count_mutex, NULL);
+		pthread_mutex_lock(&philos[i].count_mutex);
 		i++;
 	}
 	return (philos);

@@ -12,6 +12,8 @@ char *get_action(int type)
 		return " is thinking\n";
 	else if (type == DIE)
 		return " died\n";
+	else if (type == COUNT)
+		return " agg magnat'\n";
 	return (0);
 }
 
@@ -31,7 +33,7 @@ void	eat(t_philo *philo)
 	philo->eaten_meals++;
 	philo->is_eating = 0;
 	pthread_mutex_unlock(&philo->mutex);
-//	pthread_mutex_unlock(&philo->count_mutex);
+	pthread_mutex_unlock(&philo->count_mutex);
 }
 
 void	ft_sleep(t_philo *philo)

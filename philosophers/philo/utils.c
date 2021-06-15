@@ -27,6 +27,8 @@ int	ft_terminate(t_state *state, int sig)
 		while (i < state->num_philos)
 			pthread_mutex_destroy(&state->philos[i++].mutex);
 	}
+	pthread_mutex_destroy(&state->write_mutex);
+	pthread_mutex_destroy(&state->main_mutex);
 	print_error(sig);
 	return (sig);
 }
@@ -51,6 +53,8 @@ void 	set_color(enum e_msg_type type)
 		printf("\e[33m");
 	else if (type == THINK)
 		printf("\e[36m");
+	else if (type == COUNT)
+		printf("\e[35m");
 }
 
 void	print_msg(t_philo *philo, enum e_msg_type type)
@@ -66,5 +70,6 @@ void	print_msg(t_philo *philo, enum e_msg_type type)
 		   philo->thread_num, get_action(type));
 	if (type == EAT)
 		philo->last_meal = time;
-	pthread_mutex_unlock(&state->write_mutex);
+	if (!(type == DIE || type == COUNT))
+		pthread_mutex_unlock(&state->write_mutex);
 }

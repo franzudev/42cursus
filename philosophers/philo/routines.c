@@ -1,6 +1,6 @@
 #include "philo.h"
 
-/*static void
+static void
 *monitor_count(void *state_v)
 {
 	t_state *state;
@@ -16,10 +16,10 @@
 			pthread_mutex_lock(&state->philos[i++].count_mutex);
 		total++;
 	}
-	print_msg(&state->philos[0], DIE);
+	print_msg(&state->philos[0], COUNT);
 	pthread_mutex_unlock(&state->main_mutex);
 	return ((void*)0);
-}*/
+}
 
 static void
 *monitor(void *arg)
@@ -34,7 +34,6 @@ static void
 		if (state->is_dead)
 			return NULL;
 		pthread_mutex_lock(&philo->mutex);
-//		printf("get_time(): %llu\nstate->start: %llu\nphilo->last_meal: %llu\nstate->start + philo->last_meal: %llu\ntime: %llu\n", get_time(), state->start, philo->last_meal, state->start + philo->last_meal, time);
 		if (!philo->is_eating && get_time() > philo->time_to_die && !state->is_dead)
 		{
 			state->is_dead = 1;
@@ -74,16 +73,16 @@ int	start_routines(t_state *state)
 {
 	int			i;
 	t_philo		*phs;
-//	pthread_t	tid;
+	pthread_t	tid;
 
 	i = 0;
 	phs = state->philos;
-/*	if (state->meals > 0)
+	if (state->meals > 0)
 	{
 		if (pthread_create(&tid, NULL, &monitor_count, state) != 0)
 			return (0);
 		pthread_detach(tid);
-	}*/
+	}
 	while (i < state->num_philos)
 	{
 		if (pthread_create(&phs[i].thread_id, NULL, &thread_start, &phs[i]) !=

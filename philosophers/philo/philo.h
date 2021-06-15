@@ -19,7 +19,8 @@ enum e_msg_type {
 	SLEEP,
 	FORK,
 	THINK,
-	DIE
+	DIE,
+	COUNT
 };
 
 typedef struct s_philo {
