@@ -42,6 +42,7 @@ typedef struct s_state {
 	int				time_eat;
 	int				time_sleep;
 	int				meals;
+	int 			is_dead;
 
 	uint64_t		start;
 

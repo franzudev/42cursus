@@ -39,6 +39,20 @@ uint64_t	get_time()
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
+void 	set_color(enum e_msg_type type)
+{
+	if (type == DIE)
+		printf("\e[91m");
+	else if (type == EAT)
+		printf("\e[92m");
+	else if (type == SLEEP)
+		printf("\e[94m");
+	else if (type == FORK)
+		printf("\e[33m");
+	else if (type == THINK)
+		printf("\e[36m");
+}
+
 void	print_msg(t_philo *philo, enum e_msg_type type)
 {
 	t_state		*state;
@@ -47,7 +61,8 @@ void	print_msg(t_philo *philo, enum e_msg_type type)
 	state = philo->state;
 	pthread_mutex_lock(&state->write_mutex);
 	time = get_time() - state->start;
-	printf("%-10llu %d%s", time,
+	set_color(type);
+	printf("%-10llu %d%s\e[0m", time,
 		   philo->thread_num, get_action(type));
 	if (type == EAT)
 		philo->last_meal = time;

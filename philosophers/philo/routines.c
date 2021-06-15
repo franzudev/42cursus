@@ -31,10 +31,13 @@ static void
 	state = philo->state;
 	while (1)
 	{
+		if (state->is_dead)
+			return NULL;
 		pthread_mutex_lock(&philo->mutex);
 //		printf("get_time(): %llu\nstate->start: %llu\nphilo->last_meal: %llu\nstate->start + philo->last_meal: %llu\ntime: %llu\n", get_time(), state->start, philo->last_meal, state->start + philo->last_meal, time);
-		if (!philo->is_eating && get_time() > philo->time_to_die)
+		if (!philo->is_eating && get_time() > philo->time_to_die && !state->is_dead)
 		{
+			state->is_dead = 1;
 			print_msg(philo, DIE);
 			pthread_mutex_unlock(&philo->mutex);
 			pthread_mutex_unlock(&state->main_mutex);

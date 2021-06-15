@@ -77,6 +77,7 @@ t_state	*ft_init(int argc, char **argv, t_state *state)
 	state->time_eat = ft_atoi(argv[3]);
 	state->time_sleep = ft_atoi(argv[4]);
 	state->meals = 0;
+	state->is_dead = 0;
 	if (argv[5])
 	{
 		state->meals = ft_atoi(argv[5]);
