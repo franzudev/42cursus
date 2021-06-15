@@ -49,14 +49,14 @@ int	exit_msh(t_state *status, t_env *env_lst, t_cmd *cmd_lst)
 	if (cmd_lst->args && cmd_lst->args[1] && !ft_isnum(cmd_lst->args[1]))
 	{
 		g_sig.exit_status = 2;
-		ft_putstr_fd("msh: exit: ", STDERR);
+		ft_putstr_fd("lsh: exit: ", STDERR);
 		ft_putstr_fd(cmd_lst->args[1], STDERR);
 		ft_putendl_fd(": numeric argument required", STDERR);
 	}
 	else if (cmd_lst->args && cmd_lst->args[1] && cmd_lst->args[2])
 	{
 		g_sig.exit_status = 1;
-		ft_putstr_fd("msh: exit: too many arguments\n", STDERR);
+		ft_putstr_fd("lsh: exit: too many arguments\n", STDERR);
 		return (1);
 	}
 	else if (cmd_lst->args && cmd_lst->args[1])

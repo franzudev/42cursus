@@ -20,7 +20,7 @@ int	error_env(char *arg)
 	env = "HOME";
 	if (arg && !ft_strncmp(arg, "-", 2))
 		env = "OLDPWD";
-	ft_putstr_fd("msh: ", STDERR);
+	ft_putstr_fd("lsh: ", STDERR);
 	ft_putstr_fd("cd", STDERR);
 	ft_putstr_fd(": ", STDERR);
 	ft_putstr_fd(env, STDERR);

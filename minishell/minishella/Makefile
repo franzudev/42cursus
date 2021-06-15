@@ -4,8 +4,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-# only for personal mac
-# LDFLAGS = -L/usr/local/opt/ncurses/lib -lncurses
+LDFLAGS = -Llibft -lft
 
 SRCS_DIR = srcs
 
@@ -78,7 +77,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make bonus -C libft
-	$(CC) $(CFLAGS) $(LDFLAGS) -Llibft -lft $(OBJS) -o minishell
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	@make clean -C libft
@@ -90,4 +89,3 @@ fclean: clean
 
 re: fclean all
 
-re: fclean all

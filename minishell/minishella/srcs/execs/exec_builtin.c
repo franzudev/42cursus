@@ -15,7 +15,7 @@
 void	cd_args(void)
 {
 	g_sig.exit_status = 1;
-	ft_putendl_fd("msh: cd: too many arguments", STDERR);
+	ft_putendl_fd("lsh: cd: too many arguments", STDERR);
 }
 
 void	exec_export(t_cmd *cmd_lst, t_env **env_lst)

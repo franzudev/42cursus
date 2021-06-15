@@ -38,7 +38,7 @@ void	init_msh(t_state **st, t_env **env_lst, char **env)
 	tmp = ft_itoa(lvl);
 	key = ft_strdup("SHLVL");
 	export_env(env_lst, key, tmp);
-	printf("Welcome to LilloShell!\n");
+	printf("Sono Lillo!\n");
 }
 
 int	get_input(t_state *st, char *input)

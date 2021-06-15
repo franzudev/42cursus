@@ -56,7 +56,7 @@ void	assign_env(char *str, enum e_type type, t_env **env_lst)
 
 	if (str[0] == '=' || (str[0] == '\0' && type == ARG))
 	{
-		ft_putendl_fd("msh: not a valid identifier", STDERR);
+		ft_putendl_fd("lsh: not a valid identifier", STDERR);
 		g_sig.exit_status = 1;
 		return ;
 	}

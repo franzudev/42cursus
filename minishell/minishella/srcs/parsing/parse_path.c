@@ -59,7 +59,7 @@ int	check_filepath(char *ptr, t_cmd *cmd_lst)
 void	error_num(int errnum, char *cmd, int exit_code)
 {
 	g_sig.exit_status = exit_code;
-	ft_putstr_fd("msh: ", STDERR);
+	ft_putstr_fd("lsh: ", STDERR);
 	ft_putstr_fd(cmd, STDERR);
 	ft_putstr_fd(": ", STDERR);
 	ft_putstr_fd(strerror(errnum), STDERR);
@@ -70,7 +70,7 @@ bool	filepath_exists(t_env *env_lst, t_cmd *cmd_lst)
 {
 	char	*ptr;
 	char	copy[BUF_SIZE];
-	int		ret;	
+	int		ret;
 
 	ptr = NULL;
 	while (env_lst)

@@ -118,7 +118,7 @@ int	input(t_state *st, char **args, enum e_type type)
 		st->fdin = open(*args, O_RDONLY, S_IRWXU);
 		if (st->fdin == -1)
 		{
-			ft_putstr_fd("msh: ", STDERR);
+			ft_putstr_fd("lsh: ", STDERR);
 			ft_putstr_fd(*args, STDERR);
 			ft_putendl_fd(": No such file or directory", STDERR);
 			g_sig.exit_status = 1;
