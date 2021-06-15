@@ -50,6 +50,9 @@ static void	init_forks(t_state *state)
 
 static t_state	*check_init(t_state *state)
 {
+	pthread_mutex_init(&state->write_mutex, NULL);
+	pthread_mutex_init(&state->main_mutex, NULL);
+	pthread_mutex_lock(&state->main_mutex);
 	if (state->num_philos < 1 || state->time_die < 1
 		|| state->time_eat < 1 || state->time_sleep < 1)
 		return (NULL);
@@ -60,9 +63,6 @@ static t_state	*check_init(t_state *state)
 	state->philos = init_philos(state);
 	if (!state->philos)
 		return (NULL);
-	pthread_mutex_init(&state->write_mutex, NULL);
-	pthread_mutex_init(&state->main_mutex, NULL);
-	pthread_mutex_lock(&state->main_mutex);
 	return (state);
 }
 
