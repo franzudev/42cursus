@@ -21,11 +21,11 @@ static void	*had_eaten(void *state_v)
 	{
 		i = 0;
 		while (i < state->num_philos)
-			pthread_mutex_lock(&state->philos[i++].count_mutex);
+			sem_wait(state->philos[i++].count_mutex);
 		total++;
 	}
 	print_msg(&state->philos[0], COUNT);
-	pthread_mutex_unlock(&state->main_mutex);
+	sem_post(state->main_mutex);
 	return (NULL);
 }
 
@@ -40,33 +40,34 @@ static void	*is_dying(void *arg)
 	{
 		if (state->is_dead)
 			return (NULL);
-		pthread_mutex_lock(&philo->mutex);
+		sem_wait(philo->mutex);
 		if (!philo->is_eating && get_time() > philo->time_to_die
 			&& !state->is_dead)
 		{
 			state->is_dead = 1;
 			print_msg(philo, DIE);
-			pthread_mutex_unlock(&philo->mutex);
-			pthread_mutex_unlock(&state->main_mutex);
+			sem_post(philo->mutex);
+			sem_post(state->main_mutex);
 			return (NULL);
 		}
-		pthread_mutex_unlock(&philo->mutex);
+		sem_post(philo->mutex);
 		usleep(1000);
 	}
 }
 
-void	*thread_start(void *arg)
+void	process_start(t_philo *arg)
 {
-	t_philo	*philo;
-	int		s;
+	t_philo		*philo;
+	pthread_t	tid;
+	int			s;
 
 	philo = (t_philo *)arg;
 	philo->last_meal = get_time();
 	philo->time_to_die = philo->last_meal + philo->state->time_die;
-	s = pthread_create(&philo->thread_id, NULL, &is_dying, philo);
-	pthread_detach(philo->thread_id);
+	s = pthread_create(&tid, NULL, is_dying, philo);
+	pthread_detach(tid);
 	if (s != 0)
-		return (NULL);
+		return ;
 	while (1)
 	{
 		take_fork(philo);
@@ -74,7 +75,6 @@ void	*thread_start(void *arg)
 		ft_sleep(philo);
 		think(philo);
 	}
-	return (philo);
 }
 
 int	start_routines(t_state *state)
@@ -93,10 +93,12 @@ int	start_routines(t_state *state)
 	}
 	while (i < state->num_philos)
 	{
-		if (pthread_create(&phs[i].thread_id, NULL, &thread_start, &phs[i])
-			!= 0)
-			return (0);
-		pthread_detach(phs[i].thread_id);
+		phs[i].pid = fork();
+		if (phs[i].pid == 0)
+		{
+			process_start(&phs[i]);
+			exit(0);
+		}
 		usleep(100);
 		i++;
 	}

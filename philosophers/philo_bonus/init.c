@@ -14,49 +14,43 @@ t_philo	*init_philos(t_state *state)
 		philos[i].thread_num = i + 1;
 		philos[i].eaten_meals = 0;
 		philos[i].state = state;
-		philos[i].lfork = i;
-		philos[i].rfork = philos[i].thread_num % state->num_philos;
-		pthread_mutex_init(&philos[i].mutex, NULL);
-		pthread_mutex_init(&philos[i].count_mutex, NULL);
-		pthread_mutex_lock(&philos[i].count_mutex);
+		philos[i].mutex = create_philo_sem(PHILO_SEM, i);
+		if (philos[i].mutex == SEM_FAILED)
+			return (NULL);
+		philos[i].count_mutex = create_philo_sem(EAT_SEM, i);
+		if (philos[i].count_mutex == SEM_FAILED)
+			return (NULL);
 		i++;
 	}
 	return (philos);
 }
 
-static void	init_forks(t_state *state)
+static int	init_semaphores(t_state *state)
 {
-	int	i;
+	t_state	*s;
 
-	state->forks_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-	* state->num_philos);
-	if (!state->forks_mutex)
-	{
-		state->forks_mutex = NULL;
-		return ;
-	}
-	i = 0;
-	while (i < state->num_philos)
-	{
-		if (pthread_mutex_init(&state->forks_mutex[i++], NULL) != 0)
-		{
-			i = 0;
-			free(state->forks_mutex);
-			state->forks_mutex = NULL;
-		}
-	}
+	sem_unlink(FORKS_SEM);
+	sem_unlink(WRITE_SEM);
+	sem_unlink(MAIN_SEM);
+	s = state;
+	s->forks_mutex = ft_sem_open(FORKS_SEM, s->num_philos);
+	s->write_mutex = ft_sem_open(WRITE_SEM, 1);
+	s->main_mutex = ft_sem_open(MAIN_SEM, 0);
+	if (s->forks_mutex == SEM_FAILED
+		|| s->write_mutex == SEM_FAILED
+		|| s->main_mutex == SEM_FAILED)
+		return (0);
+	return (1);
 }
 
 static t_state	*check_init(t_state *state)
 {
-	pthread_mutex_init(&state->write_mutex, NULL);
-	pthread_mutex_init(&state->main_mutex, NULL);
-	pthread_mutex_lock(&state->main_mutex);
 	if (state->num_philos < 1 || state->time_die < 1
 		|| state->time_eat < 1 || state->time_sleep < 1)
 		return (NULL);
-	init_forks(state);
-	if (!state->forks_mutex)
+	if (!init_semaphores(state))
+		return (NULL);
+	if (state->forks_mutex == SEM_FAILED)
 		return (NULL);
 	state->start = get_time();
 	state->philos = init_philos(state);
