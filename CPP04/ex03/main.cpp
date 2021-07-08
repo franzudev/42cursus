@@ -31,6 +31,7 @@ int main()
 	me->use(1, *bob);
 	me->use(2, *bob);
 	me->use(3, *bob);
+	tmp = nullptr;
 	delete bob;
 	delete me;
 	delete src;

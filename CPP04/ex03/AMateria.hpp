@@ -13,8 +13,8 @@ protected:
 	std::string _type;
 	unsigned int _xp;
 
-	AMateria();
 public:
+	AMateria();
 	AMateria(std::string const & type);
 	AMateria(const AMateria& aMateria);
 	virtual ~AMateria();
