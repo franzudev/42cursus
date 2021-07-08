@@ -19,7 +19,7 @@ int main()
 	Victim jim("Jimmy");
 	Peon joe("Joe");
 
-	std::cout << robert << jim << joe;
+	std::cout << robert << "4" << jim << joe;
 
 	robert.polymorph(jim);
 	jim.getPolymorphed();
