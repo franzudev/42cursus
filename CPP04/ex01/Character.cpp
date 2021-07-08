@@ -34,7 +34,7 @@ void Character::recoverAP() {
 }
 
 void Character::attack(Enemy* enemy) {
-	if (ap < weapon->getAPCost() || !weapon)
+	if (ap < weapon->getAPCost() || !weapon || !enemy)
 		return;
 	std::cout << name << " attacks " << enemy->getType() << " with a " + weapon->getName() << std::endl;
 	weapon->attack();
