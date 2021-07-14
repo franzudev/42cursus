@@ -5,21 +5,16 @@
 #include "Serializer.hpp"
 
 int main() {
-	srand(time(NULL));
+	Serializer serializer;
+	Data *ptr = new Data();
+	ptr->idx = 1;
+	ptr->name = "prova";
+	uintptr_t serialized = serializer.serialize(ptr);
+	std::cout << "Serialized: " << serialized << std::endl;
+	Data *deserialized = serializer.deserialize(serialized);
 
-	for (int i = 0; i < 5; i++)
-	{
-		Serializer serializer;
-		std::cout << "test " << i << ": " << '\n';
-		void *raw = serializer.serialize();
-		Data *dt = serializer.deserialize(raw);
-
-		std::cout << "\tidx:  " << dt->idx << '\n';
-		std::cout << "\tname: " << dt->name << '\n';
-
-		delete static_cast<char*>(raw);
-		delete dt;
-	}
+	std::cout << "Original pointer: " << ptr->idx << " " << ptr->name << std::endl;
+	std::cout << "Deserialized object: " << deserialized->idx << " " << deserialized->name << std::endl;
 
 	return (0);
 }

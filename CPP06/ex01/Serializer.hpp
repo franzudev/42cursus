@@ -6,11 +6,7 @@
 #define CPP06_SERIALIZER_HPP
 
 #include <iostream>
-
-struct Data {
-	int			idx;
-	std::string	name;
-};
+#include "Data.hpp"
 
 class Serializer {
 public:
