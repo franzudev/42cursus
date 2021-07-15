@@ -4,18 +4,17 @@
 #define MAX_VAL 750
 int main(int, char**)
 {
-	/*Array<int> numbers = Array<int>(30);
-	Array<int> mirror(numbers);
-	std::cout << numbers[3] << std::endl;
+	Array<int> nums = Array<int>(30);
+	Array<int> mir(nums);
 	for (int i = 0; i < 30; i++) {
-		numbers[i] = i;
-		mirror[i] = i;
+		nums[i] = i;
+		mir[i] = i;
 	}
-	std::cout << "Numbers: " << numbers[10] << " | Mirror: " << mirror[10] << std::endl;
-	numbers[10] = 52;
-	std::cout << "Numbers: " << numbers[10] << " | Mirror: " << mirror[10] << std::endl;
-	mirror[10] = 23;
-	std::cout << "Numbers: " << numbers[10] << " | Mirror: " << mirror[10] << std::endl;*/
+	std::cout << "Numbers: " << nums[10] << " | Mirror: " << mir[10] << std::endl;
+	nums[10] = 52;
+	std::cout << "Numbers: " << nums[10] << " | Mirror: " << mir[10] << std::endl;
+	mir[10] = 23;
+	std::cout << "Numbers: " << nums[10] << " | Mirror: " << mir[10] << std::endl << std::endl;
 	Array<int> test;
 	Array<int> numbers(MAX_VAL);
 	int* mirror = new int[MAX_VAL];
