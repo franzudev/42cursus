@@ -20,8 +20,18 @@ void Span::addNumber(int number) {
 int Span::shortestSpan() {
 	if (values < 2)
 		throw std::exception();
-	std::sort(vector.begin(), vector.end());
-	return *(vector.begin() + 1) - *vector.begin();
+	size_t min;
+	size_t diff;
+	std::vector<int> c = vector;
+	std::sort(c.begin(), c.end());
+
+	min = *(++c.begin()) - *c.begin();
+	for (std::vector<int>::iterator begin = c.begin(); begin != c.end(); begin++) {
+		diff = *(begin + 1) - *begin;
+		if (diff < min)
+			min = diff;
+	}
+	return min;
 }
 
 int Span::longestSpan() {
