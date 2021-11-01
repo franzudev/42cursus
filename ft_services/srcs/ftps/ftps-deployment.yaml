@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps
+spec:
+  selector:
+    matchLabels:
+      app: ftps
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+      - name: ftps
+        image: ghcr.io/franzudev/my_ftps:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 20
+          name: ftp
+        - containerPort: 21
+          name: ftps
+        - containerPort: 10098
+          name: pasv-min
+        - containerPort: 10099
+          name: pasv-mid
+        - containerPort: 10100
+          name: pasv-max
