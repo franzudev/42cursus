@@ -12,9 +12,10 @@ kubectl apply -n metallb-system -f https://raw.githubusercontent.com/metallb/met
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
 kubectl create namespace services
+kubectl create namespace data
 kubectl apply -n metallb-system -f srcs/metalLB/
-kubectl apply -n services -f srcs/mysql/
-kubectl apply -n services -f srcs/influxdb/
+kubectl apply -n data -f srcs/mysql/
+kubectl apply -n data -f srcs/influxdb/
 kubectl apply -n services -f srcs/grafana/
 kubectl apply -n services -f srcs/wordpress/
 kubectl apply -n services -f srcs/phpmyadmin/
