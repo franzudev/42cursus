@@ -9,9 +9,13 @@ kubectl delete --all services --namespace=kubernetes-dashboard
 kubectl delete --all deployments --namespace=kubernetes-dashboard
 kubectl delete --all pods --namespace=kubernetes-dashboard
 kubectl delete --all sa --namespace=kubernetes-dashboard
-kubectl delete --all pvc --namespace=services
-kubectl delete --all pv --namespace=services
+kubectl delete --all services --namespace=data
+kubectl delete --all deployments --namespace=data
+kubectl delete --all sa --namespace=data
+kubectl delete --all pvc --namespace=data
+kubectl delete --all pv --namespace=data
 kubectl delete namespaces services
+kubectl delete namespaces data
 kubectl delete namespaces kubernetes-dashboard
 kubectl delete namespaces metallb-system
 
