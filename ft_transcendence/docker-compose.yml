@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  backend:
+    build: backend
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    networks:
+      - c_net
+    depends_on:
+      - db
+  frontend:
+    build: frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./web/www:/var/www/html
+    links:
+      - backend
+    networks:
+      - c_net
+    depends_on:
+      - backend
+  db:
+    image: postgres:14.2-alpine3.15
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - c_net
+    environment:
+     - PGDATA=${PGDATA}
+     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+networks:
+  c_net:
