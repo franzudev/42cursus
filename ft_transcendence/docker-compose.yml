@@ -2,11 +2,16 @@ version: '3.7'
 
 services:
   backend:
-    build: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    depends_on:
-      - db
+      - "5050:5050"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+#    depends_on:
+#      - db
   frontend:
     build:
       context: frontend
@@ -18,10 +23,10 @@ services:
       - /app/node_modules
     depends_on:
       - backend
-  db:
-    image: postgres:14.2-alpine3.15
-    volumes:
-      - ./db:/var/lib/postgresql/data
-    environment:
-     - PGDATA=${PGDATA}
-     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#  db:
+#    image: postgres:14.2-alpine3.15
+#    volumes:
+#      - ./db:/var/lib/postgresql/data
+#    environment:
+#     - PGDATA=${PGDATA}
+#     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
