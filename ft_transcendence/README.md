@@ -118,7 +118,18 @@ This is an example of how to list things you need to use the software and how to
 2. Initialize git flow
    ```sh
    cd ft_transcendence
-   git flow init -d
+
+   git flow init <<EOF
+   main
+   develop
+   feature/
+   bugfix/
+   release/
+   hotfix/
+   support/
+   v
+   ${PWD}/.git/hooks
+   EOF
    ```
 3. Start the development environment
    ```sh
