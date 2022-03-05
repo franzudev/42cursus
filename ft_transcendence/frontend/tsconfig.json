@@ -1,7 +1,8 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/service"],
   "compilerOptions": {
+    "typeRoots": ["src/@types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

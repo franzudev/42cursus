@@ -1,119 +1,94 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { defineComponent, reactive } from "vue";
+import { useAppStore } from "./stores/app";
+
+console.log("init")
+
+const menuBar = reactive([
+  {
+    label: 'Game',
+    icon: 'pi pi-fw pi-table',
+    items: [
+      {
+        label: 'New Game',
+        icon: 'pi pi-fw pi-user-plus',
+        items: [
+          {
+            label: 'Play with a friend',
+            icon: 'pi pi-fw pi-plus'
+          },
+          {
+            label: 'Play with a random user',
+            icon: 'pi pi-fw pi-copy'
+          },
+        ]
+      },
+      {
+        label: 'Watch a game',
+        icon: 'pi pi-fw pi-user-edit'
+      }
+    ]
+  },
+  {
+    label: 'History',
+    icon: 'pi pi-fw pi-shopping-cart',
+    items: [
+      {
+        label: 'View',
+        icon: 'pi pi-fw pi-list'
+      },
+      {
+        label: 'Search',
+        icon: 'pi pi-fw pi-search'
+      },
+    ]
+  },
+  {
+    label: 'Chat',
+    icon: 'pi pi-fw pi-envelope',
+    items: [
+      {
+        label: 'Send a message',
+        icon: 'pi pi-fw pi-compass'
+      },
+      {
+        label: 'Join a room',
+        icon: 'pi pi-fw pi-map-marker'
+      },
+      {
+        label: 'Create a Room',
+        icon: 'pi pi-fw pi-pencil'
+      }
+    ]
+  }
+])
+
+const store = useAppStore()
+
+function changeTheme() {
+  const { isDark, themeColor } = store
+  const themeElement: HTMLElement = document.getElementById('theme-link') as HTMLElement;
+  themeElement.setAttribute('href', themeElement.getAttribute('href')!.replace(themeColor, isDark ? "light" : "dark" ));
+  store.setTheme()
+}
+
 </script>
+
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <Menubar :model="menuBar">
+      <template #start>
+        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+      </template>
+    </Menubar>
   </header>
+  <button @click="changeTheme">prova</button>
 
   <RouterView />
 </template>
 
-<style>
-@import '@/assets/base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
+<style lang="scss">
+@import "./assets/styles/layout.scss";
 </style>
