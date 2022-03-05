@@ -106,6 +106,13 @@ This is an example of how to list things you need to use the software and how to
   * [Download Docker](https://www.docker.com/products/docker-desktop)
 * nest-cli
   ```sh
+  ### ONLY IN 42 ###
+  mkdir ~/goinfre/.npm-global
+  npm config set prefix '~/goinfre/.npm-global'
+  echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+  source ~/.zshrc
+  ### ONLY IN 42 ###
+  
   npm install -g @nestjs/cli
   ```
 
