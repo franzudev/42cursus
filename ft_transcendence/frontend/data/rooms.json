@@ -1,0 +1,7 @@
+
+{
+    "data": [
+        {"id": "1","name": "Chat 1","description": "Good char room","image": "amyelsner.png"},
+        {"id": "2","name": "Chat 2","description": "Bad chat room","image": "annafali.png"}
+    ]
+}
