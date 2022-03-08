@@ -1,5 +1,8 @@
+import { HttpService } from '@nestjs/axios';
+import  { AxiosResponse } from 'axios'
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { map, Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,7 +12,7 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private usersRepository: Repository<User>
   ) {}
 
   async create(createUserDto: CreateUserDto) {
