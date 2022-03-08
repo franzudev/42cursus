@@ -5452,3 +5452,7 @@
   padding: 1.25rem 0 0 0;
 }
 
+.chatroom-item.p-highlight {
+  color: #4338CA;
+  background: #EEF2FF;
+}

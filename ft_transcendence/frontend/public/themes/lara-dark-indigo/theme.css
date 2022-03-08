@@ -5453,3 +5453,9 @@
 .p-chatrooms .p-chatroom-footer {
   padding: 1.25rem 0 0 0;
 }
+
+
+.chatroom-item.p-highlight {
+  color: rgba(255, 255, 255, 0.87);
+  background: rgba(165, 180, 252, 0.16);
+}
