@@ -6,11 +6,13 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthController } from './auth/auth.controller';
+import { PassportModule } from '@nestjs/passport'
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
+    PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'db',

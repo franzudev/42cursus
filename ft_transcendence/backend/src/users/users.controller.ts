@@ -3,9 +3,14 @@ import {
   Get,
   Post,
   Body,
+  Req,
+  Request, 
+  Res,
   Patch,
+  Query,
   Param,
-  Delete
+  Delete,
+  UseGuards
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -13,14 +18,32 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Serialize } from "./users.interceptor";
 import { UserDto } from "./dto/user.dto";
 
+/******** GUARDS **********/
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from '../auth/auth.service';
+import { Api42Strategy } from '../auth/api42.strategy';
+import { User } from './entities/user.entity';
+import { Response } from 'express';
+
 @Controller('users')
 @Serialize(UserDto)
 export class UsersController {
+  userService: any;
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.create(createUserDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
+
+  @Get('/username')
+  find_by_user(@Query('user') user: string) {
+    return this.usersService.find_one_by_username(user);
   }
 
   @Get(':id')
@@ -37,4 +60,21 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
+  // login endpont
+  @Get('login')
+  @UseGuards(AuthGuard('api42'))
+  async login(@Req() req, @Res() res: Response) {
+    return req.user;
+    // const token = await this.userService.getJwtToken(req.user as User);
+ 
+    // const secretData = {
+    //   token,
+    //   refreshToken: '',
+    // };
+ 
+    // res.cookie('auth-cookie', secretData,{httpOnly:true,});
+    // return {msg:'success'};
+  }
+
 }
+

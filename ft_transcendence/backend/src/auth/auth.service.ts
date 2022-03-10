@@ -5,6 +5,7 @@ import {
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { Repository } from 'typeorm';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class AuthService
@@ -20,5 +21,17 @@ export class AuthService
 		}
 
 		return user;
+	}
+	find_user_by_name(user_to_check: string): any {
+		const user = this.usersService.find_one_by_username(user_to_check);
+		if (!user)
+		{
+			// insert new user and return it
+			return 'uh oh, no one found :(';
+		}
+		else
+		{
+			return user;
+		}
 	}
 }

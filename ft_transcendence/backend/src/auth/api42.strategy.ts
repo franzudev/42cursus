@@ -9,9 +9,9 @@ import { stringify } from 'querystring';
 
 
 
-const clientID = '8a37c2bd21158cbb8c1ad6998953125894bc483c66d58b9d35a8d2759b3120f6';
-const clientSecret = '5c0ce0d7032bcac83f015fff87e77d52eab3ff8df0e91b4d2a04554d23d69ab2';
-const callbackURL = 'http://localhost:3000/success.html';
+const clientID = 'bfc424aaa222c55c5fc81959025e19226068f2c79ca67c3999295f2bf2f36b92';
+const clientSecret = 'a6ace8b6a2e2a68ce05dabb9823f8a3031c66d91c775d5f2dc9b34dee72fa236';
+const callbackURL = 'http://localhost:5050/auth/success';
 
 @Injectable()
 export class Api42Strategy extends PassportStrategy(Strategy, 'api42')
@@ -20,12 +20,13 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42')
 		private authService: AuthService,
 		private http: HttpService
 	) {
+		
 		super({
 			authorizationURL: `https://api.intra.42.fr/oauth/authorize?${ stringify({
 				client_id    : clientID,
 				redirect_uri : callbackURL,
-				response_type: 'code'
-				// scope        : 'identify',
+				response_type: 'code',
+				scope        : ['public']
 			}) }`,
 			tokenURL        : 'https://api.intra.42.fr/oauth/token',
 			scope           : 'public',
@@ -33,16 +34,15 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42')
 			clientSecret,
 			callbackURL,
 		});
+		console.log('inside strategy constructor');
 	}
 
-	async validate(
-		accessToken: string,
-	): Promise<any> {
+	async validate(accessToken: string): Promise<any> {
+		console.log('inside strategy validation!');
 		const { data } = await this.http.get('https://api.intra.42.fr/v2/me', {
 				headers: { Authorization: `Bearer ${ accessToken }` },
-			})
-			.toPromise();
-
-		return this.authService.findUserById(data.id);
+			}).toPromise();
+		console.log(data.login); // should print user intra name 
+		return this.authService.find_user_by_name(data.login);
 	}
 }
