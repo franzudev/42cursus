@@ -1,3 +1,4 @@
+import { UsersService } from './../users.service';
 import { Logger } from '@nestjs/common';
 import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
@@ -9,7 +10,7 @@ import { Server, Socket } from 'socket.io';
 })
 export class UsersGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
-  constructor(private readonly chatService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
@@ -30,7 +31,9 @@ export class UsersGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Client connected: ${client.id}`);
+    this.logger.log(`Client connected: ${client.data}`);
+    this.logger.log(client.data)
+    this.logger.log(client.request.headers);
     this.logger.log(args);
   }
 }
