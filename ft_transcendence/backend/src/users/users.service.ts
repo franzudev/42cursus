@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { Message } from "../rooms/entities/message.entity";
 
 @Injectable()
 export class UsersService {
@@ -20,8 +21,8 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  findOne(id: number) {
-    return this.usersRepository.findByIds([id]);
+  findOne(username: string) {
+    return this.usersRepository.findOne({ username });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -30,5 +31,11 @@ export class UsersService {
 
   remove(id: number) {
     return this.usersRepository.delete(id);
+  }
+
+  async storeMessage(message: Message) {
+    let user = await this.findOne(message.room)
+    if (user == null)
+      return
   }
 }

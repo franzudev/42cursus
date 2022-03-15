@@ -21,7 +21,6 @@ export class RoomsGateway {
     @ConnectedSocket() client: Socket
   ) {
     this.roomsService.join(joinRoomDto, client)
-    console.log(this.server.of("/").adapter.rooms)
   }
 
   @SubscribeMessage('send-message')
@@ -29,7 +28,7 @@ export class RoomsGateway {
     @MessageBody() message: any,
     @ConnectedSocket() client: Socket
   ) {
-    this.roomsService.sendMessage(this.server.of("/").adapter.rooms, message, client)
+    this.roomsService.sendMessage(this.server, message, client.id)
   }
 
   @SubscribeMessage('find-all-rooms')
@@ -42,10 +41,10 @@ export class RoomsGateway {
     return this.roomsService.findOne(name);
   }
 
-  @SubscribeMessage('updateRoom')
-  update(@MessageBody() updateRoomDto: any) {
-    return this.roomsService.update(updateRoomDto.id, updateRoomDto);
-  }
+  // @SubscribeMessage('updateRoom')
+  // update(@MessageBody() updateRoomDto: any) {
+  //   return this.roomsService.update(updateRoomDto.id, updateRoomDto);
+  // }
 
   @SubscribeMessage('leave-room')
   leave(

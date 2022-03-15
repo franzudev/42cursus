@@ -12,9 +12,9 @@ export class RoomsService {
     client.join(room.name)
   }
 
-  sendMessage(rooms: Map<String, Set<String>>, message: any, client: Socket) {
-    if (rooms.get(message.room)?.has(client.id))
-      client.to(message.room).emit('send-message', message.body)
+  sendMessage(server: Server, message: any, clientId: string) {
+    if (server.of("/").adapter.rooms.get(message.room)?.has(clientId))
+      server.to(message.room).emit('send-message', message.body)
   }
 
   findAll() {

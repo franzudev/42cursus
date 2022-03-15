@@ -1,4 +1,14 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, Unique } from "typeorm";
+import {
+	Column,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	OneToMany,
+	PrimaryColumn,
+	PrimaryGeneratedColumn,
+	Unique
+} from "typeorm";
+import { Message } from "../../rooms/entities/message.entity";
 
 @Entity()
 @Unique(["username"])
@@ -17,5 +27,9 @@ export class User {
 
 	@Column()
 	oauthToken: string;
+
+	@ManyToMany(() => User)
+	@JoinTable()
+	friends: User
 
 }
