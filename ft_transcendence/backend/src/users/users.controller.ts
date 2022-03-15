@@ -24,6 +24,7 @@ import { AuthService } from '../auth/auth.service';
 import { Api42Strategy } from '../auth/api42.strategy';
 import { User } from './entities/user.entity';
 import { Response } from 'express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 @Serialize(UserDto)
@@ -43,11 +44,17 @@ export class UsersController {
 
   @Get('/username')
   find_by_user(@Query('user') user: string) {
-    return this.usersService.find_one_by_username(user);
+    const user_ = this.usersService.find_one_by_username(user);
+    user_.then((res) => {
+      console.log(res);
+    })
+    return user_;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  @UseGuards(JwtAuthGuard)
+  findOne(@Req() req, @Param('id') id: string) {
+    console.log(req.user);
     return this.usersService.findOne(+id);
   }
 
@@ -60,20 +67,11 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
-  // login endpont
+  // login endpoint
   @Get('login')
   @UseGuards(AuthGuard('api42'))
   async login(@Req() req, @Res() res: Response) {
     return req.user;
-    // const token = await this.userService.getJwtToken(req.user as User);
- 
-    // const secretData = {
-    //   token,
-    //   refreshToken: '',
-    // };
- 
-    // res.cookie('auth-cookie', secretData,{httpOnly:true,});
-    // return {msg:'success'};
   }
 
 }

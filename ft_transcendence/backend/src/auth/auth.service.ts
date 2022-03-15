@@ -6,6 +6,7 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { Repository } from 'typeorm';
 import { HttpService } from '@nestjs/axios';
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService
@@ -26,12 +27,16 @@ export class AuthService
 		const user = this.usersService.find_one_by_username(user_to_check);
 		if (!user)
 		{
+			console.log('inside find user by name (not found)');
 			// insert new user and return it
-			return 'uh oh, no one found :(';
+			return null;
 		}
 		else
 		{
 			return user;
 		}
+	}
+	create_user(access_token: string, username: string, avatar: string) {
+		return this.usersService.create({ username: username, oauthToken: access_token, avatar: avatar, twoFactorAuthCode: 'asdkfjdks' });
 	}
 }

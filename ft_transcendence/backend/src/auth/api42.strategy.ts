@@ -6,6 +6,7 @@ import { HttpService } from '@nestjs/axios';
 import { AuthService } from './auth.service';
 import { Strategy } from 'passport-oauth2';
 import { stringify } from 'querystring';
+import { UsersService } from 'src/users/users.service';
 
 
 
@@ -38,11 +39,20 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42')
 	}
 
 	async validate(accessToken: string): Promise<any> {
+		const internal_api_url = 'http://localhost:5050/users';
 		console.log('inside strategy validation!');
 		const { data } = await this.http.get('https://api.intra.42.fr/v2/me', {
 				headers: { Authorization: `Bearer ${ accessToken }` },
 			}).toPromise();
 		console.log(data.login); // should print user intra name 
-		return this.authService.find_user_by_name(data.login);
+		const user = await this.authService.find_user_by_name(data.login);
+		if (!user) // user isnt registered yet
+		{
+			console.log('user not found, creating it now...');
+			return this.authService.create_user(accessToken, data.login, data.image_url);
+		}
+		else
+			console.log('user found');
+		return user;
 	}
 }

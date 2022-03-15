@@ -11,16 +11,29 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
 import { HttpModule } from '@nestjs/axios';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './jwt.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
   
   @Module({
 	imports    : [
 	  UsersModule,
-	  HttpModule
+	  HttpModule,
+	  PassportModule,
+	  JwtModule.registerAsync({
+		imports: [ConfigModule],
+		useFactory: async ()=> ({
+		  secret: 'secret', // to change
+		}),
+		inject: [ConfigService]
+	}), 
 	],
 	providers  : [
 	  AuthService,
-	  Api42Strategy
-	],
+	  Api42Strategy,
+	  JwtStrategy
+	  ],
 	controllers: [
 	  AuthController,
 	],

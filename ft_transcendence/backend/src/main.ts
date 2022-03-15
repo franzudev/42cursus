@@ -5,6 +5,10 @@ import * as session from 'express-session';
 import * as passport from 'passport'
 // somewhere in your initialization file
 
+import * as cookieParser from 'cookie-parser';
+// somewhere in your initialization file
+
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,6 +24,8 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(cookieParser());
+
   await app.listen(5050);
 }
 bootstrap();
