@@ -12,10 +12,10 @@ import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
     constructor(
-        private authService: AuthService,
-        private configService: ConfigService,
+        private readonly authService: AuthService,
+        private readonly configService: ConfigService,
         private readonly userService: UsersService,
-        private http: HttpService
+        private readonly http: HttpService
     ) {
         super({
             authorizationURL: `https://api.intra.42.fr/oauth/authorize?${stringify({
@@ -36,7 +36,6 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
         const { data } = await this.http.get('https://api.intra.42.fr/v2/me', {
             headers: { Authorization: `Bearer ${accessToken}` },
         }).toPromise();
-        console.log(data.login); // should print user intra name
         const user = await this.userService.findOne(data.login);
         if (!user) {
             const newUser = this.userService.generate({
