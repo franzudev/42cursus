@@ -5,10 +5,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport'
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
-    UsersModule,
+    PassportModule.register({ session: true }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'db',
@@ -19,6 +23,8 @@ import { RoomsModule } from './rooms/rooms.module';
       entities: [User],
       synchronize: true,
     }),
+    AuthModule,
+    UsersModule,
     RoomsModule,
   ],
   controllers: [AppController],
