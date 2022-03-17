@@ -1,4 +1,5 @@
 import { IsOptional, IsString } from "class-validator";
+import { User } from "../entities/user.entity";
 
 export class CreateUserDto {
 
@@ -15,5 +16,7 @@ export class CreateUserDto {
 	@IsString()
 	@IsOptional()
 	twoFactorAuthCode: string;
+
+	friends: User[]
 
 }

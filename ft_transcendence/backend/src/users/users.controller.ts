@@ -62,7 +62,17 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
-  // login endpoint
+
+  @Get('/:id/friends')
+  findFriends(@Param('id') id: string) {
+    return this.usersService.findFriends(+id)
+  }
+
+  @Patch('/:id/add-friend')
+  addFriend(@Param('id') id: string, @Body() { friendId }) {
+    return this.usersService.addFriend(+id, friendId)
+  }
+
   @Get('login')
   @UseGuards(AuthGuard('api42'))
   async login(@Req() req, @Res() res: Response) {

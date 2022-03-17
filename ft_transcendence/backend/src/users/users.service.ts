@@ -36,8 +36,17 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  findOne(username: string) {
-    return this.usersRepository.findOne({ username });
+  async findOne(username: string) {
+    return await this.usersRepository.findOne({ username });
+  }
+
+  async findById(id: number) {
+    return await this.usersRepository.find({
+      relations: ['friends'],
+      where: (qb) => {
+        qb.where("User.id = :id", { id })
+      }
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -46,6 +55,25 @@ export class UsersService {
 
   remove(id: number) {
     return this.usersRepository.delete(id);
+  }
+
+  async findFriends(id: number) {
+    const [user] = await this.usersRepository.find({
+      relations: ['friends'],
+      where: (qb) => {
+        qb.where("User.id = :id", { id })
+      }
+    })
+    return user.friends
+  }
+
+  async addFriend(id: number, friendId) {
+    const [user] = await this.findById(id)
+    const [friend] = await this.findById(friendId)
+    if (!user.friends)
+      user.friends = []
+    user.friends.push(friend)
+    return this.usersRepository.save(user);
   }
 
   async storeMessage(message: Message) {
