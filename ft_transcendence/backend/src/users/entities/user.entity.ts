@@ -1,4 +1,5 @@
 import {
+	BeforeInsert,
 	Column,
 	Entity,
 	JoinTable,
@@ -31,5 +32,11 @@ export class User {
 	@ManyToMany(() => User)
 	@JoinTable()
 	friends: User
+
+	@BeforeInsert()
+	handleInsertion() {
+		if (!this.avatar)
+			this.avatar = process.env.AVATAR_PATH + "/default.jpg"
+	}
 
 }

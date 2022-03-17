@@ -1,6 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 import {
-    Injectable,
+    Injectable, UnauthorizedException,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AuthService } from './auth.service';
@@ -8,6 +8,9 @@ import { Strategy } from 'passport-oauth2';
 import { stringify } from 'querystring';
 import { UsersService } from 'src/users/users.service';
 import { ConfigService } from "@nestjs/config";
+import { first, map, Observable } from "rxjs";
+import { AxiosResponse } from "axios";
+import { User } from "../users/entities/user.entity";
 
 @Injectable()
 export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
