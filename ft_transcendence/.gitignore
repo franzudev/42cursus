@@ -343,3 +343,4 @@ $RECYCLE.BIN/
 *.lnk
 
 db
+/backend/avatars/
