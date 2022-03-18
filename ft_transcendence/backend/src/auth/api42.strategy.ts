@@ -35,7 +35,6 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42')
 			clientSecret,
 			callbackURL,
 		});
-		console.log('inside strategy constructor');
 	}
 
 	async validate(accessToken: string): Promise<any> {
@@ -44,11 +43,9 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42')
 		const { data } = await this.http.get('https://api.intra.42.fr/v2/me', {
 				headers: { Authorization: `Bearer ${ accessToken }` },
 			}).toPromise();
-		console.log(data.login); // should print user intra name 
 		const user = await this.authService.find_user_by_name(data.login);
-		if (!user) // user isnt registered yet
+		if (!user)
 		{
-			console.log('user not found, creating it now...');
 			return this.authService.create_user(accessToken, data.login, data.image_url);
 		}
 		else

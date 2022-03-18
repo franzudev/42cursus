@@ -17,10 +17,9 @@ export class AuthService
 	async findUserById(user_id: number): Promise<any> {
 		const user = await this.usersService.findOne(user_id);
 
-		if ( !user ) {
+		if (!user) {
 			throw new UnauthorizedException();
 		}
-
 		return user;
 	}
 	find_user_by_name(user_to_check: string): any {
