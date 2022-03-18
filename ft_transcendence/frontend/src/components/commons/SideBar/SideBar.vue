@@ -5,7 +5,12 @@ import { ref, onMounted } from 'vue';
 import ChatRoomService from "@/service/ChatRoomService";
 
 const emit = defineEmits<{
-    (e: 'selectedRoom', id: number): void
+    (e: 'selectedRoom', room: {
+        id: number;
+        name: string;
+        description: string;
+        image: string;
+    }): void
 }>()
 
 onMounted(() => {
@@ -13,26 +18,35 @@ onMounted(() => {
     console.log(rooms.value);
 })
 
-function onItemClick(event: MouseEvent, id: number) {
-    emit("selectedRoom", id);
-    console.log("emit" + id);
-    SelectRoom(id);
+function onItemClick(event: MouseEvent, room: {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+}) {
+    emit("selectedRoom", room);
+    SelectRoom(room.id);
 }
 
-function SelectRoom(id: number)
-{
-    selected.value.id = id;
+function SelectRoom(id: number) {
+    selected.value = id;
 }
 
-function    getClass(id: number)
-{
-    if (id == selected.value.id)
+function getClass(id: number) {
+    if (id == selected.value)
         return "chatroom-item p-highlight";
     return "chatroom-item";
-
 }
-const selected = ref({id: Number()});
-const rooms = ref([{ "id": Number(), "name": String(), "description": String(), "image": String() }]); //non funziona senza le parentesi?
+
+function isPublic(id: number)
+{
+	if (id % 2)
+		return true;
+	return false;
+}
+
+const selected = ref(0);
+const rooms = ref([{ id: 0, "name": "", "description": "", "image": "" }]);
 const chatRoomService = ref(new ChatRoomService());
 </script>
 
@@ -42,14 +56,17 @@ const chatRoomService = ref(new ChatRoomService());
         <div class="p-chatroom-title">Chat Room List</div>
         <div class="p-chatrooms" v-for="room in rooms">
             <!-- <ChatRoomItem /> -->
-            <li :class="getClass(room.id)" @click="onItemClick($event, room.id)">
-                <div class="image-container">
+            <li :class="getClass(room.id)" @click="onItemClick($event, room)">
+                <div class="image-container" >
                     <img
                         :src="room.image"
                         :alt="room.name"
                         style="width:30px; height:30px; border-radius: 30px;"
-                    />
+                    > 
+                    <span v-if="isPublic(room.id)" style="width:30px; height:10px;" v-badge.success=""/>
+                    <span v-else="isPublic(room.id)" style="width:30px; height:10px;" v-badge.danger=""/>
                 </div>
+                <div style="width:50px; height: 30px;"/>
                 <div class="chatroom-list-detail">{{ room.name }}</div>
                 <!-- <div>{{ room.description }}</div> -->
             </li>
