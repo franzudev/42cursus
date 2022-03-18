@@ -29,8 +29,10 @@ const callbackURL = 'http://localhost:5050/auth/success';
 @Controller('auth')
 export class AuthController
 {
-	constructor(private authService: AuthService,
-		private jwtService: JwtService){}
+	constructor(
+		private authService: AuthService,
+		private jwtService: JwtService
+	) {}
 
 	@Get('api42')
 	@UseGuards(AuthGuard('api42'))
@@ -46,12 +48,9 @@ export class AuthController
 	@Get('/success')
 	@UseGuards(AuthGuard('api42'))
 	parse_code(@Request() req, @Res() res: Response) : string {
-		console.log('Res is: ', req.user);
-		// res.sendStatus(200);
 		const jwt = this.jwtService.sign({username: req.user.username, id: req.user.id});
-		console.log('jwt is ', jwt);
-		// res.send(jwt);
 		res.cookie('token', jwt, { httpOnly: true });
+		res.header({jwt})
   		res.json({ jwt });
 		return jwt;
 	}
@@ -59,7 +58,7 @@ export class AuthController
 	@Get('/test')
 	@UseGuards(JwtAuthGuard)
 	test_service() {
-		return 'youre inside guard'	
+		return 'youre inside guard'
 	}
 
 	@Get('/views')

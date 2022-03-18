@@ -1,42 +1,43 @@
-import {
-	HttpException,
-	Module,
-  } from '@nestjs/common';
-  import { AuthService } from './auth.service';
-  import { UsersModule } from '../users/users.module';
-  import { AuthController } from './auth.controller';
-  import { Api42Strategy } from './api42.strategy';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UsersService } from 'src/users/users.service';
+import { forwardRef, Module } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { UsersModule } from '../users/users.module';
+import { AuthController } from './auth.controller';
+import { Api42Strategy } from './api42.strategy';
 import { HttpModule } from '@nestjs/axios';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-  
-  @Module({
-	imports    : [
-	  UsersModule,
-	  HttpModule,
-	  PassportModule,
-	  JwtModule.registerAsync({
-		imports: [ConfigModule],
-		useFactory: async ()=> ({
-		  secret: 'secret', // to change
-		}),
-		inject: [ConfigService]
-	}), 
-	],
-	providers  : [
-	  AuthService,
-	  Api42Strategy,
-	  JwtStrategy
-	  ],
-	controllers: [
-	  AuthController,
-	],
-  })
-  export class AuthModule {}
-  
+
+@Module({
+    imports: [
+        forwardRef(() => UsersModule),
+        HttpModule,
+        PassportModule,
+        ConfigModule,
+        JwtModule.registerAsync({
+            imports: [ConfigModule],
+            useFactory: async (configService: ConfigService) => ({
+                secret: configService.get<string>("JWT_SECRET"), // to change
+                signOptions: {
+                    expiresIn: configService.get<string>("JWT_EXPIRES_IN")
+                }
+            }),
+            inject: [ConfigService]
+        }),
+    ],
+    providers: [
+        AuthService,
+        Api42Strategy,
+        JwtStrategy
+    ],
+    controllers: [
+        AuthController,
+    ],
+    exports: [
+        PassportModule,
+        JwtModule
+    ]
+})
+export class AuthModule {
+}

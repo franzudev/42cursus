@@ -7,15 +7,15 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { Message } from "../rooms/entities/message.entity";
 import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>, private jwtService:JwtService
+    @InjectRepository(User) private usersRepository: Repository<User>,
+    private jwtService:JwtService
   ) {}
-
 
   public async getJwtToken(user: User): Promise<string>{
     const payload = {
@@ -28,19 +28,24 @@ export class UsersService {
     return await this.usersRepository.save(createUserDto);
   }
 
+  generate(user: Partial<CreateUserDto>) {
+    return this.usersRepository.create(user)
+  }
+
   async findAll() {
     return await this.usersRepository.find();
   }
 
-  findOne(id: number) {
-    return this.usersRepository.findByIds([id]);
+  async findOne(username: string) {
+    return await this.usersRepository.findOne({ username });
   }
 
-  find_one_by_username(username: string) {
-    return this.usersRepository.findOne({
-      where: {
-        username: username
-      },
+  async findById(id: number) {
+    return await this.usersRepository.find({
+      relations: ['friends'],
+      where: (qb) => {
+        qb.where("User.id = :id", { id })
+      }
     });
   }
 
@@ -50,5 +55,30 @@ export class UsersService {
 
   remove(id: number) {
     return this.usersRepository.delete(id);
+  }
+
+  async findFriends(id: number) {
+    const [user] = await this.usersRepository.find({
+      relations: ['friends'],
+      where: (qb) => {
+        qb.where("User.id = :id", { id })
+      }
+    })
+    return user.friends
+  }
+
+  async addFriend(id: number, friendId) {
+    const [user] = await this.findById(id)
+    const [friend] = await this.findById(friendId)
+    if (!user.friends)
+      user.friends = []
+    user.friends.push(friend)
+    return this.usersRepository.save(user);
+  }
+
+  async storeMessage(message: Message) {
+    let user = await this.findOne(message.room)
+    if (user == null)
+      return
   }
 }

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 import { useAppStore } from "./stores/app";
-
-console.log("init")
+import { ref } from 'vue';
+import { RouterLink, RouterView, useRoute } from "vue-router";
+import SideBar from '@/components/commons/SideBar/SideBar.vue'
 
 const menuBar = reactive([
   {
@@ -46,6 +47,7 @@ const menuBar = reactive([
   {
     label: 'Chat',
     icon: 'pi pi-fw pi-envelope',
+    to: '/chat',
     items: [
       {
         label: 'Send a message',
@@ -62,33 +64,42 @@ const menuBar = reactive([
     ]
   }
 ])
-
+const options = reactive(['Dark', 'Light']);
 const store = useAppStore()
+const darkValue = ref(true);
 
-function changeTheme() {
+function changeTheme(): boolean {
   const { isDark, themeColor } = store
   const themeElement: HTMLElement = document.getElementById('theme-link') as HTMLElement;
-  themeElement.setAttribute('href', themeElement.getAttribute('href')!.replace(themeColor, isDark ? "light" : "dark" ));
+  themeElement.setAttribute('href', themeElement.getAttribute('href')!.replace(themeColor, isDark ? "light" : "dark"));
   store.setTheme()
+  return isDark
 }
 
+const moon = "pi pi-moon"
+const checked = true
 </script>
 
 
 <template>
-  <header>
-    <Menubar :model="menuBar">
-      <template #start>
+  <Menubar :model="menuBar" :exact="true">
+    <template #start>
+      <RouterLink to="/">
         <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
-      </template>
-    </Menubar>
-  </header>
-  <button @click="changeTheme">prova</button>
-
-  <RouterView />
+      </RouterLink>
+    </template>
+    <template #end>
+      <ToggleButton v-on:change="changeTheme" v-model="darkValue" onIcon="pi pi-moon" style="border-radius: 25px" offIcon="pi pi-sun" />
+      <!-- <InputSwitch v-on:change="changeTheme" v-model="darkValue" :class="moon"/> -->
+    </template>
+  </Menubar>
+  <main style="width: 100%;">
+    <RouterView />
+  </main>
 </template>
 
 
 <style lang="scss">
 @import "./assets/styles/layout.scss";
+
 </style>
