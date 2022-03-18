@@ -4,10 +4,8 @@ import {
   Post,
   Body,
   Req,
-  Request,
   Res,
   Patch,
-  Query,
   Param,
   Delete,
   UseGuards, UploadedFile, UseInterceptors, NotFoundException, BadRequestException, Logger
@@ -20,15 +18,12 @@ import { UserDto } from "./dto/user.dto";
 
 /******** GUARDS **********/
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from '../auth/auth.service';
-import { Api42Strategy } from '../auth/api42.strategy';
-import { User } from './entities/user.entity';
 import { response, Response } from 'express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from "@nestjs/platform-express";
 import * as fs from "fs";
 import { diskStorage } from "multer";
 import * as path from "path";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 // const utils = {
 //   getFileExtension()
