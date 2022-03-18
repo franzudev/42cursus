@@ -28,6 +28,11 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from "@nestjs/platform-express";
 import * as fs from "fs";
 import { diskStorage } from "multer";
+import * as path from "path";
+
+// const utils = {
+//   getFileExtension()
+// }
 
 @Controller('users')
 @Serialize(UserDto)
@@ -95,7 +100,14 @@ export class UsersController {
         const extension = filename[filename.length - 1]
         cb(null, `${req.params.username}.${extension}`)
       }
-    })
+    }),
+    fileFilter: (req, file, callback) => {
+      let ext = path.extname(file.originalname);
+      if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg')
+        callback(new BadRequestException('Only images are allowed'), false)
+      else
+        callback(null, true)
+    },
   }))
   async avatarUpload(@Param('username') username: string, @UploadedFile() file: Express.Multer.File) {
     const user = await this.usersService.findOne(username)
