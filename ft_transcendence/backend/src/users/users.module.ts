@@ -18,6 +18,7 @@ import { AuthModule } from "../auth/auth.module";
     providers: [
         UsersGateway,
         UsersService
+        
     ],
     exports: [UsersService]
 })
