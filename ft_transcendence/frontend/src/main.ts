@@ -14,7 +14,6 @@ import BadgeDirective from 'primevue/badgedirective'
 import Button from 'primevue/button'
 
 const app = createApp(App)
-app.config.globalProperties.$appState = reactive({ theme: 'lara-dark-indigo', darkTheme: true });
 
 app.use(PrimeVue, { ripple: true, inputStyle: 'outlined' });
 app.use(createPinia())
