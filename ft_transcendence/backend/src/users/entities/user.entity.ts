@@ -29,6 +29,12 @@ export class User {
 	@Column()
 	oauthToken: string;
 
+	@Column({ nullable: true }) 
+	twoFactorEnabled: boolean;
+
+	@Column({ nullable: true })
+	telephoneNumber: string;
+
 	@ManyToMany((type) => User, (user) => user.friends, {
 		onUpdate: "CASCADE"
 	})

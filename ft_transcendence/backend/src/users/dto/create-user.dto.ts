@@ -17,6 +17,13 @@ export class CreateUserDto {
 	@IsOptional()
 	twoFactorAuthCode: string;
 
+	@IsOptional()
+	twoFactorEnabled: boolean;
+
+	@IsString()
+	@IsOptional()
+	telephoneNumber: string;
+
 	friends: User[]
 
 }

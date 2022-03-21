@@ -57,22 +57,45 @@ export class AuthController
 
 	@Get('/test')
 	@UseGuards(JwtAuthGuard)
-	test_service() {
+	test_service(@Request() req) {
+		console.log(req.user);
 		return 'youre inside guard'
 	}
 
-	@Get('/views')
-	// @UseGuards(JwtAuthGuard)
-	getViews(@Request() req) {
-		// return session.username;
-		console.log(req.cookies.token);
-		return req.cookies.token;
+
+
+	@Get('/set_number') // use guards JWTAUTHGUARD 
+	@UseGuards(JwtAuthGuard)
+	async set_user_number(@Request() req, @Res() res: Response, @Query('number') number: string) { 
+		let result = await this.authService.create_2fa_code(number);
+		console.log(result); 
 	}
 
-	@Get('/setusername')
-	set_user_session(@Query('user') user: string, @Session() session: { username?: string, views? : number }) {
-		session.username = user;
-		return session.username;
+	@Get('/update_user_test')
+	@UseGuards(JwtAuthGuard)
+	update_user(@Request() req, @Res() res: Response, @Query('number') number: string) {
+		const user = req.user;
+		const id = user.user_id;
+		console.log(user);
+		// let id = user.id;
+		return this.authService.update_user_number(id, number);
+	}
+
+	@Get('/verify_status') // use guards JWTAUTHGUARD
+	@UseGuards(JwtAuthGuard)
+	async verify_status(@Request() req, @Res() res: Response, @Query('number') number: string, @Query('code') code: string) {
+		 let verification_res = await this.authService.verify_code(number, code); 
+
+		 res.send(verification_res);
+		 if (verification_res != 'approved')
+			 console.log('verification not approved'); // do nothing;
+		 else
+		 {
+			const user = req.user;
+			const id = user.user_id;
+			 this.authService.update_user_number(id, number);
+			 console.log('verification correctly approved');
+		 }
 	}
 }
 

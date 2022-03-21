@@ -10,4 +10,10 @@ export class UserDto {
 
     @Expose()
     avatar: string;
+
+    @Expose()
+    twoFactorEnabled: boolean;
+
+    @Expose()
+    telephoneNumber: string;
 }
