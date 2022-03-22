@@ -30,6 +30,10 @@ async function bootstrap() {
     credentials: true, origin: 'http://localhost:3000'
   });
 
+  // app.enableCors({
+  //   credentials:true, origin: 'http://10.12.3.8:3000'
+  // })
+
   await app.listen(5050);
 }
 bootstrap();

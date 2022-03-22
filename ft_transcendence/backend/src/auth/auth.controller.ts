@@ -45,24 +45,62 @@ export class AuthController
 		return `<a href='http://localhost:5050/auth/api42'>VALIDATE</a>`;
 	}
 
+	@Get('/verify_2fa')
+	async verify_code(@Request() req, @Res() res: Response, @Query('code') code: string, @Query('username') username: string) {
+		const user = await this.authService.find_user_by_name(username);
+		const ver_res = await this.authService.verify_code(user.telephoneNumber, code);
+		console.log(ver_res);
+
+		if (ver_res == 'approved') {
+			const jwt = this.jwtService.sign({username: user.username, id: user.id});
+			res.cookie('token', jwt, { httpOnly: true });
+			res.header({jwt})
+			res.json({ jwt });
+			res.redirect('http://localhost:3000/profile');
+		}
+		else
+			res.json({ver_res});
+	}
+
 	@Get('/success')
 	@UseGuards(AuthGuard('api42'))
-	parse_code(@Request() req, @Res() res: Response) : string {
-		const jwt = this.jwtService.sign({username: req.user.username, id: req.user.id});
-		res.cookie('token', jwt, { httpOnly: true });
-		res.header({jwt})
-  		res.json({ jwt });
-		return jwt;
+	async parse_code(@Request() req, @Res() res: Response) {
+
+		const user = await this.authService.find_user_by_name(req.user.username);
+
+		if (user.twoFactorEnabled) {
+			const req = await this.authService.create_2fa_code(user.telephoneNumber);
+			res.cookie('username', user.username);
+			res.redirect(`http://localhost:3000/validation_code?username=${user.username}`);
+			return ;
+		}
+		else
+		{
+			const jwt = this.jwtService.sign({username: req.user.username, id: req.user.id});
+			res.cookie('token', jwt, { httpOnly: true });
+			res.header({jwt})
+			res.json({ jwt });
+			res.redirect('http://localhost:3000/profile');
+			return jwt;
+		}
+	}
+
+	@Get('/whoami')
+	// @UseGuards(JwtAuthGuard)
+	who_am_i(@Request() req, @Res() res: Response) {
+		if (!req.cookies.token) { 
+			res.send('KO');
+		}
+		else
+			res.send('OK');
 	}
 
 	@Get('/test')
 	@UseGuards(JwtAuthGuard)
 	test_service(@Request() req) {
 		console.log(req.user);
-		return 'youre inside guard'
+		return 'youre inside guard';
 	}
-
-
 
 	@Get('/set_number') // use guards JWTAUTHGUARD 
 	@UseGuards(JwtAuthGuard)
@@ -71,14 +109,13 @@ export class AuthController
 		console.log(result); 
 	}
 
-	@Get('/update_user_test')
-	@UseGuards(JwtAuthGuard)
-	update_user(@Request() req, @Res() res: Response, @Query('number') number: string) {
-		const user = req.user;
-		const id = user.user_id;
-		console.log(user);
-		// let id = user.id;
-		return this.authService.update_user_number(id, number);
+	@Get('/find_user')
+	async find_user(@Query('username') username: string) {
+		let user;
+		
+		user = await this.authService.find_user_by_name(username);
+		console.log('user is', user.id);
+		return user;
 	}
 
 	@Get('/verify_status') // use guards JWTAUTHGUARD

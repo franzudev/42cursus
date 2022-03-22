@@ -25,7 +25,7 @@ export class AuthService
 		return user;
 	}
 
-	find_user_by_name(user_to_check: string): any {
+	find_user_by_name(user_to_check: string) {
 		const user = this.usersService.findOne(user_to_check);
 		if (!user)
 		{

@@ -6,6 +6,8 @@ import {PrimeIcons} from 'primevue/api';
 import InputSwitch from 'primevue/inputswitch';
 import InputMask from 'primevue/inputmask';
 import Button from 'primevue/button';
+import Tag from 'primevue/tag';
+import Avatar from 'primevue/avatar';
 import axios from 'axios';
 
 
@@ -15,12 +17,17 @@ export default {
 			checked: false,
 			show: false,
 			value: '',
-			code: ''
+			code: '',
+			avatar: ''
 		}
 	},
 	methods: {
-		Submit() {
-			alert(this.value);
+		async get_image()
+		{
+			const api = 'http://localhost:5050/users/me';
+			const result = await this.axios.get(api, { withCredentials: true });
+			this.avatar = result.data.avatar;
+			console.log(this.avatar);
 		},
 		create_verification() {
 			// alert(this.value);
@@ -45,6 +52,9 @@ export default {
 					alert('Wrong code, try again');
 			})
 		}
+	},
+	created() {
+		this.get_image();
 	}
 }
 
@@ -53,20 +63,40 @@ export default {
 
 
 <template>
-	<div>
-		<p>Abilita autenticazione a due fattori</p>
+	<div style="">
+		<!-- <Button label="Get image" @click="get_image" v-model="image" /> -->
+		<Avatar size="xlarge" style="left: 10px; top:10px;">
+			<img :src="avatar" >
+		</Avatar>
+	</div>
+	<div style="position: relative; top: 100px; left: 10px;">
+		<Tag value="Abilita autenticazione a due fattori"></Tag>
+	</div>
+	<div class="check-btn">
 		<InputSwitch v-model="checked" />
 	</div>
-	<div>
+	<div class="telephone-nbr">
 		<InputMask v-if="checked" v-model="value" mask="+99 9999999999" placeholder="Insert telephone number" />
 		<Button v-if="checked" @click="create_verification" icon="pi pi-check" iconPos="right" />
 	</div>
-	<div v-if="show" >
+	<div v-if="show" style="position: relative; top: 120px; left: 10px;" >
 		<InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
 		<Button @click="verify_code" icon="pi pi-check" iconPos="right" />
 	</div>
 </template>
 
 <style lang="scss">
+
+.telephone-nbr {
+	position: relative;
+	top: 115px;
+	left: 10px;
+}
+
+.check-btn {
+	position: relative;
+	top: 110px;
+	left: 10px;
+}
 
 </style>

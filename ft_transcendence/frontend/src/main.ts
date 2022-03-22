@@ -12,6 +12,8 @@ import ToggleButton from 'primevue/togglebutton';
 import InputSwitch from 'primevue/inputswitch';
 import InputMask from 'primevue/inputmask';
 import Button from 'primevue/button';
+import Avatar from 'primevue/avatar';
+import Tag from 'primevue/tag';
 
 
 import * as Vue from 'vue' // in Vue 3
@@ -31,6 +33,8 @@ app.component('ToggleButton', ToggleButton);
 app.component('InputSwitch', InputSwitch);
 app.component('InputMask', InputMask);
 app.component('Button', Button);
+app.component('Tag', Tag);
+app.component('Avatar', Avatar);
 
 app.mount('#app')
 
