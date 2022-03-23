@@ -17,14 +17,17 @@ async function bootstrap() {
       cookie: {
         maxAge: 60000 * 60 * 24 // 1 m per 60m * 24 h
       },
-      secret: 'my-secret', // cookie encryption 
+      secret: 'my-secret', // cookie encryption
       resave: false,
-      saveUninitialized: false, // save sessions only if user is logged in 
+      saveUninitialized: false, // save sessions only if user is logged in
     }),
   );
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(cookieParser());
+  app.enableCors({
+      origin: "http://localhost:3000"
+  })
 
   await app.listen(5050);
 }

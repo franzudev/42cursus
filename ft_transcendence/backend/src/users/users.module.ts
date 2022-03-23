@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { HttpModule } from '@nestjs/axios';
 import { AuthModule } from "../auth/auth.module";
+import { JwtStrategy } from "../auth/jwt.strategy";
+import { Api42Strategy } from "../auth/api42.strategy";
 
 
 @Module({
@@ -17,7 +19,9 @@ import { AuthModule } from "../auth/auth.module";
     controllers: [UsersController],
     providers: [
         UsersGateway,
-        UsersService
+        UsersService,
+        JwtStrategy,
+        Api42Strategy,
     ],
     exports: [UsersService]
 })
