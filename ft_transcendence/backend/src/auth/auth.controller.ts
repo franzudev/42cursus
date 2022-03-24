@@ -2,57 +2,37 @@ import
 {
 	Controller,
 	Get,
-	Post,
 	Request,
 	Res,
 	Req,
 	Query,
 	Session,
-	UseGuards,
+	UseGuards, Redirect,
 } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios'
 import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
-import { Api42Strategy } from './api42.strategy';
-import { UsersService } from 'src/users/users.service';
-import { stringify } from 'querystring';
-import { Serialize } from 'src/users/users.interceptor';
 import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { JwtAuthGuard } from './jwt-auth.guard';
-
-const clientID = 'bfc424aaa222c55c5fc81959025e19226068f2c79ca67c3999295f2bf2f36b92';
-const clientSecret = 'a6ace8b6a2e2a68ce05dabb9823f8a3031c66d91c775d5f2dc9b34dee72fa236';
-const callbackURL = 'http://localhost:5050/auth/success';
+import { ConfigService } from "@nestjs/config";
+import { strict } from "assert";
 
 @Controller('auth')
 export class AuthController
 {
 	constructor(
-		private authService: AuthService,
-		private jwtService: JwtService
+		private readonly authService: AuthService,
+		private readonly jwtService: JwtService,
+		private readonly configService: ConfigService,
 	) {}
 
-	@Get('api42')
-	@UseGuards(AuthGuard('api42'))
-	async getUserFromLogin(@Req() req): Promise<any> {
-		return req.user;
-	}
-
 	@Get('/login')
-	send_link() {
-		return `<a href='http://localhost:5050/auth/api42'>VALIDATE</a>`;
-	}
-
-	@Get('/success')
 	@UseGuards(AuthGuard('api42'))
-	parse_code(@Request() req, @Res() res: Response) : string {
+	parse_code(@Request() req, @Res() res: Response) {
 		const jwt = this.jwtService.sign({username: req.user.username, id: req.user.id});
 		res.cookie('token', jwt, { httpOnly: true });
-		res.header({jwt})
-  		res.json({ jwt });
-		return jwt;
+		res.header({ jwt })
+		return res.redirect(this.configService.get<string>("APP_URL"))
 	}
 
 	@Get('/test')

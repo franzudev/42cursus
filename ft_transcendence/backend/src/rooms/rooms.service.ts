@@ -17,8 +17,10 @@ export class RoomsService {
       server.to(message.room).emit('send-message', message.body)
   }
 
-  findAll() {
-    return Array.from(this.rooms.keys());
+  findAll(server: Server, client: Socket) {
+    const list = Array.from(this.rooms.keys());
+    console.log(this.rooms)
+    server.to(client.id).emit('find-all-rooms', {list})
   }
 
   findOne(name: string) {

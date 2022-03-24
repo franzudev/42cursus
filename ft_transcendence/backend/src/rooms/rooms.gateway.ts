@@ -3,15 +3,16 @@ import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer, Conne
 import { RoomsService } from './rooms.service';
 import { JoinRoomDto } from './dto/join-room.dto';
 import { Server, Socket } from 'socket.io';
-import { join } from 'path/posix';
 
 @WebSocketGateway({
   cors: {
     origin: '*',
   },
 })
-export class RoomsGateway {
+export class RoomsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
+
+  private logger: Logger = new Logger('RoomsGateway');
 
   constructor(private readonly roomsService: RoomsService) {}
 
@@ -32,8 +33,10 @@ export class RoomsGateway {
   }
 
   @SubscribeMessage('find-all-rooms')
-  findAll() {
-    return this.roomsService.findAll();
+  findAll(
+      @ConnectedSocket() client: Socket
+  ) {
+    this.roomsService.findAll(this.server, client);
   }
 
   @SubscribeMessage('find-one-room')
@@ -52,5 +55,21 @@ export class RoomsGateway {
     @ConnectedSocket() client: Socket
   ) {
     this.roomsService.leave(joinRoomDto, client, this.server.of("/").adapter.rooms);
+  }
+
+  afterInit(server: Server) {
+    this.logger.log('Init');
+  }
+
+  handleDisconnect(client: Socket) {
+    this.logger.log(`Client disconnected: ${client.id}`);
+  }
+
+  handleConnection(client: Socket, ...args: any[]) {
+    this.logger.log(`Client connected: ${client.id}`);
+    this.findAll(client)
+    this.logger.log(client.data)
+    this.logger.log(client.request.headers);
+    this.logger.log(args);
   }
 }

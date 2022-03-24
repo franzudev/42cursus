@@ -1,10 +1,9 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, {
+    type AxiosError,
+    type AxiosResponse
+} from 'axios';
 
-const env = process.env.MIX_APP_ENV
-const prod = process.env.MIX_APP_URL;
-const dev = process.env.MIX_DEV_APP_URL;
-
-const url = env === 'production'? prod : dev
+const url: string = (import.meta.env.VITE_APP_ENV === 'production'? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_DEV_URL) as string
 
 export class Api {
     public resourcePath: string;
@@ -22,7 +21,7 @@ export class Api {
     public getIdPropertyName = () => 'id';
 
     protected _baseUrl() {
-        return '';
+        return this._client().defaults.baseURL;
     }
 
     protected _url() {
@@ -39,14 +38,8 @@ export class Api {
 
     protected _unwrap = (response: AxiosResponse) => response.data;
 
-    // _unwrapList = (response: AxiosResponse) => this._unwrap(response);
-
     protected _getEntityUrl(id: string | number) {
         return `${this._url()}/${id}`;
-    }
-
-    protected _getCountUrl() {
-        return `${this._url()}/count`;
     }
 
     protected _file(data: any, config: any) {
@@ -67,13 +60,6 @@ export class Api {
         return this
             ._client()
             .get(this._getEntityUrl(id), { params })
-            .then(this._unwrap);
-    }
-
-    protected _commonGet(url: string) {
-        return this
-            ._client()
-            .get(`${this._url()}${url}`)
             .then(this._unwrap);
     }
 
@@ -104,13 +90,6 @@ export class Api {
             .delete(this._getEntityUrl(id));
     }
 
-    protected _count() {
-        return this
-            ._client()
-            .get(this._getCountUrl())
-            .then(this._unwrap);
-    }
-
     protected _prepare(original: any, writablePropertyNames: any[] | null = [], overrides = {}) {
 
         let clone = writablePropertyNames === null ? Object.assign({}, original) : {};
@@ -126,15 +105,6 @@ export class Api {
 
         return clone;
     }
-}
-
-function normalizeConfigUrl(path: string | undefined): string {
-    if (path?.startsWith('http')) {
-        return path;
-    }
-
-    const base = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-    return base + path;
 }
 
 const AJAX_REQUEST_TIMEOUT_MS = 20 * 60 * 1000; // 20 minutes.
@@ -155,12 +125,15 @@ export const authClient = axios.create({
  */
 export const apiClient = axios.create({
     baseURL: url,
-    timeout: AJAX_REQUEST_TIMEOUT_MS
+    timeout: AJAX_REQUEST_TIMEOUT_MS,
+    xsrfCookieName: 'token',
+    xsrfHeaderName: 'jwt',
 });
 
 apiClient.interceptors.request.use((config) => {
-    config.headers['X-Requested-With'] = 'XMLHttpRequest';
-    config.headers['X-CSRF-TOKEN'] = (document.head.querySelector('meta[name="csrf-token"]')! as HTMLMetaElement).content;
+    config.headers!["Access-Control-Allow-Origin"] = "*"
+    console.log(getJwt("token"))
+    config.headers!['Authorization'] = `Bearer ${getJwt("token")}`;
     return config;
 });
 
@@ -168,3 +141,19 @@ apiClient.interceptors.response.use(
     (response: AxiosResponse) => response,
     (error: AxiosError) => Promise.reject(error)
 );
+
+const getJwt = (cname: string) => {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}

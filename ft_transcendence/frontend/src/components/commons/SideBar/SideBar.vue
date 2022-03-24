@@ -1,38 +1,47 @@
 <script setup lang="ts">
-import { computed, defineComponent, reactive } from "vue";
-import { useAppStore } from "@/stores/app";
+import { onBeforeMount, reactive } from "vue";
 import { ref, onMounted } from 'vue';
 import ChatRoomService from "@/service/ChatRoomService";
+import { io } from "socket.io-client";
+import type { Room } from "@/@types/Room";
 
 const emit = defineEmits<{
     (e: 'selectedRoom', id: number): void
 }>()
 
+let socket;
+const rooms = ref([] as Room[])
+
+
 onMounted(() => {
     chatRoomService.value.getRooms().then(data => rooms.value = data);
     console.log(rooms.value);
+
+    socket = reactive(io("http://localhost:5050"))
+    socket.on("find-all-rooms", (list: Room[]) => {
+        rooms.value = list;
+    })
+    socket.emit("find-all-rooms", "prova")
+    socket.emit("find-all-rooms", "prova2")
 })
 
-function onItemClick(event: MouseEvent, id: number) {
+const onItemClick = (event: MouseEvent, id: number) => {
     emit("selectedRoom", id);
     console.log("emit" + id);
-    SelectRoom(id);
+    selectRoom(id);
 }
 
-function SelectRoom(id: number)
-{
+const selectRoom = (id: number) => {
     selected.value.id = id;
 }
 
-function    getClass(id: number)
-{
+const getClass = (id: number) => {
     if (id == selected.value.id)
         return "chatroom-item p-highlight";
     return "chatroom-item";
 
 }
 const selected = ref({id: Number()});
-const rooms = ref([{ "id": Number(), "name": String(), "description": String(), "image": String() }]); //non funziona senza le parentesi?
 const chatRoomService = ref(new ChatRoomService());
 </script>
 
@@ -40,9 +49,9 @@ const chatRoomService = ref(new ChatRoomService());
 <template>
     <div class="sidebar">
         <div class="p-chatroom-title">Chat Room List</div>
-        <div class="p-chatrooms" v-for="room in rooms">
+        <div class="p-chatrooms" >
             <!-- <ChatRoomItem /> -->
-            <li :class="getClass(room.id)" @click="onItemClick($event, room.id)">
+            <li :class="getClass(room.id)" v-for="room in rooms" @click="onItemClick($event, room.id)">
                 <div class="image-container">
                     <img
                         :src="room.image"

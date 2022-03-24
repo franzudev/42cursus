@@ -29,7 +29,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     providers: [
         AuthService,
         Api42Strategy,
-        JwtStrategy
+        JwtStrategy,
+        ConfigService
     ],
     controllers: [
         AuthController,

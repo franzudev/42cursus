@@ -5,6 +5,17 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import Users from "@/service/api/endpoints/Users";
+import { useRoute } from "vue-router";
+import { onBeforeMount } from "vue";
+
+const route = useRoute()
+
+onBeforeMount(() => {
+    // if (route.name === 'login-succeed')
+    //   Users.register()
+})
+
 </script>
 
 <template>
@@ -24,6 +35,8 @@ import SupportIcon from './icons/IconSupport.vue'
       <ToolingIcon />
     </template>
     <template #heading>Tooling</template>
+
+    <a class="p-button" href="http://localhost:5050/auth/login">42 login</a>
 
     This project is served and bundled with
     <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite</a>. The recommended IDE
