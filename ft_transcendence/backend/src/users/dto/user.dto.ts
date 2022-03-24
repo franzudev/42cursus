@@ -13,7 +13,4 @@ export class UserDto {
 
     @Expose()
     twoFactorEnabled: boolean;
-
-    @Expose()
-    twoFactorAuthCode: string;
 }

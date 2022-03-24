@@ -16,8 +16,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Serialize } from "./users.interceptor";
 import { UserDto } from "./dto/user.dto";
-
-/******** GUARDS **********/
 import { AuthGuard } from '@nestjs/passport';
 import { response, Response } from 'express';
 import { FileInterceptor } from "@nestjs/platform-express";

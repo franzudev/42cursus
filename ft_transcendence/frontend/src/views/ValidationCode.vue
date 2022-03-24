@@ -10,7 +10,8 @@ import Button from 'primevue/button';
 export default {
 	data() {
 		return {
-			code: ''
+			code: '',
+			error_txt: ''
 		}
 	},
 	methods: {
@@ -19,14 +20,15 @@ export default {
 			const urlParams = new URLSearchParams(queryString);
 			const username = urlParams.get('username');
 
-			const api = 'http://localhost:5050/auth/verify_login_2fa';
+			const api = 'http://localhost:5050/auth/verify-login-2fa';
 			const code_to_send = this.code;
 			this.axios.get(api + '?username=' + username + '&code=' + code_to_send, { withCredentials: true }).then((response) => {
 				console.log(response);
-				if (response.data == 'approved')
-					alert('Number verified!');
+				if (response.data == 'approved') {
+					window.location.href = '/profile';
+				}
 				else
-					alert('Wrong code, try again');
+					this.error_txt = 'Wrong code, try again.';
 			})
 		}
 	}
@@ -37,9 +39,19 @@ export default {
 
 
 <template>
-	<div style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
-		<InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
-		<Button @click="verify_code" icon="pi pi-check" iconPos="right" />
+	<div class="card">
+		<div class="flex align-items-center text-center justify-content-center flex-wrap card-container">
+			<div class="col-12">
+				<p class="text-3xl">Two Factor Authentication Required</p>
+			</div>
+			<div class="col-12">
+				<InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
+				<Button @click="verify_code" icon="pi pi-check" iconPos="right" class="p-button-outlined" />
+			</div>
+			<div class="col-12">
+				<p style="color: red;">{{this.error_txt}}</p>
+			</div>
+		</div>
 	</div>
 </template>
 

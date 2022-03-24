@@ -31,10 +31,6 @@ export class AuthService
 		else
 			return user;
 	}
-	
-	update_user_number(id: number, number_to_insert: string) {
-		return this.usersService.update(id, { twoFactorEnabled: true, telephoneNumber: number_to_insert }); 
-	}
 
 	updateUserAuthCode(id:number, code: string) {
 		return this.usersService.update(id, { twoFactorAuthCode: code });

@@ -42,14 +42,7 @@ export class AuthController
 		return req.user;
 	}
 
-	@Get('/login')
-	sendLink() {
-		return `<a href='http://localhost:5050/auth/api42'>VALIDATE</a>`;
-	}
-
-	/////	 google auth generation		/////
-
-	@Get('/generate_qr')
+	@Get('/generate-qr')
 	@UseGuards(JwtAuthGuard)
 	generateQr(@Request() req, @Res() res: Response) {
 		const username = req.user.username;
@@ -62,7 +55,7 @@ export class AuthController
 		  });
 	}
 
-	@Get('/verify_g_code')
+	@Get('/verify-g-code')
 	@UseGuards(JwtAuthGuard)
 	async verifyQrCode(@Request() req, @Res() res: Response, @Query('code') code: string) {
 		const user = await this.authService.findUserByName(req.user.username);
@@ -79,7 +72,7 @@ export class AuthController
 		});
 	}
 
-	@Get('/verify_login_2fa')
+	@Get('/verify-login-2fa')
 	async verifyLogin2fa(@Request() req, @Res() res: Response, @Query('code') code: string, @Query('username') username: string) {
 		const user = await this.authService.findUserByName(username);
 		const secret_code = user.twoFactorAuthCode; // this should be retrieved from db 
@@ -96,15 +89,11 @@ export class AuthController
 			}
 		});
 	}
-	/////	 google auth	/////
-
 
 	@Get('/success')
 	@UseGuards(AuthGuard('api42'))
 	async parseCode(@Request() req, @Res() res: Response) {
-
 		const user = await this.authService.findUserByName(req.user.username);
-
 		if (user.twoFactorEnabled) {
 			res.redirect(`http://localhost:3000/validation_code?username=${user.username}`);
 			return ;
