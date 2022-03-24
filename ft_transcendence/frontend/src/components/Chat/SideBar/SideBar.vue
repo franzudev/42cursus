@@ -6,7 +6,12 @@ import { io } from "socket.io-client";
 import type { Room } from "@/@types/Room";
 
 const emit = defineEmits<{
-    (e: 'selectedRoom', id: number): void
+    (e: 'selectedRoom', room: {
+        id: number;
+        name: string;
+        description: string;
+        image: string;
+    }): void
 }>()
 
 let socket;
@@ -39,7 +44,13 @@ const getClass = (id: number) => {
     if (id == selected.value.id)
         return "chatroom-item p-highlight";
     return "chatroom-item";
+}
 
+function isPublic(id: number)
+{
+	if (id % 2)
+		return true;
+	return false;
 }
 const selected = ref({id: Number()});
 const chatRoomService = ref(new ChatRoomService());
@@ -49,7 +60,7 @@ const chatRoomService = ref(new ChatRoomService());
 <template>
     <div class="sidebar">
         <div class="p-chatroom-title">Chat Room List</div>
-        <div class="p-chatrooms" >
+        <div class="p-chatrooms" v-for="room in rooms">
             <!-- <ChatRoomItem /> -->
             <li :class="getClass(room.id)" v-for="room in rooms" @click="onItemClick($event, room.id)">
                 <div class="image-container">
@@ -57,8 +68,11 @@ const chatRoomService = ref(new ChatRoomService());
                         :src="room.image"
                         :alt="room.name"
                         style="width:30px; height:30px; border-radius: 30px;"
-                    />
+                    >
+                    <span v-if="isPublic(room.id)" style="width:30px; height:10px;" v-badge.success=""/>
+                    <span v-else="isPublic(room.id)" style="width:30px; height:10px;" v-badge.danger=""/>
                 </div>
+                <div style="width:50px; height: 30px;"/>
                 <div class="chatroom-list-detail">{{ room.name }}</div>
                 <!-- <div>{{ room.description }}</div> -->
             </li>

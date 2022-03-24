@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, defineComponent, reactive } from "vue";
+import {computed, defineComponent, onBeforeMount, reactive} from "vue";
 import { useAppStore } from "./stores/app";
 import { ref } from 'vue';
 import { RouterLink, RouterView, useRoute } from "vue-router";
-import SideBar from '@/components/commons/SideBar/SideBar.vue'
+import SideBar from '@/components/Chat/SideBar/SideBar.vue'
 
 const menuBar = reactive([
   {
@@ -64,20 +64,20 @@ const menuBar = reactive([
     ]
   }
 ])
-const options = reactive(['Dark', 'Light']);
+
 const store = useAppStore()
-const darkValue = ref(true);
+const dark = ref(store.isDark)
+
+onBeforeMount(() => {
+  if (!dark.value)
+    changeTheme()
+})
 
 function changeTheme(): boolean {
-  const { isDark, themeColor } = store
-  const themeElement: HTMLElement = document.getElementById('theme-link') as HTMLElement;
-  themeElement.setAttribute('href', themeElement.getAttribute('href')!.replace(themeColor, isDark ? "light" : "dark"));
-  store.setTheme()
-  return isDark
+  store.setTheme(dark.value)
+  return dark.value
 }
 
-const moon = "pi pi-moon"
-const checked = true
 </script>
 
 
@@ -89,8 +89,7 @@ const checked = true
       </RouterLink>
     </template>
     <template #end>
-      <ToggleButton v-on:change="changeTheme" v-model="darkValue" onIcon="pi pi-moon" style="border-radius: 25px" offIcon="pi pi-sun" />
-      <!-- <InputSwitch v-on:change="changeTheme" v-model="darkValue" :class="moon"/> -->
+      <ToggleButton v-on:change="changeTheme" v-model="dark" onIcon="pi pi-moon" style="border-radius: 25px" offIcon="pi pi-sun" />
     </template>
   </Menubar>
   <main style="width: 100%;">

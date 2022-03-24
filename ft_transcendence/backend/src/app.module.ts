@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport'
 import { ConfigModule } from "@nestjs/config";
 import { DatabaseConfigService } from "./database-config.service";
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -19,6 +21,9 @@ import { DatabaseConfigService } from "./database-config.service";
       useClass: DatabaseConfigService,
       inject: [DatabaseConfigService]
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     AuthModule,
     UsersModule,
     RoomsModule,
@@ -26,4 +31,4 @@ import { DatabaseConfigService } from "./database-config.service";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
