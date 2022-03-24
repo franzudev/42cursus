@@ -18,7 +18,9 @@ export default {
 			show: false,
 			value: '',
 			code: '',
-			avatar: ''
+			avatar: '',
+			user: {}, 
+			qr_src: ''
 		}
 	},
 	methods: {
@@ -26,25 +28,24 @@ export default {
 		{
 			const api = 'http://localhost:5050/users/me';
 			const result = await this.axios.get(api, { withCredentials: true });
+			this.user = result.data;
+			console.log(this.user);
 			this.avatar = result.data.avatar;
 			console.log(this.avatar);
 		},
-		create_verification() {
+		async create_verification() {
 			// alert(this.value);
 			// '+' == %2b
 			this.show = !this.show;
 			this.checked = !this.checked;
-			let api = 'http://localhost:5050/auth/set_number';
-			let number_to_send = '%2b' + this.value.substr(1,2) + this.value.substr(4);
-			this.axios.get(api + '?number=' + number_to_send, { withCredentials: true }).then((response) => {
-				console.log(response);
-			})
+			const api = `http://localhost:5050/auth/generate_qr`; 
+			this.qr_src = await this.axios.get(api, { withCredentials: true });
 		},
 		verify_code() {
-			let api = 'http://localhost:5050/auth/verify_status';
+			let api = 'http://localhost:5050/auth/verify_g_code';
 			let number_to_send = '%2b' + this.value.substr(1,2) + this.value.substr(4);
 			let code_to_send = this.code;
-			this.axios.get(api + '?number=' + number_to_send + '&code=' + code_to_send, { withCredentials: true }).then((response) => {
+			this.axios.get(api + '?code=' + code_to_send, { withCredentials: true }).then((response) => {
 				console.log(response);
 				if (response.data == 'approved')
 					alert('Number verified!');
@@ -73,12 +74,13 @@ export default {
 		<Tag value="Abilita autenticazione a due fattori"></Tag>
 	</div>
 	<div class="check-btn">
-		<InputSwitch v-model="checked" />
+		<InputSwitch v-model="checked" @click="create_verification" />
 	</div>
-	<div class="telephone-nbr">
+	<!-- <div class="telephone-nbr">
 		<InputMask v-if="checked" v-model="value" mask="+99 9999999999" placeholder="Insert telephone number" />
 		<Button v-if="checked" @click="create_verification" icon="pi pi-check" iconPos="right" />
-	</div>
+	</div> -->
+	<div v-html="this.qr_src.data" style="margin-top:150px"></div>
 	<div v-if="show" style="position: relative; top: 120px; left: 10px;" >
 		<InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
 		<Button @click="verify_code" icon="pi pi-check" iconPos="right" />

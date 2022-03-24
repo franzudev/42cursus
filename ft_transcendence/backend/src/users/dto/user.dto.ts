@@ -15,5 +15,5 @@ export class UserDto {
     twoFactorEnabled: boolean;
 
     @Expose()
-    telephoneNumber: string;
+    twoFactorAuthCode: string;
 }

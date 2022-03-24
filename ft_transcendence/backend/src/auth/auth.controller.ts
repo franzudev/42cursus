@@ -10,6 +10,8 @@ import
 	Session,
 	UseGuards,
 } from '@nestjs/common';
+
+
 import { HttpService } from '@nestjs/axios'
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/users/entities/user.entity';
@@ -41,36 +43,69 @@ export class AuthController
 	}
 
 	@Get('/login')
-	send_link() {
+	sendLink() {
 		return `<a href='http://localhost:5050/auth/api42'>VALIDATE</a>`;
 	}
 
-	@Get('/verify_2fa')
-	async verify_code(@Request() req, @Res() res: Response, @Query('code') code: string, @Query('username') username: string) {
-		const user = await this.authService.find_user_by_name(username);
-		const ver_res = await this.authService.verify_code(user.telephoneNumber, code);
-		console.log(ver_res);
+	/////	 google auth generation		/////
 
-		if (ver_res == 'approved') {
-			const jwt = this.jwtService.sign({username: user.username, id: user.id});
-			res.cookie('token', jwt, { httpOnly: true });
-			res.header({jwt})
-			res.json({ jwt });
-			res.redirect('http://localhost:3000/profile');
-		}
-		else
-			res.json({ver_res});
+	@Get('/generate_qr')
+	@UseGuards(JwtAuthGuard)
+	generateQr(@Request() req, @Res() res: Response) {
+		const username = req.user.username;
+		const secret_code = this.authService.generateRandomString(10);
+		const data = this.authService.generateQrCode(username, secret_code);
+		this.authService.updateUserAuthCode(req.user.user_id, secret_code);
+		// save this secret generated code into database 
+		data.subscribe((value) => {
+			res.send(value.data);
+		  });
 	}
+
+	@Get('/verify_g_code')
+	@UseGuards(JwtAuthGuard)
+	async verifyQrCode(@Request() req, @Res() res: Response, @Query('code') code: string) {
+		const user = await this.authService.findUserByName(req.user.username);
+		const secret_code = user.twoFactorAuthCode; // this should be retrieved from db 
+		const data = this.authService.verifyGCode(code, secret_code);
+		data.subscribe((value: any) => {
+			if (value.data == 'True') {
+				this.authService.updateUser2fa(user.id);
+				res.send('approved');
+			}
+			else {
+				res.send('FAILED');
+			}
+		});
+	}
+
+	@Get('/verify_login_2fa')
+	async verifyLogin2fa(@Request() req, @Res() res: Response, @Query('code') code: string, @Query('username') username: string) {
+		const user = await this.authService.findUserByName(username);
+		const secret_code = user.twoFactorAuthCode; // this should be retrieved from db 
+		const data = this.authService.verifyGCode(code, secret_code);
+		data.subscribe((value: any) => {
+			if (value.data !== "True") {
+				res.send('FAILED');
+			}
+			else {
+				const jwt = this.jwtService.sign({username: user.username, id: user.id});
+				res.cookie('token', jwt, { httpOnly: true });
+				res.send('approved');
+				
+			}
+		});
+	}
+	/////	 google auth	/////
+
 
 	@Get('/success')
 	@UseGuards(AuthGuard('api42'))
-	async parse_code(@Request() req, @Res() res: Response) {
+	async parseCode(@Request() req, @Res() res: Response) {
 
-		const user = await this.authService.find_user_by_name(req.user.username);
+		const user = await this.authService.findUserByName(req.user.username);
 
 		if (user.twoFactorEnabled) {
-			const req = await this.authService.create_2fa_code(user.telephoneNumber);
-			res.cookie('username', user.username);
 			res.redirect(`http://localhost:3000/validation_code?username=${user.username}`);
 			return ;
 		}
@@ -78,61 +113,19 @@ export class AuthController
 		{
 			const jwt = this.jwtService.sign({username: req.user.username, id: req.user.id});
 			res.cookie('token', jwt, { httpOnly: true });
-			res.header({jwt})
-			res.json({ jwt });
 			res.redirect('http://localhost:3000/profile');
 			return jwt;
 		}
 	}
 
-	@Get('/whoami')
-	// @UseGuards(JwtAuthGuard)
-	who_am_i(@Request() req, @Res() res: Response) {
-		if (!req.cookies.token) { 
-			res.send('KO');
-		}
-		else
-			res.send('OK');
-	}
-
 	@Get('/test')
 	@UseGuards(JwtAuthGuard)
-	test_service(@Request() req) {
-		console.log(req.user);
+	async testService(@Request() req) {
+		 console.log(req.user.user_id);
+		const user = await this.authService.findUserById(req.user.user_id);
+		console.log(user);
 		return 'youre inside guard';
 	}
 
-	@Get('/set_number') // use guards JWTAUTHGUARD 
-	@UseGuards(JwtAuthGuard)
-	async set_user_number(@Request() req, @Res() res: Response, @Query('number') number: string) { 
-		let result = await this.authService.create_2fa_code(number);
-		console.log(result); 
-	}
-
-	@Get('/find_user')
-	async find_user(@Query('username') username: string) {
-		let user;
-		
-		user = await this.authService.find_user_by_name(username);
-		console.log('user is', user.id);
-		return user;
-	}
-
-	@Get('/verify_status') // use guards JWTAUTHGUARD
-	@UseGuards(JwtAuthGuard)
-	async verify_status(@Request() req, @Res() res: Response, @Query('number') number: string, @Query('code') code: string) {
-		 let verification_res = await this.authService.verify_code(number, code); 
-
-		 res.send(verification_res);
-		 if (verification_res != 'approved')
-			 console.log('verification not approved'); // do nothing;
-		 else
-		 {
-			const user = req.user;
-			const id = user.user_id;
-			 this.authService.update_user_number(id, number);
-			 console.log('verification correctly approved');
-		 }
-	}
 }
 

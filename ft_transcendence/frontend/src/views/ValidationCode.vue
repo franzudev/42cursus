@@ -19,7 +19,7 @@ export default {
 			const urlParams = new URLSearchParams(queryString);
 			const username = urlParams.get('username');
 
-			const api = 'http://localhost:5050/auth/verify_2fa';
+			const api = 'http://localhost:5050/auth/verify_login_2fa';
 			const code_to_send = this.code;
 			this.axios.get(api + '?username=' + username + '&code=' + code_to_send, { withCredentials: true }).then((response) => {
 				console.log(response);
