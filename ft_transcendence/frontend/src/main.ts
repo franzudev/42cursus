@@ -14,6 +14,8 @@ import InputMask from 'primevue/inputmask';
 import Button from 'primevue/button';
 import Avatar from 'primevue/avatar';
 import Tag from 'primevue/tag';
+import Knob from 'primevue/knob';
+import Dialog from 'primevue/dialog';
 
 
 import * as Vue from 'vue' // in Vue 3
@@ -35,6 +37,8 @@ app.component('InputMask', InputMask);
 app.component('Button', Button);
 app.component('Tag', Tag);
 app.component('Avatar', Avatar);
+app.component('Knob', Knob);
+app.component('Dialog', Dialog);
 
 app.mount('#app')
 
