@@ -27,8 +27,11 @@ export default {
             two_auth_text: '',
 			knob_value: 0,
 			displayResponsive: false,
-			displayModal: false,
-			displayModalAchievements: false
+			displayModalStats: false,
+			displayModalAchievements: false,
+			displayModal2FA: false,
+			displayModalFriends: false,
+			displayModalHistory: false,
         }
     },
     methods: {
@@ -79,14 +82,21 @@ export default {
         closeResponsive() {
             this.displayResponsive = false;
         },
-		openModal() {
-            this.displayModal = true;
-        },
-        closeModal() {
-            this.displayModal = false;
+		openModalStats() {
+            this.displayModalStats = true;
         },
 		openModalAchievements() {
 			this.displayModalAchievements = true;
+		},
+		openModal2FA() {
+			this.displayModal2FA = true;
+			this.create_verification();
+		},
+		openModalFriends() {
+			this.displayModalFriends = true;
+		},
+		openModalHistory() {
+			this.displayModalHistory = true;
 		}
     },
     created() {
@@ -155,30 +165,91 @@ export default {
 							<Button icon="pi pi-comment" label="ADD AS FRIEND" class="p-button-rounded p-button-info" />
 						</div>
 						<div class="lg:col-2"></div>
-						<div class="grid align-items-center text-center justify-content-center">
-							<div class="lg:col-2 sm:col-12" style="margin-left: 10px; margin-top: 10px;">
-								<Button icon="pi pi-chart-line" class="p-button-rounded p-button-secondary" @click="openModal" />
-								<Dialog v-model:visible="displayModal" :breakpoints="{'960px': '75vw'}" style="width: '100vw'; max-width: '500px';">
-									<Knob modelValue="60" v-model="knob_value" :min="0" :max="100" valueColor="green" rangeColor="black" readonly="" :size="200" textColor="white" />
-									<Knob modelValue="40" v-model="knob_value" :min="0" :max="100" valueColor="red" rangeColor="black" readonly="" :size="200" textColor="white" />
+						<div class="grid align-items-center text-center lg:justify-content-between sm:justify-content-center" style="width: 100%;">
+							<div class="lg:col-2 sm:col-4 icon-divs">
+								<Button icon="pi pi-chart-line" class="p-button-rounded p-button-secondary" @click="openModalStats" />
+								<Dialog v-model:visible="displayModalStats" :breakpoints="{'960px': '75vw'}" style="width: '100vw'; max-width: '500px';">
+									<Knob modelValue="60" v-model="knob_value" :min="0" :max="100" valueColor="green" rangeColor="black" readonly="" :size="200" textColor="black" />
+									<Knob modelValue="40" v-model="knob_value" :min="0" :max="100" valueColor="red" rangeColor="black" readonly="" :size="200" textColor="black" />
 								</Dialog>
-								<p style="color: black; margin-top: 10px;">Stats</p>
+								<p>Stats</p>
 							</div>
-							<div class="lg:col-2 sm:col-12" style="margin-left: 10px; margin-top: 10px;">
-								<Button icon="pi pi-star" class="p-button-rounded p-button-warning" @click="openModal" />
-								<p style="color: black; margin-top: 10px;">Achievements</p>
+							<div class="lg:col-2 sm:col-4 icon-divs">
+								<Button icon="pi pi-star" class="p-button-rounded p-button-warning" @click="openModalAchievements" />
+								<Dialog v-model:visible="displayModalAchievements" :breakpoints="{'960px': '75vw'}" style="width: 100%; max-width: 500px;">
+ 									<div class="card">
+										<div class="grid align-items-center text-center" style="margin-top: 5px; width: 100%;">
+											<div class="col-6">
+												<img src="https://st2.depositphotos.com/8637214/49529/v/600/depositphotos_495291564-stock-illustration-colorful-simple-flat-pixel-art.jpg" alt="" style="width: 80px; border-radius: 100%;">
+											</div>
+											<div class="col-6">
+												<p>Won a match</p>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div class="grid align-items-center text-center" style="margin-top: 5px; width: 100%;">
+											<div class="col-6">
+												<img src="https://t4.ftcdn.net/jpg/01/31/41/99/360_F_131419939_Uh5AUdnNOjGiVEpFgweSWogZMXBDuGwE.jpg" alt="" style="width: 80px; border-radius: 100%;">
+											</div>
+											<div class="col-6">
+												<p>Lost a match</p>
+											</div>
+										</div>
+									</div>
+								</Dialog>
+								<p>Achievements</p>
 							</div>
-							<div class="lg:col-2 sm:col-12" style="margin-left: 10px; margin-top: 10px;">
+							<div class="lg:col-2 sm:col-4 icon-divs">
 								<Button icon="pi pi-sort-numeric-up" class="p-button-rounded p-button-success" @click="openModal" />
-								<p style="color: black; margin-top: 10px;">Level</p>
+								<p>Level</p>
 							</div>
-							<div class="lg:col-2 sm:col-12" style="margin-left: 10px; margin-top: 10px;">
-								<Button icon="pi pi-users" class="p-button-rounded p-button-info" @click="openModal" />
-								<p style="color: black; margin-top: 10px;">Friends</p>
+							<div class="lg:col-2 sm:col-4 icon-divs">
+								<Button icon="pi pi-users" class="p-button-rounded p-button-info" @click="openModalFriends" />
+								<Dialog v-model:visible="displayModalFriends" :breakpoints="{'960px': '75vw'}" style="width: 100%; max-width: 500px;">
+ 									<div class="card">
+										<div class="grid align-items-center text-center" style="margin-top: 5px; width: 100%;">
+											<div class="col-6">
+												<img src="https://res.cloudinary.com/muhammederdem/image/upload/v1537638518/Ba%C5%9Fl%C4%B1ks%C4%B1z-1.jpg" alt="" style="width: 80px; border-radius: 100%;">
+											</div>
+											<div class="col-6">
+												<p>Borat</p>
+											</div>
+										</div>
+									</div>
+								</Dialog>
+								<p>Friends</p>
 							</div>
-							<div class="lg:col-2 sm:col-12" style="margin-left: 10px; margin-top: 10px;">
-								<Button icon="pi pi-history" class="p-button-rounded p-button-danger" @click="openModal" />
-								<p style="color: black; margin-top: 10px;">History</p>
+							<div class="lg:col-2 sm:col-4 icon-divs">
+								<Button icon="pi pi-history" class="p-button-rounded p-button-danger" @click="openModalHistory" />
+								<Dialog v-model:visible="displayModalHistory" :breakpoints="{'960px': '75vw'}" style="width: 100%; max-width: 500px;">
+ 									<div class="card">
+										<div class="grid align-items-center text-center" style="margin-top: 5px; width: 100%;">
+											<div class="col-6">
+												<img src="https://res.cloudinary.com/muhammederdem/image/upload/v1537638518/Ba%C5%9Fl%C4%B1ks%C4%B1z-1.jpg" alt="" style="width: 80px; border-radius: 100%;">
+											</div>
+											<div class="col-6">
+												<p>Won 5 - 4</p>
+											</div>
+										</div>
+									</div>
+								</Dialog>
+								<p>History</p>
+							</div>
+							<div class="lg:col-2 sm:col-4 icon-divs">
+								<Button icon="pi pi-qrcode" class="p-button-rounded p-button-help" @click="openModal2FA" />
+								<Dialog v-model:visible="displayModal2FA" :breakpoints="{'960px': '75vw'}" style="width: '100vw'; max-width: '500px';">
+									<div class="flex align-items-center justify-content-center flex-wrap card-container" style="min-height: 320px;">
+										<div v-html="this.qr_src.data" class="qr-img text-center">
+										</div>
+										<p v-if="!checked && this.user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then use the code generated below to confirm!</p>
+									</div>
+									<div class="text-center" v-if="show" style="" >
+										<InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
+										<Button @click="verify_code" icon="pi pi-check" iconPos="right" />
+									</div>
+								</Dialog>
+								<p>Enable 2fa</p>
 							</div>
 						</div>
 					</div>
@@ -237,7 +308,7 @@ body {
 .my-card {
 	margin-top: 70px;
     width: 100%;
-    height: 800px;
+    // height: 800px;
     border-radius: 10px;
     box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
     background: white;
@@ -288,6 +359,14 @@ body {
             }
         }
     }
+	.icon-divs {
+		// margin-left: 20px;
+		margin-top: 10px;
+	}
+	.icon-divs p {
+		color: black;
+		margin-top: 10px;
+	}
 }
 // .second-card {
 //     width: 100%;

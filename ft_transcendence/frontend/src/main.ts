@@ -15,6 +15,7 @@ import Button from 'primevue/button';
 import Avatar from 'primevue/avatar';
 import Tag from 'primevue/tag';
 import Knob from 'primevue/knob';
+import OrderList from 'primevue/orderlist';
 import Dialog from 'primevue/dialog';
 
 
@@ -39,6 +40,7 @@ app.component('Tag', Tag);
 app.component('Avatar', Avatar);
 app.component('Knob', Knob);
 app.component('Dialog', Dialog);
+app.component('OrderList', OrderList);
 
 app.mount('#app')
 
