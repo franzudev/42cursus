@@ -47,9 +47,9 @@ jobs:
 #        with:
 #          dockerfile: ./backend/Dockerfile
       - name: "Build the backend's Docker image"
-        run: docker build ./backend --file ./backend/Dockerfile --tag transcendence-be:${{ needs.bump_version.outputs.version }}
+        run: docker build ./backend --file ./backend/Dockerfile --tag ghcr.io/transcendence-be:${{ needs.bump_version.outputs.version }}
       - name: "Build the backend's Docker image"
-        run: docker build ./frontend --file ./frontend/Dockerfile --tag transcendence-fe:${{ needs.bump_version.outputs.version }}
+        run: docker build ./frontend --file ./frontend/Dockerfile --tag ghcr.io/transcendence-fe:${{ needs.bump_version.outputs.version }}
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
