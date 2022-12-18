@@ -30,7 +30,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Print Version
-        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+        run: echo "Bumped to version ${{ steps.bump.outputs.version }}"
     outputs:
       version:  "${{ steps.bump.outputs.version }}"
   build:
