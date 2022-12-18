@@ -48,8 +48,8 @@ jobs:
 #          dockerfile: ./backend/Dockerfile
       - name: "Build the backend's Docker image"
         run: docker build ./backend --file ./backend/Dockerfile --tag ghcr.io/franzudev/transcendence-be:${{ needs.bump_version.outputs.version }}
-      - name: "Build the backend's Docker image"
-        run: docker build ./frontend --file ./frontend/Dockerfile --tag ghcr.io/franzudevtranscendence-fe:${{ needs.bump_version.outputs.version }}
+      - name: "Build the frontends's Docker image"
+        run: docker build ./frontend --file ./frontend/Dockerfile --tag ghcr.io/franzudev/transcendence-fe:${{ needs.bump_version.outputs.version }}
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
