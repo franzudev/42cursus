@@ -38,14 +38,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Hadolint Action
-        uses: hadolint/hadolint-action@v3.0.0
-        with:
-          dockerfile: ./frontend/Dockerfile
-      - name: Hadolint Action
-        uses: hadolint/hadolint-action@v3.0.0
-        with:
-          dockerfile: ./backend/Dockerfile
+#      - name: Hadolint Action
+#        uses: hadolint/hadolint-action@v3.0.0
+#        with:
+#          dockerfile: ./frontend/Dockerfile
+#      - name: Hadolint Action
+#        uses: hadolint/hadolint-action@v3.0.0
+#        with:
+#          dockerfile: ./backend/Dockerfile
       - name: "Build the backend's Docker image"
         run: docker build ./backend --file ./backend/Dockerfile --tag transcendence-be:${{ needs.bump_version.outputs.version }}
       - name: "Build the backend's Docker image"
