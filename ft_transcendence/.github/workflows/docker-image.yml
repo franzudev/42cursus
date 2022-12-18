@@ -41,15 +41,15 @@ jobs:
       - name: Hadolint Action
         uses: hadolint/hadolint-action@v3.0.0
         with:
-          dockerfile: frontend/Dockerfile
+          dockerfile: ./frontend/Dockerfile
       - name: Hadolint Action
         uses: hadolint/hadolint-action@v3.0.0
         with:
-          dockerfile: backend/Dockerfile
+          dockerfile: ./backend/Dockerfile
       - name: "Build the backend's Docker image"
-        run: docker build backend --file backend/Dockerfile --tag transcendence-be:${{ needs.bump_version.outputs.version }}
+        run: docker build ./backend --file ./backend/Dockerfile --tag transcendence-be:${{ needs.bump_version.outputs.version }}
       - name: "Build the backend's Docker image"
-        run: docker build frontend --file frontend/Dockerfile --tag transcendence-fe:${{ needs.bump_version.outputs.version }}
+        run: docker build ./frontend --file ./frontend/Dockerfile --tag transcendence-fe:${{ needs.bump_version.outputs.version }}
       - name: "Registry login"
         run: echo $CR_PAT | docker login ghcr.io -u franzudev --password-stdin
       - name: "Push fe"
