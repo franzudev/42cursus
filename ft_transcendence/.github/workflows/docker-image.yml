@@ -1,0 +1,58 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    name: "Bump version and create changelog with commitizen"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.GITHUB_TOKEN }}"
+      - id: bump
+        if: "!startsWith(github.event.head_commit.message, 'bump:')"
+        name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          changelog: false
+      - id: changelog
+        if: "startsWith(github.event.head_commit.message, 'bump:')"
+        name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print Version
+        run: echo "Bumped to version ${{ steps.cz.outputs.version }}"
+    outputs:
+      version:  "${{ steps.bump.outputs.version }}"
+  build:
+    needs: bump_version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Hadolint Action
+        uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: frontend/Dockerfile
+      - name: Hadolint Action
+        uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: backend/Dockerfile
+      - name: "Build the backend's Docker image"
+        run: docker build backend --file backend/Dockerfile --tag transcendence-be:${{ needs.bump_version.outputs.version }}
+      - name: "Build the backend's Docker image"
+        run: docker build frontend --file frontend/Dockerfile --tag transcendence-fe:${{ needs.bump_version.outputs.version }}
+      - name: "Registry login"
+        run: echo $CR_PAT | docker login ghcr.io -u franzudev --password-stdin
+      - name: "Push fe"
+        run: docker push ghcr.io/transcendence-fe:${{ needs.bump_version.outputs.version }}
+      - name: "Push be"
+        run: docker push ghcr.io/transcendence-be:${{ needs.bump_version.outputs.version }}
