@@ -8,6 +8,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
   UseGuards, UploadedFile, UseInterceptors, NotFoundException, BadRequestException, Logger
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -15,8 +16,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Serialize } from "./users.interceptor";
 import { UserDto } from "./dto/user.dto";
-
-/******** GUARDS **********/
 import { AuthGuard } from '@nestjs/passport';
 import { response, Response } from 'express';
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -45,6 +44,13 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get('/me')
+  @UseGuards(JwtAuthGuard)
+  findMe(@Request() req) {
+    const username = req.user.username;
+     return  this.usersService.findOne(username);
   }
 
   @Get(':username')

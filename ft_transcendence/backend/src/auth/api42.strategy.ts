@@ -39,7 +39,9 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
             const newUser = this.userService.generate({
                 username: data.login,
                 oauthToken: accessToken,
-                avatar: data.image_url
+                avatar: data.image_url,
+                twoFactorEnabled: false,
+                telephoneNumber: null
             })
             return this.userService.create(newUser);
         }
