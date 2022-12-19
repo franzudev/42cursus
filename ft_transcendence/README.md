@@ -104,6 +104,14 @@ To get a local copy up and running follow these simple example steps.
 This is an example of how to list things you need to use the software and how to install them.
 * Docker Desktop
   * [Download Docker](https://www.docker.com/products/docker-desktop)
+* pre-commit
+  ```sh
+  brew install pre-commit
+  
+  # Install the pre-commit-hook
+  pre-commit install --hook-type commit-msg --hook-type pre-push
+  
+  ```
 * nest-cli
   ```sh
   ### ONLY IN 42 ###
