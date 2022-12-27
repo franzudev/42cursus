@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import {computed, defineComponent, onBeforeMount, reactive} from "vue";
-import { useAppStore } from "./stores/app";
-import { ref } from 'vue';
-import { RouterLink, RouterView, useRoute } from "vue-router";
-import SideBar from '@/components/Chat/SideBar/SideBar.vue'
+import {onBeforeMount, reactive, ref} from "vue";
+import {useAppStore} from "./stores/app";
+import {RouterLink, RouterView} from "vue-router";
 
 const menuBar = reactive([
   {

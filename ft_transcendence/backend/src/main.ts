@@ -1,14 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import {NestFactory} from '@nestjs/core';
+import {AppModule} from './app.module';
 
 import * as session from 'express-session';
 import * as passport from 'passport'
 // somewhere in your initialization file
-
 import * as cookieParser from 'cookie-parser';
+
 // somewhere in your initialization file
-
-
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,10 +30,6 @@ async function bootstrap() {
   app.enableCors({
     credentials: true, origin: 'http://localhost:3000'
   });
-
-  // app.enableCors({
-  //   credentials:true, origin: 'http://10.12.3.8:3000'
-  // })
 
   await app.listen(5050);
 }

@@ -5,9 +5,8 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import Users from "@/service/api/endpoints/Users";
-import { useRoute } from "vue-router";
-import { onBeforeMount } from "vue";
+import {useRoute} from "vue-router";
+import {onBeforeMount} from "vue";
 
 const route = useRoute()
 
@@ -32,11 +31,12 @@ onBeforeMount(() => {
 
   <WelcomeItem>
     <template #icon>
-      <ToolingIcon />
+      <ToolingIcon/>
     </template>
     <template #heading>Tooling</template>
 
-    <a class="p-button" href="http://localhost:5050/auth/login">42 login</a>
+    <a class="p-button" href="http://localhost:5050/auth/ft">42</a>
+    <a class="p-button" href="http://localhost:5050/auth">42</a>
 
     This project is served and bundled with
     <a href="https://vitejs.dev/guide/features.html" target="_blank">Vite</a>. The recommended IDE
@@ -45,7 +45,7 @@ onBeforeMount(() => {
     your components and web pages, check out
     <a href="https://www.cypress.io/" target="_blank">Cypress</a> and
     <a href="https://docs.cypress.io/guides/component-testing/introduction" target="_blank"
-      >Cypress Component Testing</a
+    >Cypress Component Testing</a
     >.
 
     <br />

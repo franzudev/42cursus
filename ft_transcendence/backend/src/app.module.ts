@@ -1,19 +1,21 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { RoomsModule } from './rooms/rooms.module';
-import { AuthModule } from './auth/auth.module';
-import { PassportModule } from '@nestjs/passport'
-import { ConfigModule } from "@nestjs/config";
-import { DatabaseConfigService } from "./database-config.service";
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import {Module} from '@nestjs/common';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
+import {UsersModule} from './users/users.module';
+import {RoomsModule} from './rooms/rooms.module';
+import {AuthModule} from './auth/auth.module';
+import {PassportModule} from '@nestjs/passport'
+import {ConfigModule} from "@nestjs/config";
+import {DatabaseConfigService} from "./database-config.service";
+import {ServeStaticModule} from '@nestjs/serve-static';
+import {join} from 'path';
+import {RedisService} from './redis/redis.service';
+
 
 @Module({
   imports: [
-    PassportModule.register({ session: true }),
+    PassportModule.register({session: true}),
     ConfigModule.forRoot({
       isGlobal: true
     }),
@@ -29,6 +31,6 @@ import { join } from 'path';
     RoomsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RedisService],
 })
 export class AppModule { }
