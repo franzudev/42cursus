@@ -50,7 +50,10 @@ describe('UsersController', () => {
             username: "prova",
             oauthToken: "asdhowuhu3rh2ud3423423HDFEU",
             avatar: "default.jpg",
-            twoFactorAuthCode: "asfdsfdd"
+            twoFactorAuthCode: "asfdsfdd",
+            friends: [],
+            telephoneNumber: "",
+            twoFactorEnabled: false
         }))
 
         test.toHaveProperty("id")
