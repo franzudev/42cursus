@@ -1,13 +1,13 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UsersModule } from '../users/users.module';
-import { AuthController } from './auth.controller';
-import { Api42Strategy } from './api42.strategy';
-import { HttpModule } from '@nestjs/axios';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { forwardRef, Module } from '@nestjs/common'
+import { AuthService } from './auth.service'
+import { UsersModule } from '../users/users.module'
+import { AuthController } from './auth.controller'
+import { Api42Strategy } from './api42.strategy'
+import { HttpModule } from '@nestjs/axios'
+import { JwtModule } from '@nestjs/jwt'
+import { PassportModule } from '@nestjs/passport'
+import { JwtStrategy } from './jwt.strategy'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
 @Module({
     imports: [
@@ -24,7 +24,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
                 }
             }),
             inject: [ConfigService]
-        }),
+        })
     ],
     providers: [
         AuthService,
@@ -33,7 +33,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         ConfigService
     ],
     controllers: [
-        AuthController,
+        AuthController
     ],
     exports: [
         PassportModule,

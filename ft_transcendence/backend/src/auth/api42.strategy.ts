@@ -1,12 +1,10 @@
-import { PassportStrategy } from '@nestjs/passport';
-import {
-    Injectable, UnauthorizedException,
-} from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { Strategy } from 'passport-oauth2';
-import { stringify } from 'querystring';
-import { UsersService } from 'src/users/users.service';
-import { ConfigService } from "@nestjs/config";
+import { PassportStrategy } from '@nestjs/passport'
+import { Injectable } from '@nestjs/common'
+import { HttpService } from '@nestjs/axios'
+import { Strategy } from 'passport-oauth2'
+import { stringify } from 'querystring'
+import { UsersService } from 'src/users/users.service'
+import { ConfigService } from "@nestjs/config"
 
 @Injectable()
 export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
@@ -26,15 +24,15 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
             scope: 'public',
             clientID: configService.get<string>("CLIENT_ID"),
             clientSecret: configService.get<string>("CLIENT_SECRET"),
-            callbackURL: configService.get<string>("CALLBACK_URL"),
-        });
+            callbackURL: configService.get<string>("CALLBACK_URL")
+        })
     }
 
     async validate(accessToken: string): Promise<any> {
-        const { data } = await this.http.get('https://api.intra.42.fr/v2/me', {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        }).toPromise();
-        const user = await this.userService.findOne(data.login);
+        const {data} = await this.http.get('https://api.intra.42.fr/v2/me', {
+            headers: {Authorization: `Bearer ${accessToken}`}
+        }).toPromise()
+        const user = await this.userService.findOne(data.login)
         if (!user) {
             const newUser = this.userService.generate({
                 username: data.login,
@@ -43,8 +41,8 @@ export class Api42Strategy extends PassportStrategy(Strategy, 'api42') {
                 twoFactorEnabled: false,
                 telephoneNumber: null
             })
-            return this.userService.create(newUser);
+            return this.userService.create(newUser)
         }
-        return user;
+        return user
     }
 }

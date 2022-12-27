@@ -1,25 +1,23 @@
 <script setup lang="ts">
-import { defineComponent, reactive } from "vue";
-import {createApp} from 'vue';
-import PrimeVue from 'primevue/config';
-import {PrimeIcons} from 'primevue/api';
-import Button from 'primevue/button';
+import Button from 'primevue/button'
+
 function goToLogin() {
-	window.location.href = "http://localhost:5050/auth/api42";
+  window.location.href = "http://localhost:5050/auth/api42"
 }
 </script>
 
 <template>
- <div class="test-btn">
-  <Button @click="goToLogin()" label="Login with 42" style="font-size: 2rem"/>
- </div>
+  <div class="test-btn">
+    <Button @click="goToLogin()" label="Login with 42" style="font-size: 2rem"/>
+  </div>
 </template>
 
 <style>
-*  > button{
+* > button {
   cursor: pointer;
   width: 300px;
 }
+
 .test-btn {
   margin: 0;
   position: absolute;

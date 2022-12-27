@@ -3,14 +3,14 @@ import { Expose } from 'class-transformer'
 export class UserDto {
 
     @Expose()
-    id: number;
+    id: number
 
     @Expose()
-    username: string;
+    username: string
 
     @Expose()
-    avatar: string;
+    avatar: string
 
     @Expose()
-    twoFactorEnabled: boolean;
+    twoFactorEnabled: boolean
 }

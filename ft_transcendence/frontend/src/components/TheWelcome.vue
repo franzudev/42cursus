@@ -5,14 +5,14 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import {useRoute} from "vue-router";
-import {onBeforeMount} from "vue";
+import { useRoute } from "vue-router"
+import { onBeforeMount } from "vue"
 
 const route = useRoute()
 
 onBeforeMount(() => {
-    // if (route.name === 'login-succeed')
-    //   Users.register()
+  // if (route.name === 'login-succeed')
+  //   Users.register()
 })
 
 </script>
@@ -20,7 +20,7 @@ onBeforeMount(() => {
 <template>
   <WelcomeItem>
     <template #icon>
-      <DocumentationIcon />
+      <DocumentationIcon/>
     </template>
     <template #heading>Documentation</template>
 
@@ -48,14 +48,14 @@ onBeforeMount(() => {
     >Cypress Component Testing</a
     >.
 
-    <br />
+    <br/>
 
     More instructions are available in <code>README.md</code>.
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
-      <EcosystemIcon />
+      <EcosystemIcon/>
     </template>
     <template #heading>Ecosystem</template>
 
@@ -71,7 +71,7 @@ onBeforeMount(() => {
 
   <WelcomeItem>
     <template #icon>
-      <CommunityIcon />
+      <CommunityIcon/>
     </template>
     <template #heading>Community</template>
 
@@ -86,7 +86,7 @@ onBeforeMount(() => {
 
   <WelcomeItem>
     <template #icon>
-      <SupportIcon />
+      <SupportIcon/>
     </template>
     <template #heading>Support Vue</template>
 

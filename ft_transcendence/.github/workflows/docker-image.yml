@@ -32,20 +32,20 @@ jobs:
       - name: Print Version
         run: echo "Bumped to version ${{ steps.bump.outputs.version }}"
     outputs:
-      version:  "${{ steps.bump.outputs.version }}"
+      version: "${{ steps.bump.outputs.version }}"
   build:
     needs: bump_version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-#      - name: Hadolint Action
-#        uses: hadolint/hadolint-action@v3.0.0
-#        with:
-#          dockerfile: ./frontend/Dockerfile
-#      - name: Hadolint Action
-#        uses: hadolint/hadolint-action@v3.0.0
-#        with:
-#          dockerfile: ./backend/Dockerfile
+      #      - name: Hadolint Action
+      #        uses: hadolint/hadolint-action@v3.0.0
+      #        with:
+      #          dockerfile: ./frontend/Dockerfile
+      #      - name: Hadolint Action
+      #        uses: hadolint/hadolint-action@v3.0.0
+      #        with:
+      #          dockerfile: ./backend/Dockerfile
       - name: "Build the backend's Docker image"
         run: docker build ./backend --file ./backend/Dockerfile --tag ghcr.io/franzudev/transcendence-be:${{ needs.bump_version.outputs.version }}
       - name: "Build the frontends's Docker image"

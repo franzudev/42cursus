@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {onBeforeMount, reactive, ref} from "vue";
-import {useAppStore} from "./stores/app";
-import {RouterLink, RouterView} from "vue-router";
+import { onBeforeMount, reactive, ref } from "vue"
+import { useAppStore } from "./stores/app"
+import { RouterLink, RouterView } from "vue-router"
 
 const menuBar = reactive([
   {
@@ -19,7 +19,7 @@ const menuBar = reactive([
           {
             label: 'Play with a random user',
             icon: 'pi pi-fw pi-copy'
-          },
+          }
         ]
       },
       {
@@ -39,7 +39,7 @@ const menuBar = reactive([
       {
         label: 'Search',
         icon: 'pi pi-fw pi-search'
-      },
+      }
     ]
   },
   {
@@ -83,15 +83,16 @@ function changeTheme(): boolean {
   <Menubar :model="menuBar" :exact="true">
     <template #start>
       <RouterLink to="/">
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50"/>
       </RouterLink>
     </template>
     <template #end>
-      <ToggleButton v-on:change="changeTheme" v-model="dark" onIcon="pi pi-moon" style="border-radius: 25px" offIcon="pi pi-sun" />
+      <ToggleButton v-on:change="changeTheme" v-model="dark" onIcon="pi pi-moon" style="border-radius: 25px"
+                    offIcon="pi pi-sun"/>
     </template>
   </Menubar>
   <main style="width: 100%;">
-    <RouterView />
+    <RouterView/>
   </main>
 </template>
 
