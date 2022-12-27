@@ -41,26 +41,22 @@ export class AuthController {
             if (value.data == 'True') {
                 this.authService.updateUser2fa(user.id);
                 res.send('approved');
-            } else {
-                res.send('FAILED');
             }
+            res.send('FAILED');
         });
     }
 
     @Get('/verify-login-2fa')
     async verifyLogin2fa(@Request() req, @Res() res: Response, @Query('code') code: string, @Query('username') username: string) {
         const user = await this.usersService.findOne(username)
-        const secret_code = user.twoFactorAuthCode; // this should be retrieved from db
-        const data = this.authService.verifyGCode(code, secret_code);
+        const data = this.authService.verifyGCode(code, user.twoFactorAuthCode);
         data.subscribe((value: any) => {
-            if (value.data !== "True") {
-                res.send('FAILED');
-            } else {
+            if (value.data === "True") {
                 const jwt = this.jwtService.sign({username: user.username, id: user.id});
                 res.cookie('token', jwt, {httpOnly: true});
                 res.send('approved');
-
             }
+            res.send('FAILED');
         });
     }
 
@@ -69,12 +65,12 @@ export class AuthController {
     async parseCode(@Request() req, @Res() res: Response) {
         const user = await this.usersService.findOne(req.user.username)
         if (user.twoFactorEnabled) {
-            res.redirect(`http://localhost:3000/validation_code?username=${user.username}`);
+            res.redirect(`${this.configService.get<string>("APP_URL")}/validation_code?username=${user.username}`);
             return;
         } else {
             const jwt = this.jwtService.sign({username: req.user.username, id: req.user.id});
             res.cookie('token', jwt, {httpOnly: true});
-            res.redirect('http://localhost:3000/profile');
+            res.redirect(`${this.configService.get<string>("APP_URL")}/profile`);
             return jwt;
         }
     }
