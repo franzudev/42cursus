@@ -1,30 +1,26 @@
-<script>
+<script setup lang="ts">
 
-export default {
-  data() {
-    return {
-      code: '',
-      error_txt: ''
-    }
-  },
-  methods: {
-    verify_code() {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const username = urlParams.get('username');
+import { inject } from "vue";
 
-      const api = 'http://localhost:5050/auth/verify-login-2fa';
-      const code_to_send = this.code;
-      this.axios.get(api + '?username=' + username + '&code=' + code_to_send, {withCredentials: true}).then((response) => {
+const axios: any = inject('axios');
+let code = '';
+let error_txt = '';
+
+const verify_code = () => {
+  const queryString = window.location.search;
+  const username = new URLSearchParams(queryString).get('username');
+
+  const api = 'http://localhost:5050/auth/verify-login-2fa';
+  const code_to_send = code;
+  axios.get(api + '?username=' + username + '&code=' + code_to_send, {withCredentials: true})
+      .then((response: any) => {
         console.log(response);
         if (response.data == 'approved') {
           window.location.href = '/profile';
         } else
-          this.error_txt = 'Wrong code, try again.';
-      })
-    }
-  }
-}
+          error_txt = 'Wrong code, try again.';
+      });
+};
 
 
 </script>
@@ -41,7 +37,7 @@ export default {
         <Button @click="verify_code" icon="pi pi-check" iconPos="right" class="p-button-outlined"/>
       </div>
       <div class="col-12">
-        <p style="color: red;">{{ this.error_txt }}</p>
+        <p style="color: red;">{{ error_txt }}</p>
       </div>
     </div>
   </div>

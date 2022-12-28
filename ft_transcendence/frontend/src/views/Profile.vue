@@ -1,93 +1,95 @@
-<script lang="ts">
-import 'primeicons/primeicons.css'
+<script setup lang="ts">
+import 'primeicons/primeicons.css';
+import { inject, onMounted, reactive, ref } from "vue";
+import type { User } from "@/@types/User";
+import type { AxiosResponse } from "axios";
 
-export default {
-  data() {
-    return {
-      checked: false,
-      show: false,
-      value: '',
-      code: '',
-      avatar: '',
-      user: {},
-      qr_src: '',
-      two_auth_text: '',
-      knob_value: 0,
-      displayResponsive: false,
-      displayModalStats: false,
-      displayModalAchievements: false,
-      displayModal2FA: false,
-      displayModalFriends: false,
-      displayModalHistory: false
-    }
-  },
-  methods: {
-    async get_image() {
-      const api = 'http://localhost:5050/users/me'
-      const result = await this.axios.get(api, {withCredentials: true})
-      this.user = result.data
-      console.log(this.user)
-      this.avatar = result.data.avatar
-      console.log(this.avatar)
-      if (this.user.twoFactorEnabled) {
-        this.checked = true
-        this.two_auth_text = '2fa Enabled'
-      } else
-        this.two_auth_text = 'Enable 2fa'
-    },
-    async create_verification() {
-      // alert(this.value);
-      // '+' == %2b
-      if (this.checked) {
-        return
-      }
-      this.show = !this.show
-      this.checked = !this.checked
-      const api = `http://localhost:5050/auth/generate-qr`
-      this.qr_src = await this.axios.get(api, {withCredentials: true})
-      this.openResponsive()
-    },
-    verify_code() {
-      if (this.user.twoFactorEnabled)
-        return
-      let api = 'http://localhost:5050/auth/verify-g-code'
-      let number_to_send = '%2b' + this.value.substr(1, 2) + this.value.substr(4)
-      let code_to_send = this.code
-      this.axios.get(api + '?code=' + code_to_send, {withCredentials: true}).then((response) => {
-        console.log(response)
-        if (response.data == 'approved')
-          alert('Number verified!')
-        else
-          alert('Wrong code, try again')
-      })
-    },
-    openResponsive() {
-      this.displayResponsive = true
-    },
-    closeResponsive() {
-      this.displayResponsive = false
-    },
-    openModalStats() {
-      this.displayModalStats = true
-    },
-    openModalAchievements() {
-      this.displayModalAchievements = true
-    },
-    openModal2FA() {
-      this.displayModal2FA = true
-      this.create_verification()
-    },
-    openModalFriends() {
-      this.displayModalFriends = true
-    },
-    openModalHistory() {
-      this.displayModalHistory = true
-    }
-  },
-  created() {
-    this.get_image()
-  }
+const axios: any = inject('axios');
+const checked = ref(false)
+const show =  ref(false)
+const value =  ref('')
+const code =  ref('')
+const avatar =  ref('')
+const user =  reactive({} as User)
+let qr_src =  reactive({} as any)
+const two_auth_text =  ref('')
+const knob_value =  ref(0)
+const displayResponsive =  ref(false)
+const displayModalStats =  ref(false)
+const displayModalAchievements =  ref(false)
+const displayModal2FA =  ref(false)
+const displayModalFriends =  ref(false)
+const displayModalHistory =  ref(false)
+
+const get_image = async () => {
+  const api = 'http://localhost:5050/users/me'
+  const { data } = await axios.get(api, {withCredentials: true})
+  user.id = data.id
+  user.avatar = data.avatar
+  user.username = data.username
+  user.twoFactorEnabled = data.twoFactorEnabled
+  console.log(user)
+  avatar.value = data.avatar
+  console.log(avatar)
+  if (user.twoFactorEnabled)
+    checked.value = true
+  two_auth_text.value = user.twoFactorEnabled ? '2fa Enabled' : 'Enable 2fa'
 }
+
+const create_verification = async () => {
+  // alert(value);
+  // '+' == %2b
+  if (checked.value) {
+    return
+  }
+  show.value = !show.value
+  checked.value = !checked.value
+  const api = `http://localhost:5050/auth/generate-qr`
+  qr_src = await axios.get(api, {withCredentials: true})
+  openResponsive()
+}
+
+const verify_code = () => {
+  if (user.twoFactorEnabled)
+    return
+  let api = 'http://localhost:5050/auth/verify-g-code'
+  let number_to_send = '%2b' + value.value.slice(1, 3) + value.value.slice(4)
+  axios.get(api + '?code=' + code, {withCredentials: true}).then((response: AxiosResponse) => {
+    console.log(response)
+    if (response.data == 'approved')
+      alert('Number verified!')
+    else
+      alert('Wrong code, try again')
+  })
+}
+
+const openResponsive = () => {
+  displayResponsive.value = true
+}
+const closeResponsive = () => {
+  displayResponsive.value = false
+}
+const openModalStats = () => {
+  displayModalStats.value = true
+}
+const openModalAchievements = () => {
+  displayModalAchievements.value = true
+}
+const openModal2FA = () => {
+  displayModal2FA.value = true
+  create_verification()
+}
+const openModalFriends = () => {
+  displayModalFriends.value = true
+}
+const openModalHistory = () => {
+  displayModalHistory.value = true
+}
+
+onMounted(() => {
+  get_image()
+})
+
 </script>
 <template>
   <div class="grid grid-nogutter flex align-items-center justify-content-center" style="padding: 30px;">
@@ -118,7 +120,7 @@ export default {
                 <Button icon="pi pi-upload" class="p-button-rounded p-button-outlined"/>
               </div>
               <div class="username">
-                <p>{{ this.user.username }}</p>
+                <p>{{ user.username }}</p>
               </div>
               <div class="col-12 text-center">
                 <p style="color: black;"><i class="pi pi-circle-fill" style="color: green; font-size: 0.7rem;"></i>
@@ -127,15 +129,15 @@ export default {
             </div>
             <div class="flex align-items-center text-center justify-content-center flex-wrap card-container">
               <!-- <div class="col-12" style="margin: 0 auto;">
-                <Tag>{{this.two_auth_text}}</Tag>
+                <Tag>{{two_auth_text}}</Tag>
               </div>
               <div class="col-12">
                 <InputSwitch v-model="checked" @click="create_verification" />
                 <Dialog v-model:visible="displayResponsive" :breakpoints="{'960px': '75vw'}" style="width: '100vw'; max-width: '500px';">
                   <div class="flex align-items-center justify-content-center flex-wrap card-container" style="min-height: 320px;">
-                    <div v-html="this.qr_src.data" class="qr-img text-center">
+                    <div v-html="qr_src.data" class="qr-img text-center">
                     </div>
-                    <p v-if="!checked && this.user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then use the code generated below to confirm!</p>
+                    <p v-if="!checked && user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then use the code generated below to confirm!</p>
                   </div>
                   <div class="text-center" v-if="show" style="" >
                     <InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
@@ -156,11 +158,11 @@ export default {
                 <div class="lg:col-2 sm:col-4 icon-divs">
                   <Button icon="pi pi-chart-line" class="p-button-rounded p-button-secondary" @click="openModalStats"/>
                   <Dialog v-model:visible="displayModalStats" :breakpoints="{'960px': '75vw'}"
-                          style="width: '100vw'; max-width: '500px';">
-                    <Knob modelValue="60" v-model="knob_value" :min="0" :max="100" valueColor="green" rangeColor="black"
-                          readonly="" :size="200" textColor="black"/>
-                    <Knob modelValue="40" v-model="knob_value" :min="0" :max="100" valueColor="red" rangeColor="black"
-                          readonly="" :size="200" textColor="black"/>
+                          style="width: 100vw; max-width: 500px;">
+                    <Knob v-model="knob_value" :min="0" :max="100" valueColor="green" rangeColor="black"
+                          :readonly="false" :size="200" textColor="black"/>
+                    <Knob v-model="knob_value" :min="0" :max="100" valueColor="red" rangeColor="black"
+                          :readonly="false" :size="200" textColor="black"/>
                   </Dialog>
                   <p>Stats</p>
                 </div>
@@ -196,7 +198,7 @@ export default {
                   <p>Achievements</p>
                 </div>
                 <div class="lg:col-2 sm:col-4 icon-divs">
-                  <Button icon="pi pi-sort-numeric-up" class="p-button-rounded p-button-success" @click="openModal"/>
+                  <Button icon="pi pi-sort-numeric-up" class="p-button-rounded p-button-success" @click="openModalStats"/>
                   <p>Level</p>
                 </div>
                 <div class="lg:col-2 sm:col-4 icon-divs">
@@ -240,12 +242,12 @@ export default {
                 <div class="lg:col-2 sm:col-4 icon-divs">
                   <Button icon="pi pi-qrcode" class="p-button-rounded p-button-help" @click="openModal2FA"/>
                   <Dialog v-model:visible="displayModal2FA" :breakpoints="{'960px': '75vw'}"
-                          style="width: '100vw'; max-width: '500px';">
+                          style="width: 100vw; max-width: 500px;">
                     <div class="flex align-items-center justify-content-center flex-wrap card-container"
                          style="min-height: 320px;">
-                      <div v-html="this.qr_src.data" class="qr-img text-center">
+                      <div v-html="qr_src.data" class="qr-img text-center">
                       </div>
-                      <p v-if="!checked && this.user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then
+                      <p v-if="!checked && user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then
                         use the code generated below to confirm!</p>
                     </div>
                     <div class="text-center" v-if="show" style="">
@@ -258,9 +260,9 @@ export default {
               </div>
             </div>
             <!-- <div class="flex align-items-center justify-content-center flex-wrap card-container" style="min-height: 320px;">
-              <div v-html="this.qr_src.data" class="qr-img text-center">
+              <div v-html="qr_src.data" class="qr-img text-center">
               </div>
-              <p v-if="!checked && this.user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then use the code generated below to confirm!</p>
+              <p v-if="!checked && user.twoFactorEnabled"> Scan this QrCode with your google Auth app, then use the code generated below to confirm!</p>
             </div>
             <div class="text-center" v-if="show" style="" >
               <InputMask v-model="code" mask="999999" placeholder="Insert validation code" />
@@ -331,11 +333,7 @@ body {
     z-index: 3;
     overflow: hidden;
     border-radius: 50%;
-    box-shadow: 0 0 0 5px #F72585,
-    inset 0 0 0 5px #B5179E,
-    inset 0 0 0 5px #F72585,
-    inset 0 0 0 5px #B5179E,
-    inset 0 0 0 5px #F72585,;
+    box-shadow: 0 0 0 5px #F72585, inset 0 0 0 5px #B5179E, inset 0 0 0 5px #F72585, inset 0 0 0 5px #B5179E, inset 0 0 0 5px #F72585,;
     background: white;
     animation: mvTop 1.5s;
 

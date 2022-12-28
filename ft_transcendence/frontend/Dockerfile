@@ -1,16 +1,24 @@
-FROM node:16.14.0-alpine3.15
-
-LABEL org.opencontainers.image.source https://github.com/franzudev/ft_transcendence
-
-RUN npm install -g http-server
+FROM node:18.12.1-alpine as development
 
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install
-
 COPY . .
-
-EXPOSE 3000
+EXPOSE 5173
 CMD [ "npm", "run", "dev" ]
+
+
+FROM node:18.12.1-alpine as build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+
+FROM nginx:stable-alpine as production
+
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

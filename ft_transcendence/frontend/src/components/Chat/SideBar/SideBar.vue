@@ -14,23 +14,23 @@ const emit = defineEmits<{
 }>()
 
 let socket
-const rooms = ref([] as Room[])
+let rooms: Room[] = reactive([])
 
 
 onMounted(() => {
-  chatRoomService.value.getRooms().then(data => rooms.value = data)
-  console.log(rooms.value)
+  chatRoomService.value.getRooms().then((data: any) => rooms = data)
+  console.log(rooms)
 
   socket = reactive(io("http://localhost:5050"))
   socket.on("find-all-rooms", (list: Room[]) => {
-    rooms.value = list
+    rooms = list
   })
   socket.emit("find-all-rooms", "prova")
   socket.emit("find-all-rooms", "prova2")
 })
 
 const onItemClick = (event: MouseEvent, id: number) => {
-  emit("selectedRoom", id)
+  emit("selectedRoom", rooms.find(room => room.id === id)!)
   console.log("emit" + id)
   selectRoom(id)
 }
@@ -61,7 +61,7 @@ const chatRoomService = ref(new ChatRoomService())
     <div class="p-chatroom-title">Chat Room List</div>
     <div class="p-chatrooms" v-for="room in rooms">
       <!-- <ChatRoomItem /> -->
-      <li :class="getClass(room.id)" v-for="room in rooms" @click="onItemClick($event, room.id)">
+      <li :class="getClass(room.id)" @click="onItemClick($event, room.id)">
         <div class="image-container">
           <img
               :src="room.image"

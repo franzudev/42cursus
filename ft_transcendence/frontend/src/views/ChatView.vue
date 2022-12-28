@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted, reactive, ref } from "vue";
 import socketio from 'socket.io-client'
+import type { Room } from "@/@types/Room";
 
 
 const socket = socketio('http://localhost:5050')
 const visible = ref(true)
+const fillRoom = reactive({})
+const isSelected = ref(false)
+const roomSelected: Room = reactive({} as Room)
 
-onMounted(() => {
-})
 </script>
 
 

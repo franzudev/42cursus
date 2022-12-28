@@ -8,6 +8,7 @@
   ],
   "compilerOptions": {
     "typeRoots": [
+      "node_modules/@types",
       "src/@types"
     ],
     "baseUrl": ".",
@@ -22,7 +23,7 @@
   },
   "references": [
     {
-      "path": "./tsconfig.vite-config.json"
+      "path": "./tsconfig.config.json"
     }
   ]
 }
