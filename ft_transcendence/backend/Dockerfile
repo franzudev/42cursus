@@ -11,7 +11,7 @@ CMD [ "npm", "run", "start:dev" ]
 FROM node:18.12.1-alpine as build
 ENV NODE_ENV production
 WORKDIR /app
-COPY package*.json /app
+COPY package*.json /app/
 RUN apk update \
     && apk add --no-cache dumb-init \
     && npm i -g @nestjs/cli \
