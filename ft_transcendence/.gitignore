@@ -341,3 +341,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+db
+/backend/avatars/

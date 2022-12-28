@@ -3,28 +3,41 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "run-p type-check build-only",
+    "run-p": "run-p type-check build-only",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
     "preview": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "pinia": "^2.0.11",
-    "vue": "^3.2.29",
-    "vue-router": "^4.0.12"
+    "@vuelidate/core": "^2.0.0",
+    "@vuelidate/validators": "^2.0.0",
+    "@vueuse/core": "^8.9.4",
+    "axios": "^1.2.1",
+    "npm-run-all": "^4.1.5",
+    "pinia": "^2.0.28",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.21.0",
+    "socket.io-client": "^4.5.4",
+    "vue": "^3.2.45",
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.0",
-    "@types/node": "^16.11.22",
-    "@vitejs/plugin-vue": "^2.1.0",
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@types/node": "^18.11.18",
+    "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
-    "@vue/eslint-config-typescript": "^10.0.0",
+    "@vue/eslint-config-typescript": "^11.0.2",
     "@vue/tsconfig": "^0.1.3",
-    "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^8.2.0",
-    "prettier": "^2.5.1",
-    "typescript": "~4.5.5",
-    "vite": "^2.7.13",
-    "vue-tsc": "^0.31.1"
+    "eslint": "^8.30.0",
+    "eslint-plugin-vue": "^9.8.0",
+    "prettier": "^2.8.1",
+    "sass": "^1.57.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3",
+    "vue-tsc": "^1.0.18"
   }
 }

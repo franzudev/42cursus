@@ -1,16 +1,29 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/service/**/*"
+  ],
   "compilerOptions": {
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "node"
+    ]
   },
-
   "references": [
     {
-      "path": "./tsconfig.vite-config.json"
+      "path": "./tsconfig.config.json"
     }
   ]
 }
