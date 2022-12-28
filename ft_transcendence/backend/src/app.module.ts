@@ -17,7 +17,7 @@ import { RedisService } from "./redis/redis.service";
         PassportModule.register({ session: true }),
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: [`.env${process.env.STAGE}`],
+            envFilePath: [`.env.${process.env.NODE_ENV}`],
         }),
         TypeOrmModule.forRootAsync({
             useClass: DatabaseConfigService,
