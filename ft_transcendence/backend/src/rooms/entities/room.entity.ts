@@ -1,3 +1,3 @@
 export class Room {
-    name: string
+    name: string;
 }

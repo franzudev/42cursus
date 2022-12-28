@@ -1,4 +1,4 @@
 export class Message {
-    body: string
-    room: string
+    body: string;
+    room: string;
 }

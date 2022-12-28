@@ -1,13 +1,13 @@
-import { forwardRef, Module } from '@nestjs/common'
-import { AuthService } from './auth.service'
-import { UsersModule } from '../users/users.module'
-import { AuthController } from './auth.controller'
-import { Api42Strategy } from './api42.strategy'
-import { HttpModule } from '@nestjs/axios'
-import { JwtModule } from '@nestjs/jwt'
-import { PassportModule } from '@nestjs/passport'
-import { JwtStrategy } from './jwt.strategy'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { forwardRef, Module } from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { UsersModule } from "@/users/users.module";
+import { AuthController } from "./auth.controller";
+import { Api42Strategy } from "./api42.strategy";
+import { HttpModule } from "@nestjs/axios";
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { JwtStrategy } from "./jwt.strategy";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 
 @Module({
     imports: [
@@ -20,11 +20,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
             useFactory: async (configService: ConfigService) => ({
                 secret: configService.get<string>("JWT_SECRET"),
                 signOptions: {
-                    expiresIn: configService.get<string>("JWT_EXPIRES_IN")
-                }
+                    expiresIn: configService.get<string>("JWT_EXPIRES_IN"),
+                },
             }),
-            inject: [ConfigService]
-        })
+            inject: [ConfigService],
+        }),
     ],
     providers: [
         AuthService,
@@ -32,14 +32,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
         JwtStrategy,
         ConfigService
     ],
-    controllers: [
-        AuthController
-    ],
+    controllers: [AuthController],
     exports: [
         PassportModule,
         JwtStrategy,
         JwtModule
-    ]
+    ],
 })
-export class AuthModule {
-}
+export class AuthModule {}

@@ -1,29 +1,27 @@
-import { IsOptional, IsString } from "class-validator"
-import { User } from "../entities/user.entity"
+import { IsOptional, IsString } from "class-validator";
+import { User } from "../entities/user.entity";
 
 export class CreateUserDto {
+    @IsString()
+    username: string;
 
     @IsString()
-    username: string
-
-    @IsString()
-    oauthToken: string
-
-    @IsString()
-    @IsOptional()
-    avatar: string
+    oauthToken: string;
 
     @IsString()
     @IsOptional()
-    twoFactorAuthCode: string
-
-    @IsOptional()
-    twoFactorEnabled: boolean
+    avatar: string;
 
     @IsString()
     @IsOptional()
-    telephoneNumber: string
+    twoFactorAuthCode: string;
 
-    friends: User[]
+    @IsOptional()
+    twoFactorEnabled: boolean;
 
+    @IsString()
+    @IsOptional()
+    telephoneNumber: string;
+
+    friends: User[];
 }

@@ -1,9 +1,9 @@
-import { IsString } from "class-validator"
+import { IsString } from "class-validator";
 
 export class JoinRoomDto {
     @IsString()
-    name: string
+    name: string;
 
     @IsString()
-    password: string
+    password: string;
 }

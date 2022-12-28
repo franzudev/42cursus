@@ -1,16 +1,15 @@
-import { Expose } from 'class-transformer'
+import { Expose } from "class-transformer";
 
 export class UserDto {
+    @Expose()
+    id: number;
 
     @Expose()
-    id: number
+    username: string;
 
     @Expose()
-    username: string
+    avatar: string;
 
     @Expose()
-    avatar: string
-
-    @Expose()
-    twoFactorEnabled: boolean
+    twoFactorEnabled: boolean;
 }
