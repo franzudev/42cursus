@@ -1,0 +1,60 @@
+name: Docker Image CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    name: "Bump version and create changelog with commitizen"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.GITHUB_TOKEN }}"
+      - id: bump
+        if: "!startsWith(github.event.head_commit.message, 'bump:')"
+        name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          changelog: false
+      - id: changelog
+        if: "startsWith(github.event.head_commit.message, 'bump:')"
+        name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print Version
+        run: echo "Bumped to version ${{ steps.bump.outputs.version }}"
+    outputs:
+      version: "${{ steps.bump.outputs.version }}"
+  build:
+    needs: bump_version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      #      - name: Hadolint Action
+      #        uses: hadolint/hadolint-action@v3.0.0
+      #        with:
+      #          dockerfile: ./frontend/Dockerfile
+      #      - name: Hadolint Action
+      #        uses: hadolint/hadolint-action@v3.0.0
+      #        with:
+      #          dockerfile: ./backend/Dockerfile
+      - name: "Build the backend's Docker image"
+        run: docker build ./backend --target production -t ghcr.io/franzudev/transcendence-be:${{ needs.bump_version.outputs.version }}
+      - name: "Build the frontends's Docker image"
+        run: docker build ./frontend --target production -t ghcr.io/franzudev/transcendence-fe:${{ needs.bump_version.outputs.version }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+      - name: "Push fe"
+        run: docker push ghcr.io/franzudev/transcendence-fe:${{ needs.bump_version.outputs.version }}
+      - name: "Push be"
+        run: docker push ghcr.io/franzudev/transcendence-be:${{ needs.bump_version.outputs.version }}
