@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+spec:
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+      - name: phpmyadmin
+        image: ghcr.io/franzudev/my_phpadmin:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: https
+          containerPort: 443
+      restartPolicy: Always

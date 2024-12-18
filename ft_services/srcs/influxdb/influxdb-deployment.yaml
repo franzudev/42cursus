@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      volumes:
+      - name: influxdb-pv-storage
+        persistentVolumeClaim:
+          claimName: influx-pv-claim
+      containers:
+      - name: influxdb
+        image: ghcr.io/franzudev/my_influxdb:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: "/root/.influxdb/"
+          name: influxdb-pv-storage
+        ports:
+        - name: infdb
+          containerPort: 8086
+      restartPolicy: Always
