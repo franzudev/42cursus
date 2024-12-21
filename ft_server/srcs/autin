@@ -1,0 +1,19 @@
+#!/bin/sh
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+if [ "$1" = "on" ]
+then
+   sed -i "s/autoindex off\;/autoindex on;/" /etc/nginx/sites-enabled/default
+   echo "${GREEN}Autoindex on${NC}"
+elif [ "$1" = "off" ]
+then
+   sed -i "s/autoindex on\;/autoindex off;/" /etc/nginx/sites-enabled/default
+   echo "${RED}Autoindex off${NC}"
+else
+	echo "${RED}please enter a valid command${NC}"
+fi
+
+nginx -s reload
